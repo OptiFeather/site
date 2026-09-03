@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — OptiFeather</title>
+    <meta name="description" content="Technology that scales with your ambitions — the philosophy behind OptiFeather.">
+    <link rel="icon" href="assets/feather.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@google/model-viewer@3.4.0/dist/model-viewer.min.js"></script>
+</head>
+<body class="limit-magnetic">
+
+    <div class="page-loader" id="pageLoader" aria-hidden="true">
+        <div class="loader-ring-wrap">
+            <svg viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="30" stroke="rgba(194,165,120,0.18)" stroke-width="1"/>
+                <path d="M32 2 A30 30 0 0 1 62 32" stroke="#c2a578" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <img src="assets/feather.png" alt="">
+        </div>
+    </div>
+
+    <header class="header" id="siteHeader">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/feather.png" alt="OptiFeather" class="logo-icon">
+                <span class="logo-text">OPTIFEATHER</span>
+            </a>
+        </div>
+        <nav class="nav-list" id="navList">
+            <a href="index.html">Home</a>
+            <a href="abu.html" class="active">About</a>
+            <a href="pricing.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <a href="contact.html" class="btn btn-outline">Book a Call</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <main>
+        <!-- ============ ABOUT HERO ============ -->
+        <section class="section" style="padding-bottom:0;">
+            <div class="about-hero fade-up">
+                <div>
+                    <p class="eyebrow">About our philosophy</p>
+                    <h1 class="section-title">Technology that scales with your ambitions.</h1>
+                    <p class="section-desc">Digital transformation shouldn't be complicated. OptiFeather exists to pair the power of artificial intelligence with intuitive, premium design — so instead of an over-engineered system, you get something that works quietly and effectively: routine processes streamlined, user experience sharpened, and a clear runway for your brand to scale.</p>
+                </div>
+                <div class="hero-visual" style="height:480px;">
+                    <div class="hero-visual-stage" style="width:460px;height:460px;">
+                        <div class="hero-visual-glow" style="width:340px;height:340px;"></div>
+                        <div class="hero-visual-ring r2 spin-slow-rev" style="width:400px;height:400px;"></div>
+                        <div class="hero-visual-ring r1 spin-slow" style="width:460px;height:460px;"></div>
+                        <img src="assets/feather3d.png" alt="OptiFeather 3D emblem — a quill within orbiting rings" style="max-width:360px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ VALUES ============ -->
+        <section class="section section-tight">
+            <div class="values-grid">
+                <div class="value-card fade-up fade-up-1">
+                    <span class="value-name">01 . Process optimization</span>
+                    <p>AI is aimed squarely at the routine parts of your business, so your team stops babysitting micro-tasks and gets back to strategic growth.</p>
+                </div>
+                <div class="value-card active fade-up fade-up-2">
+                    <span class="value-name">02 . User-first care</span>
+                    <p>Every interface detail and every millisecond of load time is designed with your customers in mind. A flawless, responsive site earns trust before a word is said.</p>
+                </div>
+                <div class="value-card fade-up fade-up-3">
+                    <span class="value-name">03 . Predictable outcomes</span>
+                    <p>No hidden conditions, no technical chaos. Transparent build stages and fixed pricing mean you get exactly the product your business needs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 3D SHOWCASE — victory.glb ============ -->
+        <section class="section section-tight">
+            <div class="split-grid reverse">
+                <div class="fade-up">
+                    <p class="eyebrow">Results, not promises</p>
+                    <h2 class="section-title">We measure success<br>the same way you do.</h2>
+                    <p class="section-desc">Every engagement is scoped around a real outcome — faster processes, a site that converts, a workflow that no longer needs babysitting. The win belongs to your business first.</p>
+                </div>
+                <div class="model-stage model-stage-plain fade-up fade-up-2">
+                    <model-viewer id="victoryModel" src="assets/victory.glb" alt="A rotating 3D trophy model representing project results" auto-rotate disable-zoom shadow-intensity="0" exposure="1" auto-rotate-delay="0" rotation-per-second="16deg" interaction-prompt="none" style="background:transparent; border:none; box-shadow:none; pointer-events:none;">
+                        <div slot="progress-bar"></div>
+                        <div slot="poster" style="background:transparent;"></div>
+                    </model-viewer>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CTA ============ -->
+        <section class="cta-section fade-up">
+            <div class="orbit-field" aria-hidden="true">
+                <div class="orbit-ring spin-slow" style="width:480px;height:480px;top:-160px;left:50%;transform:translateX(-50%);">
+                    <div class="orbit-planet" style="width:7px;height:7px;top:-3.5px;left:236.5px;"></div>
+                </div>
+            </div>
+            <p class="eyebrow center">Not sure where to start?</p>
+            <h2 class="cta-title">Let's talk about your business.</h2>
+            <p class="cta-desc">A free 20-minute call is usually enough to tell you whether AI automation, optimization, or a new site is the right first move.</p>
+            <div class="cta-actions">
+                <a href="contact.html" class="btn btn-primary btn-lg magnetic-only">Book a Call <span class="icon-arrow">↗</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="assets/feather.png" alt="OptiFeather Logo" class="footer-logo-img">
+                    <span class="footer-logo-text">OPTIFEATHER</span>
+                </div>
+                <p class="footer-description">We build custom AI agents, optimize business workflows, and ship premium websites with the power of AI and modern engineering.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/optifeather/" class="social-link" target="_blank" rel="noopener">in</a>
+                    <a href="https://www.linkedin.com/in/optifeather-545935421/" class="social-link" target="_blank" rel="noopener">li</a>
+                    <a href="https://x.com/OptiFeather" class="social-link" target="_blank" rel="noopener">X</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="abu.html">About Us</a></li>
+                    <li><a href="pricing.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="pricing.html">AI Automation</a></li>
+                    <li><a href="pricing.html">AI Optimization</a></li>
+                    <li><a href="pricing.html">Website Development</a></li>
+                    <li><a href="pricing.html#pricing">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="portfolio.html">Case Studies</a></li>
+                    <li><a href="pricing.html#pricing">Pricing</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                    <li><a href="contact.html">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get the latest updates and news.</p>
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-submit">➔</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2026 OptiFeather. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html>
