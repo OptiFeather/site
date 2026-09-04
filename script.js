@@ -168,21 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ---------- Magnetic buttons ---------- */
-    if (fineHover && !reduceMotion) {
-        const limitMagnetic = document.body.classList.contains('limit-magnetic');
-        const magneticSelector = limitMagnetic ? '.magnetic-only' : '.btn-primary, .btn-outline, .btn-lg';
-        document.querySelectorAll(magneticSelector).forEach((btn) => {
-            btn.classList.add('magnetic');
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.22}px, ${y * 0.28}px)`;
-            });
-            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
-        });
-    }
+    /* ---------- Magnetic buttons: disabled site-wide (no cursor-follow) ---------- */
 
     /* ---------- Button click ripple ---------- */
     if (!reduceMotion) {

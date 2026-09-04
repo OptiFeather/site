@@ -572,6 +572,24 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .case-meta .case-name { font-size: 1.02rem; font-weight: 500; color: #fff; }
 .case-meta .case-tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-dim); text-align: right; white-space: nowrap; }
 .case-link { margin-top: 10px; }
+
+/* ---- Portfolio: founding-clients panel (replaces placeholder case studies) ---- */
+.founding-panel {
+    position: relative; max-width: 720px; margin: 0 auto; text-align: center;
+    padding: clamp(48px, 7vw, 64px) clamp(20px, 4vw, 40px) clamp(8px, 2vw, 16px);
+    border: 1px solid var(--border-soft); border-radius: 20px;
+    background: radial-gradient(circle at 50% 0%, rgba(194,165,120,0.06), transparent 60%), #0a0a0c;
+    overflow: hidden;
+}
+.founding-visual { position: relative; width: 220px; height: 220px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; }
+.founding-visual .orbit-ring { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.founding-glow {
+    position: absolute; inset: 0; margin: auto; width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(194,165,120,0.18), transparent 70%); filter: blur(4px);
+}
+.founding-feather { position: relative; width: 46px; opacity: 0.9; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+.section-title.center { text-align: center; }
+.section-desc.center { text-align: center; }
 .portfolio-btn-link {
     background: none; border: none; padding: 4px 0; color: var(--text-muted);
     font-family: var(--font-main); font-size: 0.88rem; font-weight: 500; cursor: pointer;
