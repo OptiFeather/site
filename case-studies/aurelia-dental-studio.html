@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aurelia Dental Studio — Concept by OptiFeather</title>
+<meta name="description" content="A fictional premium dental clinic concept. Portfolio project by OptiFeather." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ivory:#F6F2EA;
+  --beige:#EAE1D2;
+  --charcoal:#211E1A;
+  --charcoal-soft:#2C2822;
+  --taupe:#8B8071;
+  --taupe-dim:#B7AB98;
+  --champagne:#C6A472;
+  --champagne-soft:#DCC49B;
+  --ink:#2A2621;
+  --line: rgba(42,38,33,0.12);
+  --line-light: rgba(246,242,234,0.16);
+  --radius: 2px;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.serif{font-family:'Fraunces',serif;}
+.container{width:100%;max-width:1280px;margin:0 auto;padding:0 40px;}
+@media(max-width:768px){.container{padding:0 24px;}}
+
+::selection{background:var(--champagne-soft);color:var(--charcoal);}
+:focus-visible{outline:2px solid var(--champagne);outline-offset:3px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+}
+
+/* duotone image treatment */
+.duo{position:relative;overflow:hidden;background:var(--beige);}
+.duo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(1.02);transition:transform 1.4s var(--ease);}
+.duo::after{content:'';position:absolute;inset:0;mix-blend-mode:multiply;background:linear-gradient(160deg, rgba(198,164,114,0.28), rgba(33,30,26,0.55));pointer-events:none;}
+.duo:hover img{transform:scale(1.04);}
+
+/* ---------- NAV ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(246,242,234,0.88);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .4s var(--ease), padding .4s var(--ease);
+}
+header.scrolled{border-color:var(--line);}
+.nav-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:26px 0;transition:padding .4s var(--ease);
+}
+header.scrolled .nav-wrap{padding:16px 0;}
+.logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:500;letter-spacing:0.01em;}
+.nav-links{display:flex;align-items:center;gap:38px;list-style:none;}
+.nav-links a{
+  font-size:0.92rem;color:var(--ink);position:relative;padding:4px 0;
+}
+.nav-links a:not(.nav-cta)::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--champagne);
+  transition:width .35s var(--ease);
+}
+.nav-links a:not(.nav-cta):hover::after{width:100%;}
+.nav-cta{
+  border:1px solid var(--charcoal);padding:11px 22px;font-size:0.88rem;
+  transition:background .35s var(--ease), color .35s var(--ease);
+  white-space:nowrap;
+}
+.nav-cta:hover{background:var(--charcoal);color:var(--ivory);}
+.menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+.menu-btn span{width:24px;height:1px;background:var(--charcoal);display:block;transition:.3s;}
+
+@media(max-width:900px){
+  .nav-links{
+    position:fixed;top:0;right:0;height:100vh;width:min(78vw,340px);
+    background:var(--ivory);flex-direction:column;align-items:flex-start;
+    justify-content:center;gap:28px;padding:40px;
+    transform:translateX(100%);transition:transform .5s var(--ease);
+    border-left:1px solid var(--line);
+  }
+  .nav-links.open{transform:translateX(0);}
+  .nav-links a{font-size:1.1rem;}
+  .menu-btn{display:flex;}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100vh;display:flex;align-items:center;position:relative;
+  padding:150px 0 80px;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:center;
+}
+.hero-eyebrow{
+  font-size:0.82rem;color:var(--taupe);margin-bottom:26px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--champagne);}
+.hero h1{
+  font-size:clamp(2.6rem,5.2vw,4.4rem);font-weight:400;line-height:1.08;
+  letter-spacing:-0.01em;max-width:11ch;
+}
+.hero h1 em{font-style:italic;color:var(--champagne);}
+.hero p.lede{
+  margin-top:26px;font-size:1.12rem;color:var(--taupe);max-width:38ch;font-weight:300;
+}
+.hero-actions{display:flex;gap:18px;margin-top:40px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 28px;font-size:0.93rem;font-weight:500;
+  border:1px solid var(--charcoal);border-radius:var(--radius);
+  cursor:pointer;background:none;transition:all .35s var(--ease);
+  font-family:'Inter',sans-serif;
+}
+.btn-primary{background:var(--charcoal);color:var(--ivory);}
+.btn-primary:hover{background:var(--champagne);border-color:var(--champagne);color:var(--charcoal);}
+.btn-ghost{color:var(--charcoal);}
+.btn-ghost:hover{background:var(--charcoal);color:var(--ivory);}
+.btn-light{border-color:var(--line-light);color:var(--ivory);}
+.btn-light:hover{background:var(--ivory);color:var(--charcoal);border-color:var(--ivory);}
+.btn svg{transition:transform .35s var(--ease);}
+.btn:hover svg{transform:translateX(4px);}
+
+.hero-visual{position:relative;aspect-ratio:4/5;border-radius:var(--radius);}
+.hero-visual .duo{position:absolute;inset:0;border-radius:var(--radius);}
+.hero-visual .float-card{
+  position:absolute;bottom:-28px;left:-28px;background:var(--ivory);
+  padding:22px 26px;border:1px solid var(--line);max-width:230px;
+  box-shadow:0 30px 60px -20px rgba(42,38,33,0.25);
+}
+@media(max-width:900px){.hero-visual .float-card{left:16px;right:16px;bottom:16px;max-width:none;}}
+.float-card .fc-num{font-family:'Fraunces',serif;font-size:1.6rem;color:var(--champagne);}
+.float-card .fc-label{font-size:0.82rem;color:var(--taupe);margin-top:4px;}
+
+.trust-line{
+  margin-top:56px;padding-top:26px;border-top:1px solid var(--line);
+  font-size:0.85rem;color:var(--taupe);letter-spacing:0.01em;
+}
+
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:70px;}
+  .hero{padding-top:130px;}
+  .hero-visual{order:-1;max-width:420px;margin:0 auto;}
+}
+
+/* ---------- TRUST / METRICS BAR ---------- */
+.metrics{
+  background:var(--charcoal);color:var(--ivory);padding:64px 0 56px;
+}
+.metrics-label{
+  font-size:0.78rem;color:var(--taupe-dim);text-align:center;margin-bottom:40px;
+  font-style:italic;font-family:'Fraunces',serif;
+}
+.metrics-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+.metric{text-align:center;padding:0 12px;border-left:1px solid var(--line-light);}
+.metric:first-child{border-left:none;}
+.metric .m-num{font-family:'Fraunces',serif;font-size:2.2rem;color:var(--champagne-soft);}
+.metric .m-label{font-size:0.86rem;color:var(--taupe-dim);margin-top:8px;max-width:20ch;margin-inline:auto;}
+@media(max-width:768px){
+  .metrics-grid{grid-template-columns:repeat(2,1fr);row-gap:36px;}
+  .metric:nth-child(3){border-left:none;}
+}
+
+/* ---------- SECTION HEADERS ---------- */
+section{padding:120px 0;}
+@media(max-width:768px){section{padding:80px 0;}}
+.sec-head{max-width:640px;margin-bottom:64px;}
+.sec-tag{font-size:0.82rem;color:var(--champagne);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.sec-tag::before{content:'';width:22px;height:1px;background:var(--champagne);}
+.sec-head h2{font-size:clamp(2rem,3.4vw,3rem);font-weight:400;line-height:1.15;}
+.sec-head p{margin-top:20px;color:var(--taupe);font-size:1.05rem;max-width:52ch;}
+
+/* ---------- SERVICES ---------- */
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.service-card{
+  background:var(--ivory);position:relative;overflow:hidden;
+  transition:background .4s var(--ease);
+  display:flex;flex-direction:column;min-height:420px;
+}
+.service-card:hover{background:var(--beige);}
+.service-card .sv-image{aspect-ratio:16/10;position:relative;}
+.service-card .sv-image.duo img{filter:grayscale(1) contrast(1.05) brightness(1.02);}
+.service-card .sv-body{padding:28px 36px 40px;display:flex;flex-direction:column;flex:1;}
+.service-card .sv-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.quote-card{padding:44px 36px;}
+.service-card .sv-num{font-family:'Fraunces',serif;font-size:1rem;color:var(--taupe-dim);}
+.service-card .sv-arrow{
+  width:34px;height:34px;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .4s var(--ease);
+}
+.service-card:hover .sv-arrow{background:var(--charcoal);border-color:var(--charcoal);}
+.service-card:hover .sv-arrow svg{stroke:var(--ivory);transform:translate(2px,-2px);}
+.service-card .sv-arrow svg{transition:all .4s var(--ease);stroke:var(--charcoal);}
+.service-card h3{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:400;margin-top:auto;padding-top:40px;}
+.service-card p{color:var(--taupe);font-size:0.94rem;margin-top:10px;max-width:32ch;}
+@media(max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.services-grid{grid-template-columns:1fr;}}
+
+/* ---------- FEATURED ---------- */
+.featured{background:var(--beige);}
+.featured-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:70px;align-items:center;}
+.featured-visual{aspect-ratio:5/6;position:relative;}
+.featured-visual .duo{position:absolute;inset:0;}
+.featured-visual .ring{
+  position:absolute;top:-30px;right:-30px;width:120px;height:120px;
+  border:1px solid var(--champagne);border-radius:50%;
+}
+.featured h2{font-size:clamp(2rem,3.6vw,3.2rem);font-weight:400;line-height:1.15;max-width:14ch;}
+.featured p{margin-top:24px;color:var(--taupe);font-size:1.05rem;max-width:46ch;}
+.featured .btn{margin-top:34px;}
+@media(max-width:900px){.featured-grid{grid-template-columns:1fr;gap:50px;}.featured-visual{max-width:420px;margin:0 auto;order:-1;}}
+
+/* ---------- JOURNEY ---------- */
+.journey-track{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;
+}
+.journey-track::before{
+  content:'';position:absolute;top:22px;left:0;right:0;height:1px;background:var(--line);
+}
+.journey-step{padding-right:40px;position:relative;}
+.journey-step .js-num{
+  font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ivory);
+  width:44px;height:44px;border-radius:50%;background:var(--charcoal);
+  display:flex;align-items:center;justify-content:center;position:relative;z-index:2;
+  margin-bottom:26px;
+}
+.journey-step h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:400;margin-bottom:10px;}
+.journey-step p{color:var(--taupe);font-size:0.95rem;}
+@media(max-width:900px){
+  .journey-track{grid-template-columns:1fr;gap:44px;}
+  .journey-track::before{left:22px;right:auto;top:0;bottom:0;width:1px;height:auto;}
+  .journey-step{padding-right:0;padding-left:64px;}
+  .journey-step .js-num{position:absolute;left:0;top:-2px;}
+}
+
+/* ---------- RESULTS ---------- */
+.results{background:var(--charcoal);color:var(--ivory);}
+.results .sec-head p{color:var(--taupe-dim);}
+.results .sec-tag{color:var(--champagne-soft);}
+.results-note{
+  font-size:0.85rem;color:var(--taupe-dim);border:1px solid var(--line-light);
+  padding:16px 20px;margin-bottom:56px;max-width:640px;font-style:italic;font-family:'Fraunces',serif;
+}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;}
+.result-card{border:1px solid var(--line-light);}
+.compare{position:relative;aspect-ratio:4/5;overflow:hidden;cursor:ew-resize;user-select:none;}
+.compare .c-after,.compare .c-before{position:absolute;inset:0;}
+.compare .c-after img,.compare .c-before img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);}
+.compare .c-before{clip-path:inset(0 50% 0 0);}
+.compare .c-after::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg, rgba(198,164,114,0.15), rgba(33,30,26,0.35));mix-blend-mode:multiply;}
+.compare .c-before::after{content:'';position:absolute;inset:0;background:rgba(33,30,26,0.55);}
+.compare .c-line{
+  position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--ivory);
+  transform:translateX(-0.5px);pointer-events:none;
+}
+.compare .c-handle{
+  position:absolute;top:50%;left:50%;width:40px;height:40px;border-radius:50%;
+  background:var(--ivory);transform:translate(-50%,-50%);
+  display:flex;align-items:center;justify-content:center;pointer-events:none;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+.compare .tag{
+  position:absolute;bottom:14px;font-size:0.72rem;letter-spacing:0.06em;padding:5px 10px;
+  background:rgba(33,30,26,0.7);color:var(--ivory);pointer-events:none;
+}
+.compare .tag.before{left:14px;}
+.compare .tag.after{right:14px;}
+.result-info{padding:20px 22px;}
+.result-info h4{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:400;}
+.result-info span{font-size:0.85rem;color:var(--taupe-dim);}
+@media(max-width:900px){.results-grid{grid-template-columns:1fr;}}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:0.95fr 1.05fr;gap:70px;}
+.about-visual{aspect-ratio:4/5;}
+.about-list{margin-top:36px;display:flex;flex-direction:column;gap:0;}
+.about-item{padding:24px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:50px 1fr;gap:20px;}
+.about-list .about-item:last-child{border-bottom:1px solid var(--line);}
+.about-item .ai-num{font-family:'Fraunces',serif;color:var(--champagne);}
+.about-item h4{font-size:1.05rem;font-weight:500;margin-bottom:6px;}
+.about-item p{color:var(--taupe);font-size:0.94rem;max-width:46ch;}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:44px;}.about-visual{max-width:420px;margin:0 auto;}}
+
+/* ---------- TEAM ---------- */
+.team-fictional-tag{
+  display:inline-flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--taupe);
+  border:1px solid var(--line);padding:7px 14px;margin-bottom:8px;
+}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;}
+.team-card .duo{aspect-ratio:3/4;margin-bottom:20px;}
+.team-card h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:400;}
+.team-card .role{font-size:0.85rem;color:var(--champagne);margin:6px 0 12px;}
+.team-card p{font-size:0.9rem;color:var(--taupe);}
+@media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.team-grid{grid-template-columns:1fr;max-width:340px;margin:0 auto;}}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:840px;}
+.faq-item{border-top:1px solid var(--line);}
+.faq-item:last-child{border-bottom:1px solid var(--line);}
+.faq-q{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:26px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  font-family:'Fraunces',serif;font-size:1.15rem;color:var(--ink);
+}
+.faq-q .plus{
+  width:26px;height:26px;flex-shrink:0;position:relative;
+}
+.faq-q .plus::before,.faq-q .plus::after{
+  content:'';position:absolute;background:var(--charcoal);top:50%;left:50%;
+  transform:translate(-50%,-50%);transition:transform .35s var(--ease), opacity .35s var(--ease);
+}
+.faq-q .plus::before{width:14px;height:1px;}
+.faq-q .plus::after{width:1px;height:14px;}
+.faq-item.open .plus::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease);}
+.faq-a-inner{padding-bottom:26px;color:var(--taupe);font-size:0.98rem;max-width:64ch;}
+
+/* ---------- FINAL CTA ---------- */
+.final-cta{
+  background:var(--charcoal);color:var(--ivory);text-align:center;
+  padding:140px 0;
+}
+.final-cta h2{font-size:clamp(2.4rem,5vw,4rem);font-weight:400;max-width:14ch;margin:0 auto;line-height:1.1;}
+.final-cta p{margin:26px auto 0;color:var(--taupe-dim);max-width:48ch;font-size:1.08rem;}
+.final-cta .btn{margin-top:44px;}
+.final-cta .made-by{margin-top:60px;font-size:0.82rem;color:var(--taupe);}
+.final-cta .made-by a{color:var(--champagne-soft);border-bottom:1px solid rgba(198,164,114,0.4);}
+
+/* ---------- CASE STUDY ---------- */
+.case-study{background:var(--beige);}
+.cs-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:70px;}
+.cs-head .agency{font-size:0.85rem;color:var(--taupe);}
+.cs-head h2{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:400;margin-top:10px;}
+.cs-head .sub{color:var(--taupe);font-size:1.05rem;margin-top:8px;}
+.cs-cols{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:70px;}
+.cs-col h4{font-size:0.82rem;letter-spacing:0.04em;color:var(--champagne);margin-bottom:14px;text-transform:uppercase;}
+.cs-col p{color:var(--ink);font-size:1.02rem;max-width:48ch;}
+.cs-built{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:70px;}
+.cs-built-item{border:1px solid var(--line);padding:18px 20px;font-size:0.92rem;background:var(--ivory);}
+.cs-outcomes{margin-top:70px;}
+.outcomes-label{font-size:0.85rem;color:var(--taupe);font-style:italic;font-family:'Fraunces',serif;margin-bottom:26px;}
+.outcomes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.outcome{border-top:1px solid var(--line);padding-top:20px;}
+.outcome .arrow-ind{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--champagne);margin-bottom:8px;display:block;}
+.outcome p{font-size:0.92rem;color:var(--taupe);}
+@media(max-width:900px){.cs-cols{grid-template-columns:1fr;gap:34px;}.cs-built{grid-template-columns:1fr 1fr;}.outcomes-grid{grid-template-columns:1fr 1fr;}}
+
+/* ---------- FOOTER ---------- */
+footer{padding:50px 0;border-top:1px solid var(--line);}
+.footer-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-grid .logo{font-size:1.2rem;}
+.footer-links{display:flex;gap:26px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:0.88rem;color:var(--taupe);}
+.footer-links a:hover{color:var(--ink);}
+.footer-note{font-size:0.8rem;color:var(--taupe-dim);margin-top:20px;max-width:70ch;}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease), transform .9s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ---------- BOOKING MODAL ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(33,30,26,0.6);backdrop-filter:blur(4px);
+  z-index:2000;opacity:0;pointer-events:none;transition:opacity .4s var(--ease);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal{
+  background:var(--ivory);width:100%;max-width:640px;max-height:88vh;overflow-y:auto;
+  border:1px solid var(--line);position:relative;
+  transform:translateY(30px) scale(0.98);transition:transform .45s var(--ease);
+}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:26px 32px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--ivory);z-index:2;
+}
+.modal-head .m-title{font-family:'Fraunces',serif;font-size:1.15rem;}
+.modal-head .m-title span{color:var(--taupe);font-size:0.85rem;font-family:'Inter',sans-serif;display:block;margin-top:2px;}
+.modal-close{
+  background:none;border:none;cursor:pointer;width:32px;height:32px;position:relative;
+}
+.modal-close::before,.modal-close::after{
+  content:'';position:absolute;width:16px;height:1px;background:var(--charcoal);top:50%;left:50%;
+}
+.modal-close::before{transform:translate(-50%,-50%) rotate(45deg);}
+.modal-close::after{transform:translate(-50%,-50%) rotate(-45deg);}
+.modal-body{padding:36px 32px 40px;}
+.modal-progress{display:flex;gap:6px;padding:20px 32px 0;}
+.modal-progress span{height:2px;flex:1;background:var(--line);}
+.modal-progress span.active{background:var(--champagne);}
+
+.m-step{display:none;}
+.m-step.active{display:block;animation:fadeIn .5s var(--ease);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.m-step h3{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:400;margin-bottom:8px;}
+.m-step .m-sub{color:var(--taupe);font-size:0.94rem;margin-bottom:28px;}
+
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.option-btn{
+  border:1px solid var(--line);padding:18px 18px;text-align:left;cursor:pointer;background:none;
+  font-family:'Inter',sans-serif;font-size:0.95rem;transition:all .3s var(--ease);
+}
+.option-btn:hover{border-color:var(--champagne);}
+.option-btn.selected{border-color:var(--charcoal);background:var(--charcoal);color:var(--ivory);}
+@media(max-width:480px){.option-grid{grid-template-columns:1fr;}}
+
+.slot-group{margin-bottom:22px;}
+.slot-group .sg-day{font-size:0.85rem;color:var(--taupe);margin-bottom:10px;}
+.slot-row{display:flex;gap:10px;flex-wrap:wrap;}
+.slot-btn{
+  border:1px solid var(--line);padding:10px 16px;font-size:0.88rem;cursor:pointer;background:none;
+  transition:all .3s var(--ease);font-family:'Inter',sans-serif;
+}
+.slot-btn:hover{border-color:var(--champagne);}
+.slot-btn.selected{background:var(--charcoal);color:var(--ivory);border-color:var(--charcoal);}
+
+.form-field{margin-bottom:18px;}
+.form-field label{display:block;font-size:0.85rem;color:var(--taupe);margin-bottom:8px;}
+.form-field input{
+  width:100%;border:none;border-bottom:1px solid var(--line);padding:10px 2px;
+  font-family:'Inter',sans-serif;font-size:1rem;background:none;color:var(--ink);
+  transition:border-color .3s var(--ease);
+}
+.form-field input:focus{outline:none;border-color:var(--champagne);}
+
+.m-nav{display:flex;justify-content:space-between;align-items:center;margin-top:34px;}
+.m-back{background:none;border:none;color:var(--taupe);font-size:0.9rem;cursor:pointer;font-family:'Inter',sans-serif;}
+.m-back:hover{color:var(--ink);}
+
+.confirm-wrap{text-align:center;padding:20px 0 10px;}
+.confirm-icon{
+  width:64px;height:64px;border-radius:50%;border:1px solid var(--champagne);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 28px;
+}
+.confirm-wrap h3{font-size:1.7rem;}
+.confirm-wrap .m-sub{max-width:36ch;margin-inline:auto;}
+.confirm-detail{
+  margin-top:28px;border:1px solid var(--line);padding:20px 22px;text-align:left;font-size:0.92rem;color:var(--taupe);
+}
+.confirm-detail strong{color:var(--ink);font-weight:500;}
+.confirm-disclaimer{
+  margin-top:24px;font-size:0.78rem;color:var(--taupe-dim);font-style:italic;
+}
+
+.hidden-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+</style>
+</head>
+<body>
+
+<a href="#main" class="hidden-sr">Skip to content</a>
+
+<header id="siteHeader">
+  <div class="container nav-wrap">
+    <a href="#top" class="logo serif">Aurelia</a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#treatments">Treatments</a></li>
+        <li><a href="#makeover">Smile Makeover</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" class="nav-cta" data-open-booking>Book a Consultation →</a></li>
+      </ul>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="reveal in">
+      <div class="hero-eyebrow">Aurelia Dental Studio · Concept</div>
+      <h1 class="serif">Your healthiest smile.<br><em>Beautifully</em> considered.</h1>
+      <p class="lede">Advanced dentistry designed around your comfort, your goals, and results that feel naturally yours.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-open-booking>Book a Consultation
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
+        <a href="#treatments" class="btn btn-ghost">Explore Treatments</a>
+      </div>
+      <div class="trust-line">Advanced care · Personalized treatment · Modern technology</div>
+    </div>
+    <div class="hero-visual reveal in">
+      <div class="duo"><img src="https://images.unsplash.com/photo-1675526607070-f5cbd71dde92?w=900&q=80&auto=format&fit=crop" alt="Close-up portrait of a natural, healthy smile representing calm, modern dental care" /></div>
+      <div class="float-card">
+        <div class="fc-num serif">01</div>
+        <div class="fc-label">Consultation begins with listening — not a prescription.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics-label">Illustrative concept metrics — fictional figures for design purposes only</div>
+    <div class="metrics-grid">
+      <div class="metric"><div class="m-num serif">15+</div><div class="m-label">Years of combined experience (concept)</div></div>
+      <div class="metric"><div class="m-num serif">5,000+</div><div class="m-label">Smiles designed (concept)</div></div>
+      <div class="metric"><div class="m-num serif">100%</div><div class="m-label">Digital treatment planning</div></div>
+      <div class="metric"><div class="m-num serif">1:1</div><div class="m-label">Patient-centered approach</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="treatments">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Treatments</div>
+      <h2 class="serif">Care designed around you.</h2>
+      <p>A concept range of dental treatments, each approached with precision, restraint, and an emphasis on results that read as natural — not overdone.</p>
+    </div>
+    <div class="services-grid reveal">
+      <article class="service-card">
+        <div class="sv-image duo"><img src="https://images.unsplash.com/photo-1677026010083-78ec7f1b84ed?w=800&q=80&auto=format&fit=crop" alt="Close-up of a natural, healthy smile representing cosmetic dentistry" loading="lazy" /></div>
+        <div class="sv-body">
+          <div class="sv-top"><span class="sv-num serif">01</span><span class="sv-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.3"/></svg></span></div>
+          <h3 class="serif">Cosmetic Dentistry</h3>
+          <p>Refining shape, shade, and symmetry through conservative, considered techniques.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="sv-image duo"><img src="https://images.unsplash.com/photo-1593022356769-11f762e25ed9?w=800&q=80&auto=format&fit=crop" alt="Dental implant model illustrating implant dentistry" loading="lazy" /></div>
+        <div class="sv-body">
+          <div class="sv-top"><span class="sv-num serif">02</span><span class="sv-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.3"/></svg></span></div>
+          <h3 class="serif">Dental Implants</h3>
+          <p>A concept approach to replacing missing teeth with a stable, long-term foundation.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="sv-image duo"><img src="https://images.unsplash.com/photo-1564420228450-d9a5bc8d6565?w=800&q=80&auto=format&fit=crop" alt="Clear dental aligners and case representing clear aligner treatment" loading="lazy" /></div>
+        <div class="sv-body">
+          <div class="sv-top"><span class="sv-num serif">03</span><span class="sv-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.3"/></svg></span></div>
+          <h3 class="serif">Clear Aligners</h3>
+          <p>Straightening designed to move quietly through daily life, mapped digitally from day one.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="sv-image duo"><img src="https://images.unsplash.com/photo-1670250492416-570b5b7343b1?w=800&q=80&auto=format&fit=crop" alt="Close-up of teeth representing veneer treatment" loading="lazy" /></div>
+        <div class="sv-body">
+          <div class="sv-top"><span class="sv-num serif">04</span><span class="sv-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.3"/></svg></span></div>
+          <h3 class="serif">Veneers</h3>
+          <p>Thin, considered layers designed to look like enamel — not a replacement for it.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="sv-image duo"><img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&auto=format&fit=crop" alt="Dental examination with mirror and tool representing general dentistry" loading="lazy" /></div>
+        <div class="sv-body">
+          <div class="sv-top"><span class="sv-num serif">05</span><span class="sv-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.3"/></svg></span></div>
+          <h3 class="serif">General Dentistry</h3>
+          <p>The concept foundation — exams, cleanings, and preventive care handled with care.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="sv-image duo"><img src="https://images.unsplash.com/photo-1667133295315-820bb6481730?w=800&q=80&auto=format&fit=crop" alt="Dentist reviewing a digital scan, representing coordinated smile makeover planning" loading="lazy" /></div>
+        <div class="sv-body">
+          <div class="sv-top"><span class="sv-num serif">06</span><span class="sv-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.3"/></svg></span></div>
+          <h3 class="serif">Smile Makeovers</h3>
+          <p>Multiple treatments coordinated into a single, cohesive plan for your smile.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured" id="makeover">
+  <div class="container featured-grid">
+    <div class="featured-visual reveal">
+      <div class="duo"><img src="https://images.unsplash.com/photo-1489278353717-f64c6ee8a4d2?w=800&q=80&auto=format&fit=crop" alt="Close-up portrait smiling, representing the concept smile makeover treatment" /></div>
+      <div class="ring"></div>
+    </div>
+    <div class="reveal">
+      <div class="sec-tag">Smile Makeover</div>
+      <h2 class="serif">A smile that still looks like you.</h2>
+      <p>In this concept, a smile makeover begins with a conversation about what you'd like to change — and, just as importantly, what you'd like to keep. From there, digital planning maps out a personalized sequence of cosmetic treatment, so the outcome feels considered rather than uniform.</p>
+      <p>The approach combines consultation, digital treatment planning, and coordinated cosmetic care into a single, cohesive plan.</p>
+      <a href="#" class="btn btn-primary" data-open-booking>Explore Smile Makeovers
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="technology">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Patient Journey</div>
+      <h2 class="serif">From first visit to your new smile.</h2>
+      <p>A concept process built around clarity at every stage — so you always know what's next, and why.</p>
+    </div>
+    <div class="journey-track reveal">
+      <div class="journey-step">
+        <div class="js-num serif">01</div>
+        <h3 class="serif">Consultation</h3>
+        <p>Discuss goals and concerns in a relaxed, unhurried setting.</p>
+      </div>
+      <div class="journey-step">
+        <div class="js-num serif">02</div>
+        <h3 class="serif">Digital Planning</h3>
+        <p>A personalized treatment plan is mapped using modern digital tools.</p>
+      </div>
+      <div class="journey-step">
+        <div class="js-num serif">03</div>
+        <h3 class="serif">Treatment</h3>
+        <p>Receive care sequenced and paced around your comfort.</p>
+      </div>
+      <div class="journey-step">
+        <div class="js-num serif">04</div>
+        <h3 class="serif">Your New Smile</h3>
+        <p>Ongoing follow-up and maintenance to protect the result.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="results">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Results</div>
+      <h2 class="serif">Designed for natural-looking results.</h2>
+      <p>Drag each slider to compare. These are concept visualizations only.</p>
+    </div>
+    <div class="results-note reveal">Concept visualization — these images are illustrative placeholders created for this design concept. They do not depict real patients, real treatment, or real clinical outcomes.</div>
+    <div class="results-grid reveal">
+      <article class="result-card">
+        <div class="compare" data-compare>
+          <div class="c-after duo"><img src="https://images.unsplash.com/photo-1677026010083-78ec7f1b84ed?w=700&q=80&auto=format&fit=crop" alt="Concept visualization, after state" /></div>
+          <div class="c-before duo"><img src="https://images.unsplash.com/photo-1670250492416-570b5b7343b1?w=700&q=80&auto=format&fit=crop" alt="Concept visualization, before state" /></div>
+          <div class="c-line"></div>
+          <div class="c-handle"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L2 8L6 12M10 4L14 8L10 12" stroke="#211E1A" stroke-width="1.3"/></svg></div>
+          <span class="tag before">Before</span><span class="tag after">After</span>
+        </div>
+        <div class="result-info"><h4 class="serif">Concept case 01</h4><span>Veneers · Illustrative</span></div>
+      </article>
+      <article class="result-card">
+        <div class="compare" data-compare>
+          <div class="c-after duo"><img src="https://images.unsplash.com/photo-1564420228450-d9a5bc8d6565?w=700&q=80&auto=format&fit=crop" alt="Concept visualization, after state" /></div>
+          <div class="c-before duo"><img src="https://images.unsplash.com/photo-1495573020741-8a2f372bbec3?w=700&q=80&auto=format&fit=crop" alt="Concept visualization, before state" /></div>
+          <div class="c-line"></div>
+          <div class="c-handle"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L2 8L6 12M10 4L14 8L10 12" stroke="#211E1A" stroke-width="1.3"/></svg></div>
+          <span class="tag before">Before</span><span class="tag after">After</span>
+        </div>
+        <div class="result-info"><h4 class="serif">Concept case 02</h4><span>Clear Aligners · Illustrative</span></div>
+      </article>
+      <article class="result-card">
+        <div class="compare" data-compare>
+          <div class="c-after duo"><img src="https://images.unsplash.com/photo-1698749778813-ad5f2814e50f?w=700&q=80&auto=format&fit=crop" alt="Concept visualization, after state" /></div>
+          <div class="c-before duo"><img src="https://images.unsplash.com/photo-1606811856475-5e6fcdc6e509?w=700&q=80&auto=format&fit=crop" alt="Concept visualization, before state" /></div>
+          <div class="c-line"></div>
+          <div class="c-handle"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L2 8L6 12M10 4L14 8L10 12" stroke="#211E1A" stroke-width="1.3"/></svg></div>
+          <span class="tag before">Before</span><span class="tag after">After</span>
+        </div>
+        <div class="result-info"><h4 class="serif">Concept case 03</h4><span>Smile Makeover · Illustrative</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container about-grid">
+    <div class="about-visual duo reveal">
+      <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop" alt="Modern dental office chair and equipment representing the concept studio's atmosphere" />
+    </div>
+    <div class="reveal">
+      <div class="sec-tag">About</div>
+      <h2 class="serif">Modern dentistry.<br>A more personal experience.</h2>
+      <p style="margin-top:20px;color:var(--taupe);max-width:50ch;">In this concept, Aurelia Dental Studio is built around a simple idea: that excellent dentistry and genuine comfort aren't in tension with one another. Every part of the imagined patient experience — from the first conversation to the final follow-up — is considered on purpose.</p>
+      <div class="about-list">
+        <div class="about-item"><span class="ai-num serif">01</span><div><h4>Personalized care</h4><p>Every plan begins with your goals, not a standard template.</p></div></div>
+        <div class="about-item"><span class="ai-num serif">02</span><div><h4>Modern technology</h4><p>Digital planning tools support clearer conversations and clearer outcomes.</p></div></div>
+        <div class="about-item"><span class="ai-num serif">03</span><div><h4>Clear communication</h4><p>Options, trade-offs, and next steps explained plainly, without jargon.</p></div></div>
+        <div class="about-item"><span class="ai-num serif">04</span><div><h4>Conservative, natural-looking approach</h4><p>Treatment aimed at results that feel like an enhanced version of you.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section style="background:var(--beige);">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="team-fictional-tag">Concept team — fictional</span>
+      <h2 class="serif" style="margin-top:20px;">Imagined for this concept.</h2>
+      <p>The following profiles are entirely fictional, created to illustrate how a team page could feel for this design concept. They do not represent real dentists or real people.</p>
+    </div>
+    <div class="team-grid reveal">
+      <article class="team-card">
+        <div class="duo"><img src="https://images.unsplash.com/photo-1659353888906-adb3e0041693?w=600&q=80&auto=format&fit=crop" alt="Fictional concept portrait, Dr. Elena Marchetti" /></div>
+        <h3 class="serif">Dr. Elena Marchetti</h3>
+        <div class="role">Cosmetic Dentistry (fictional)</div>
+        <p>A concept profile focused on veneers and smile design, emphasizing natural-looking proportion.</p>
+      </article>
+      <article class="team-card">
+        <div class="duo"><img src="https://images.unsplash.com/photo-1645066928295-2506defde470?w=600&q=80&auto=format&fit=crop" alt="Fictional concept portrait, Dr. Julian Voss" /></div>
+        <h3 class="serif">Dr. Julian Voss</h3>
+        <div class="role">Implant Dentistry (fictional)</div>
+        <p>A concept profile centered on implant planning and long-term restorative care.</p>
+      </article>
+      <article class="team-card">
+        <div class="duo"><img src="https://images.unsplash.com/photo-1643297654416-05795d62e39c?w=600&q=80&auto=format&fit=crop" alt="Fictional concept portrait, Dr. Amara Odén" /></div>
+        <h3 class="serif">Dr. Amara Odén</h3>
+        <div class="role">General & Preventive Care (fictional)</div>
+        <p>A concept profile grounded in preventive dentistry and patient education.</p>
+      </article>
+      <article class="team-card">
+        <div class="duo"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80&auto=format&fit=crop" alt="Fictional concept portrait, Dr. Theo Lindqvist" /></div>
+        <h3 class="serif">Dr. Theo Lindqvist</h3>
+        <div class="role">Orthodontics (fictional)</div>
+        <p>A concept profile shaped around clear aligner planning and bite alignment.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PATIENT EXPERIENCE (no fake testimonials as real) -->
+<section>
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Patient Experience — concept examples</div>
+      <h2 class="serif">How the experience could feel.</h2>
+      <p>Illustrative copy written for this concept — not real patient testimonials.</p>
+    </div>
+    <div class="services-grid reveal" style="grid-template-columns:repeat(3,1fr);">
+      <article class="service-card quote-card" style="min-height:auto;">
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--ink);margin-top:0;">"The first visit felt more like a conversation than an appointment — every option was explained clearly before anything was decided."</p>
+        <p style="margin-top:20px;font-size:0.82rem;">Illustrative testimonial copy — concept only</p>
+      </article>
+      <article class="service-card quote-card" style="min-height:auto;">
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--ink);margin-top:0;">"Seeing the digital plan before treatment started made the whole process feel far less uncertain."</p>
+        <p style="margin-top:20px;font-size:0.82rem;">Illustrative testimonial copy — concept only</p>
+      </article>
+      <article class="service-card quote-card" style="min-height:auto;">
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--ink);margin-top:0;">"Comfort was never an afterthought — it shaped the pacing of every stage of treatment."</p>
+        <p style="margin-top:20px;font-size:0.82rem;">Illustrative testimonial copy — concept only</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Questions</div>
+      <h2 class="serif">Frequently asked questions.</h2>
+    </div>
+    <div class="faq reveal">
+      <div class="faq-item">
+        <button class="faq-q">How do I book a consultation?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Use the "Book a Consultation" button anywhere on this concept site to open the booking flow. In this fictional demo, no real appointment is created.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What should I expect during my first visit?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">In this concept, a first visit centers on an unhurried conversation about your goals, followed by an examination and a discussion of possible directions — with no pressure to decide on the spot.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Which treatments do you offer?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">The concept spans cosmetic dentistry, dental implants, clear aligners, veneers, general dentistry, and coordinated smile makeovers.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you offer cosmetic consultations?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — in this concept, cosmetic consultations are a starting point for exploring options like veneers, aligners, or a full smile makeover, with no obligation to proceed.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How does digital treatment planning work?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">In this concept, digital planning tools are used to map a personalized sequence of treatment ahead of time, so a plan can be discussed and understood before it begins.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How can I contact the clinic?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">This is a fictional concept clinic created for a design portfolio, so there is no real clinic to contact. The booking flow above is a demonstration only.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2 class="serif reveal">Ready to rethink your smile?</h2>
+    <p class="reveal">Start with a conversation. We'll help you understand your options and decide what comes next.</p>
+    <button class="btn btn-light reveal" data-open-booking>Book a Consultation
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.3"/></svg>
+    </button>
+    <div class="made-by reveal">Concept website created by <a href="#case-study">OptiFeather</a></div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="case-study" id="case-study">
+  <div class="container">
+    <div class="cs-head reveal">
+      <div>
+        <div class="agency">OptiFeather — Portfolio Case Study</div>
+        <h2 class="serif">Aurelia Dental Studio</h2>
+        <div class="sub">Premium healthcare website concept</div>
+      </div>
+    </div>
+
+    <div class="cs-cols reveal">
+      <div class="cs-col">
+        <h4>Challenge</h4>
+        <p>Create a dental website that feels premium while building trust and making appointment booking effortless — without leaning on the generic clinical aesthetic most dental sites default to.</p>
+      </div>
+      <div class="cs-col">
+        <h4>Approach</h4>
+        <p>Combine editorial design, conversion-focused UX, treatment education, and a streamlined booking experience — grounded in a warm, restrained palette and confident typography.</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h4 style="font-size:0.82rem;letter-spacing:0.04em;color:var(--champagne);text-transform:uppercase;margin-bottom:6px;">Built</h4>
+      <div class="cs-built">
+        <div class="cs-built-item">Brand direction</div>
+        <div class="cs-built-item">UX / UI design</div>
+        <div class="cs-built-item">Responsive website</div>
+        <div class="cs-built-item">Appointment flow</div>
+        <div class="cs-built-item">Conversion architecture</div>
+        <div class="cs-built-item">Interactive animations</div>
+      </div>
+    </div>
+
+    <div class="cs-outcomes reveal">
+      <div class="outcomes-label">Projected outcomes — illustrative, hypothetical figures only</div>
+      <div class="outcomes-grid">
+        <div class="outcome"><span class="arrow-ind serif">↑</span><p>More consultation requests, driven by a clearer path to booking.</p></div>
+        <div class="outcome"><span class="arrow-ind serif">↑</span><p>Higher booking intent from a more considered, trust-building design.</p></div>
+        <div class="outcome"><span class="arrow-ind serif">↓</span><p>Less friction across the booking process itself.</p></div>
+        <div class="outcome"><span class="arrow-ind serif">↑</span><p>Stronger presentation of premium, higher-value treatments.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <a href="#top" class="logo serif">Aurelia</a>
+      <ul class="footer-links">
+        <li><a href="#treatments">Treatments</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#case-study">Case Study</a></li>
+      </ul>
+    </div>
+    <p class="footer-note">Aurelia Dental Studio is a fictional concept clinic. This website was created as a self-initiated portfolio project by OptiFeather to demonstrate premium healthcare web design. No real appointments, patients, clinical outcomes, or business results are represented here. All statistics and metrics shown are hypothetical and labeled accordingly.</p>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="m-title serif" id="modalTitle">Book a Consultation<span>Concept booking flow — no real appointment is created</span></div>
+      <button class="modal-close" id="modalClose" aria-label="Close booking dialog"></button>
+    </div>
+    <div class="modal-progress">
+      <span class="active" data-p="1"></span><span data-p="2"></span><span data-p="3"></span><span data-p="4"></span>
+    </div>
+    <div class="modal-body">
+
+      <div class="m-step active" data-step="1">
+        <h3 class="serif">What would you like to discuss?</h3>
+        <p class="m-sub">Choose the topic closest to what's on your mind.</p>
+        <div class="option-grid" id="topicGrid">
+          <button class="option-btn" data-topic="Cosmetic Dentistry">Cosmetic Dentistry</button>
+          <button class="option-btn" data-topic="Implants">Implants</button>
+          <button class="option-btn" data-topic="Clear Aligners">Clear Aligners</button>
+          <button class="option-btn" data-topic="Veneers">Veneers</button>
+          <button class="option-btn" data-topic="General Dentistry">General Dentistry</button>
+          <button class="option-btn" data-topic="Not sure yet">Not sure yet</button>
+        </div>
+      </div>
+
+      <div class="m-step" data-step="2">
+        <h3 class="serif">When would you like to visit?</h3>
+        <p class="m-sub">Example availability shown for this concept only.</p>
+        <div class="slot-group">
+          <div class="sg-day">Tuesday, 15 September</div>
+          <div class="slot-row">
+            <button class="slot-btn">9:30 AM</button>
+            <button class="slot-btn">11:00 AM</button>
+            <button class="slot-btn">2:15 PM</button>
+          </div>
+        </div>
+        <div class="slot-group">
+          <div class="sg-day">Wednesday, 16 September</div>
+          <div class="slot-row">
+            <button class="slot-btn">10:00 AM</button>
+            <button class="slot-btn">1:00 PM</button>
+            <button class="slot-btn">4:30 PM</button>
+          </div>
+        </div>
+        <div class="slot-group">
+          <div class="sg-day">Friday, 18 September</div>
+          <div class="slot-row">
+            <button class="slot-btn">9:00 AM</button>
+            <button class="slot-btn">12:30 PM</button>
+          </div>
+        </div>
+        <button class="m-back" id="backTo1">← Back</button>
+      </div>
+
+      <div class="m-step" data-step="3">
+        <h3 class="serif">How can we reach you?</h3>
+        <p class="m-sub">This concept form does not submit anywhere.</p>
+        <div class="form-field"><label for="fName">Full name</label><input type="text" id="fName" autocomplete="name" /></div>
+        <div class="form-field"><label for="fEmail">Email</label><input type="email" id="fEmail" autocomplete="email" /></div>
+        <div class="form-field"><label for="fPhone">Phone</label><input type="tel" id="fPhone" autocomplete="tel" /></div>
+        <div class="m-nav">
+          <button class="m-back" id="backTo2">← Back</button>
+          <button class="btn btn-primary" id="submitBooking">Continue
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="m-step" data-step="4">
+        <div class="confirm-wrap">
+          <div class="confirm-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12L10 17L19 8" stroke="#C6A472" stroke-width="1.6"/></svg>
+          </div>
+          <h3 class="serif">You're one step closer to your next smile.</h3>
+          <p class="m-sub">Here's a summary of what you selected in this concept flow.</p>
+          <div class="confirm-detail" id="confirmDetail"></div>
+          <p class="confirm-disclaimer">This is a concept booking interface built for a design portfolio. No appointment has actually been scheduled, and this form is not connected to a real dental clinic.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Sticky nav
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded','false');
+  }));
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:0.14});
+    revealEls.forEach(el=>io.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('in'));
+  }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const btn = item.querySelector('.faq-q');
+    const panel = item.querySelector('.faq-a');
+    btn.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o=>{
+        if(o!==item){ o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = null; }
+      });
+      item.classList.toggle('open', !isOpen);
+      panel.style.maxHeight = !isOpen ? panel.scrollHeight + 'px' : null;
+    });
+  });
+
+  // Before/after compare sliders
+  document.querySelectorAll('[data-compare]').forEach(comp=>{
+    const before = comp.querySelector('.c-before');
+    const line = comp.querySelector('.c-line');
+    const handle = comp.querySelector('.c-handle');
+    let dragging = false;
+
+    function setPos(clientX){
+      const rect = comp.getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(4, Math.min(96, pct));
+      before.style.clipPath = 'inset(0 ' + (100-pct) + '% 0 0)';
+      line.style.left = pct + '%';
+      handle.style.left = pct + '%';
+    }
+    comp.addEventListener('pointerdown', e=>{ dragging = true; setPos(e.clientX); comp.setPointerCapture(e.pointerId); });
+    comp.addEventListener('pointermove', e=>{ if(dragging) setPos(e.clientX); });
+    comp.addEventListener('pointerup', ()=> dragging=false);
+    comp.addEventListener('pointerleave', ()=> dragging=false);
+  });
+
+  // Booking modal
+  const overlay = document.getElementById('modalOverlay');
+  const openTriggers = document.querySelectorAll('[data-open-booking]');
+  const closeBtn = document.getElementById('modalClose');
+  const steps = document.querySelectorAll('.m-step');
+  const progressDots = document.querySelectorAll('.modal-progress span');
+  let selection = { topic:null, day:null, time:null, name:'', email:'', phone:'' };
+
+  function goTo(stepNum){
+    steps.forEach(s=> s.classList.toggle('active', s.dataset.step == stepNum));
+    progressDots.forEach(d=> d.classList.toggle('active', Number(d.dataset.p) <= stepNum));
+  }
+
+  function openModal(){
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    goTo(1);
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  openTriggers.forEach(t=> t.addEventListener('click', e=>{ e.preventDefault(); openModal(); }));
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e=>{ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+  // Step 1: topic
+  document.querySelectorAll('#topicGrid .option-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#topicGrid .option-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selection.topic = btn.dataset.topic;
+      setTimeout(()=> goTo(2), 250);
+    });
+  });
+
+  // Step 2: slots
+  document.querySelectorAll('.slot-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selection.time = btn.textContent.trim();
+      selection.day = btn.closest('.slot-group').querySelector('.sg-day').textContent.trim();
+      setTimeout(()=> goTo(3), 250);
+    });
+  });
+  document.getElementById('backTo1').addEventListener('click', ()=> goTo(1));
+  document.getElementById('backTo2').addEventListener('click', ()=> goTo(2));
+
+  // Step 3: contact -> confirm
+  document.getElementById('submitBooking').addEventListener('click', ()=>{
+    selection.name = document.getElementById('fName').value.trim() || 'Guest';
+    selection.email = document.getElementById('fEmail').value.trim();
+    selection.phone = document.getElementById('fPhone').value.trim();
+
+    const detail = document.getElementById('confirmDetail');
+    detail.innerHTML =
+      '<div><strong>Topic:</strong> ' + (selection.topic || 'Not selected') + '</div>' +
+      '<div style="margin-top:8px;"><strong>Preferred time:</strong> ' + (selection.day && selection.time ? selection.day + ' — ' + selection.time : 'Not selected') + '</div>' +
+      '<div style="margin-top:8px;"><strong>Name:</strong> ' + escapeHtml(selection.name) + '</div>' +
+      (selection.email ? '<div style="margin-top:8px;"><strong>Email:</strong> ' + escapeHtml(selection.email) + '</div>' : '') +
+      (selection.phone ? '<div style="margin-top:8px;"><strong>Phone:</strong> ' + escapeHtml(selection.phone) + '</div>' : '');
+
+    goTo(4);
+  });
+
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+})();
+</script>
+</body>
+</html>
