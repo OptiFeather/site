@@ -187,8 +187,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .btn-primary:hover { background: transparent; color: var(--accent-gold); transform: translateY(-2px); }
 .btn-outline { border-color: #2a2a2a; color: var(--text-main); background: transparent; }
 .btn-outline:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
-.btn-ghost { background: none; border: none; color: var(--text-muted); padding: 13px 4px; }
-.btn-ghost:hover { color: var(--accent-gold); }
+.btn-ghost { background: none; border: 1px solid #2a2a2a; color: var(--text-muted); padding: 13px 26px; }
+.btn-ghost:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
 .btn-lg { padding: 16px 34px; font-size: 1rem; }
 .btn-arrow, .icon-arrow { font-size: 1rem; }
 
@@ -236,9 +236,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .hero-visual { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; height: 700px; }
 .hero-visual-stage { position: relative; width: 680px; height: 680px; display: flex; align-items: center; justify-content: center; }
-.hero-visual-glow { position: absolute; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(194,165,120,0.26), transparent 70%); filter: blur(14px); animation: glowPulse 5.5s ease-in-out infinite; }
+.hero-visual-glow { position: absolute; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(194,165,120,0.26), transparent 70%); filter: blur(14px); animation: glowPulse 5.5s ease-in-out infinite; pointer-events: none; }
 @keyframes glowPulse { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
-.hero-visual img { position: relative; z-index: 3; width: 86%; max-width: 620px; filter: drop-shadow(0 0 50px rgba(194,165,120,0.2)); animation: featherFloat 8s ease-in-out infinite; transform-origin: 50% 60%; }
+.hero-visual img { position: relative; z-index: 3; width: 86%; max-width: 620px; filter: drop-shadow(0 0 50px rgba(194,165,120,0.2)); animation: featherFloat 8s ease-in-out infinite; transform-origin: 50% 60%; pointer-events: none; }
 @keyframes featherFloat {
     0%   { transform: translateY(0) rotate(-2deg) scale(1); }
     28%  { transform: translateY(-18px) rotate(2deg) scale(1.02); }
@@ -246,7 +246,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     80%  { transform: translateY(-12px) rotate(1.4deg) scale(1.01); }
     100% { transform: translateY(0) rotate(-2deg) scale(1); }
 }
-.hero-visual-ring { position: absolute; border: 1px solid rgba(194,165,120,0.25); border-radius: 50%; }
+.hero-visual-ring { position: absolute; border: 1px solid rgba(194,165,120,0.25); border-radius: 50%; pointer-events: none; }
 .hero-visual-ring.r2 { width: 640px; height: 640px; border-color: rgba(194,165,120,0.15); animation-duration: 23s; animation-delay: -6s; }
 .hero-visual-ring.r1 { width: 740px; height: 740px; animation-duration: 17s; animation-delay: -2s; }
 .hero-visual-ring.r3 { width: 860px; height: 860px; border-color: rgba(194,165,120,0.08); animation-duration: 31s; animation-delay: -11s; }
@@ -282,9 +282,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* ---- Orbit ring system: planets that travel their ring (pure CSS) ---- */
 .orbit-field { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: visible; }
-.orbit-ring { position: absolute; border: 1px solid rgba(194,165,120,0.13); border-radius: 50%; }
+.orbit-ring { position: absolute; border: 1px solid rgba(194,165,120,0.13); border-radius: 50%; pointer-events: none; }
 .orbit-planet {
-    position: absolute; border-radius: 50%;
+    position: absolute; border-radius: 50%; pointer-events: none;
     background: radial-gradient(circle at 32% 28%, var(--accent-gold-bright), var(--accent-gold) 55%, #5f4d33 100%);
     box-shadow: 0 0 16px 2px rgba(194,165,120,0.5), inset -2px -2px 4px rgba(0,0,0,0.35);
 }
