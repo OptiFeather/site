@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LUMIÈRE — Coffee. Food. Moments. — Brooklyn, NY</title>
+<meta name="description" content="LUMIÈRE is an all-day café in Brooklyn where good coffee, thoughtful food and beautiful spaces meet." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+  :root{
+    --ivory:#F2ECE1;
+    --ivory-dim:#EAE2D3;
+    --espresso:#2A1D14;
+    --charcoal:#17140F;
+    --beige:#C7B9A3;
+    --brass:#8A6D3B;
+    --brass-soft:#B79A63;
+    --line: rgba(23,20,15,0.14);
+    --line-on-dark: rgba(242,236,225,0.16);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; background:var(--ivory); }
+
+  ::selection{ background:var(--espresso); color:var(--ivory); }
+
+  body{
+    background:var(--ivory);
+    color:var(--espresso);
+    font-family:'Instrument Sans', sans-serif;
+    overflow-x:hidden;
+    cursor:default;
+  }
+
+  h1,h2,h3,h4, .serif{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    letter-spacing:-0.01em;
+    line-height:1.02;
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-weight:400;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  button{ font-family:inherit; background:none; border:none; cursor:pointer; color:inherit; }
+
+  .container{ max-width:1400px; margin:0 auto; padding:0 6vw; }
+
+  /* ---------- Grain overlay ---------- */
+  .grain{
+    position:fixed; inset:0; z-index:9998; pointer-events:none;
+    opacity:0.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Preloader ---------- */
+  #preloader{
+    position:fixed; inset:0; z-index:10000; background:var(--charcoal);
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+  }
+  #preloader .pl-word{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:clamp(2.5rem, 8vw, 6rem); color:var(--ivory);
+    padding-right:0.12em; /* prevents the italic final letter from being clipped */
+  }
+  #preloader .pl-bar{
+    width:min(260px, 40vw); height:1px; background:var(--line-on-dark); margin-top:28px; position:relative; overflow:hidden;
+  }
+  #preloader .pl-bar span{
+    position:absolute; left:0; top:0; height:100%; width:0%; background:var(--brass-soft);
+  }
+  #preloader .pl-tag{ margin-top:14px; color:var(--beige); }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    padding:26px 6vw; display:flex; align-items:center; justify-content:space-between;
+    transition:padding .45s ease, background-color .45s ease, box-shadow .45s ease, border-color .45s ease, color .45s ease;
+    border-bottom:1px solid transparent;
+    color:var(--ivory);
+  }
+  header.scrolled{
+    padding:14px 6vw; background:rgba(242,236,225,0.86); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    color:var(--espresso);
+  }
+  .logo{
+    font-family:'Fraunces', serif; font-size:1.35rem; letter-spacing:0.04em; font-weight:500;
+  }
+  .nav-links{ display:flex; gap:38px; align-items:center; }
+  .nav-links a{
+    font-size:0.83rem; letter-spacing:0.08em; text-transform:uppercase; position:relative; padding-bottom:3px;
+  }
+  .nav-links a:not(.nav-cta)::after{
+    content:''; position:absolute; left:0; bottom:0; width:0%; height:1px; background:currentColor;
+    transition:width .35s cubic-bezier(.5,0,0,1);
+  }
+  .nav-links a:not(.nav-cta):hover::after{ width:100%; }
+  .nav-cta{
+    border:1px solid currentColor; padding:10px 20px; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;
+    border-radius:100px; transition:background .35s ease, color .35s ease;
+    display:inline-flex; align-items:center; justify-content:center; line-height:1;
+  }
+  .nav-cta:hover{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
+  header.scrolled .nav-cta:hover{ background:var(--espresso); color:var(--ivory); }
+  .nav-burger{ display:none; flex-direction:column; gap:6px; width:30px; z-index:600; }
+  .nav-burger span{ height:1px; background:currentColor; width:100%; display:block; transition:transform .35s ease, opacity .35s ease; }
+
+  /* Mobile overlay menu */
+  #mobile-menu{
+    position:fixed; inset:0; background:var(--charcoal); z-index:400;
+    display:flex; flex-direction:column; justify-content:center; padding:8vw 8vw;
+    clip-path:circle(0% at 92% 6%); transition:clip-path .7s cubic-bezier(.65,0,.15,1);
+    pointer-events:none;
+  }
+  #mobile-menu.open{ clip-path:circle(150% at 92% 6%); pointer-events:auto; }
+  #mobile-menu a{ font-family:'Fraunces', serif; font-size:12vw; color:var(--ivory); line-height:1.15; }
+  #mobile-menu .mm-foot{ margin-top:40px; color:var(--beige); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end;
+    overflow:hidden; background:var(--charcoal);
+  }
+  .hero-media{ position:absolute; inset:0; }
+  .hero-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.15); }
+  .hero-media::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(23,20,15,0.35) 0%, rgba(23,20,15,0.15) 35%, rgba(23,20,15,0.75) 100%);
+  }
+  .hero-inner{ position:relative; z-index:2; padding:0 calc(6vw + 60px) 64px 6vw; color:var(--ivory); }
+  .hero-eyebrow{ color:var(--beige); font-size:0.78rem; margin-bottom:18px; overflow:hidden; }
+  .hero-eyebrow span{ display:inline-block; }
+  .hero-title{
+    font-size:clamp(3.6rem, 13vw, 10.5rem); display:flex; overflow:hidden; padding-right:0.06em;
+  }
+  .hero-title .chunk{ display:inline-block; overflow:hidden; padding-right:0.06em; margin-right:-0.06em; }
+  .hero-title .chunk span{ display:inline-block; transform:translateY(115%); }
+  .hero-sub{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-top:30px; flex-wrap:wrap;
+  }
+  .hero-line{ font-size:1.02rem; line-height:1.6; max-width:380px; color:var(--ivory-dim); overflow:hidden; }
+  .hero-line span{ display:inline-block; }
+  .hero-tagline{ font-family:'Fraunces', serif; font-style:italic; font-size:clamp(1.1rem,2vw,1.5rem); color:var(--brass-soft); flex-shrink:0; }
+  .scroll-indicator{
+    position:absolute; bottom:36px; right:6vw; z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:var(--beige); font-size:0.7rem;
+  }
+  @media (max-width:900px){
+    .hero-inner{ padding-right:6vw; }
+    .scroll-indicator{ display:none; }
+  }
+  .scroll-indicator .line{ width:1px; height:52px; background:var(--line-on-dark); position:relative; overflow:hidden; }
+  .scroll-indicator .line span{ position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--ivory); animation:scrolldrop 2.4s ease-in-out infinite; }
+  @keyframes scrolldrop{ 0%{ top:-100%; } 50%{ top:0%; } 100%{ top:100%; } }
+
+  /* ---------- Section basics ---------- */
+  section{ position:relative; }
+  .eyebrow{
+    font-size:0.75rem; color:var(--brass); margin-bottom:22px; display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow::before{ content:''; width:26px; height:1px; background:var(--brass); display:inline-block; }
+
+  .reveal-mask{ overflow:hidden; }
+  .reveal-mask .inner{ display:block; }
+
+  /* ---------- Intro / Story ---------- */
+  .story{ padding:180px 0 140px; background:var(--ivory); }
+  .story-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:end; }
+  .story h2{ font-size:clamp(2.4rem, 5.4vw, 4.6rem); font-weight:400; }
+  .story h2 em{ font-style:italic; color:var(--brass); font-weight:400; }
+  .story-copy{ max-width:400px; margin-top:26px; color:rgba(42,29,20,0.72); font-size:1.02rem; line-height:1.7; }
+  .story-media{ position:relative; }
+  .story-media .frame{ position:relative; overflow:hidden; border-radius:2px; aspect-ratio:4/5; }
+  .story-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.2); }
+  .story-num{ margin-top:20px; display:flex; justify-content:space-between; }
+
+  /* ---------- Menu ---------- */
+  .menu-section{ background:var(--charcoal); color:var(--ivory); padding:150px 0; }
+  .menu-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:90px; flex-wrap:wrap; }
+  .menu-head h2{ font-size:clamp(2.6rem,6vw,5.2rem); }
+  .menu-head p{ max-width:320px; color:var(--beige); line-height:1.6; }
+
+  .menu-cats{ display:flex; gap:14px; margin-bottom:60px; flex-wrap:wrap; }
+  .menu-cat-btn{
+    font-size:0.75rem; padding:9px 18px; border:1px solid var(--line-on-dark); border-radius:100px; color:var(--beige);
+    transition:all .3s ease;
+  }
+  .menu-cat-btn.active, .menu-cat-btn:hover{ border-color:var(--ivory); color:var(--ivory); }
+
+  .menu-list{ }
+  .menu-cat-block{ display:none; }
+  .menu-cat-block.active{ display:block; animation:fadein .5s ease; }
+  @keyframes fadein{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:translateY(0);} }
+
+  .menu-cat-title{ font-size:0.78rem; color:var(--brass-soft); margin-bottom:6px; }
+
+  .menu-item{
+    display:flex; justify-content:space-between; align-items:baseline; gap:24px;
+    padding:26px 0; border-top:1px solid var(--line-on-dark); position:relative; cursor:pointer;
+  }
+  .menu-item:last-child{ border-bottom:1px solid var(--line-on-dark); }
+  .menu-item .mi-left{ display:flex; align-items:baseline; gap:16px; }
+  .menu-item .mi-name{ font-family:'Fraunces', serif; font-size:clamp(1.4rem,2.6vw,2.1rem); font-weight:400; transition:transform .4s cubic-bezier(.4,0,.1,1), color .4s; }
+  .menu-item .mi-desc{ color:var(--beige); font-size:0.85rem; max-width:280px; display:none; }
+  .menu-item .mi-dots{ flex:1; border-bottom:1px dotted var(--line-on-dark); margin:0 6px 6px; min-width:20px; }
+  .menu-item .mi-price{ font-family:'IBM Plex Mono', monospace; font-size:1rem; color:var(--beige); }
+  .menu-item:hover .mi-name{ transform:translateX(10px); color:var(--brass-soft); }
+
+  .menu-preview{
+    position:fixed; width:220px; height:280px; pointer-events:none; z-index:300; border-radius:2px; overflow:hidden;
+    opacity:0; transform:scale(0.9); transition:opacity .35s ease, transform .35s ease;
+  }
+  .menu-preview.show{ opacity:1; transform:scale(1); }
+  .menu-preview img{ width:100%; height:100%; object-fit:cover; }
+
+  /* ---------- Signature ---------- */
+  .signature{ padding:160px 0; background:var(--ivory); overflow:hidden; }
+  .sig-head{ margin-bottom:80px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:30px; }
+  .sig-head h2{ font-size:clamp(2.4rem,5.6vw,4.6rem); max-width:700px; }
+  .sig-track-wrap{ overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; padding-bottom:10px; }
+  .sig-track-wrap::-webkit-scrollbar{ display:none; }
+  .sig-track-wrap.grabbing{ cursor:grabbing; }
+  .sig-track{ display:flex; gap:32px; width:max-content; padding:0 6vw; max-width:none; }
+  .sig-card{ flex:0 0 auto; width:min(64vw, 460px); }
+  .sig-card:nth-child(2){ margin-top:100px; }
+  .sig-card:nth-child(4){ margin-top:60px; }
+  .sig-frame{ position:relative; overflow:hidden; border-radius:2px; aspect-ratio:3/4; }
+  .sig-frame img{ width:100%; height:112%; object-fit:cover; will-change:transform; }
+  .sig-info{ display:flex; justify-content:space-between; margin-top:18px; align-items:baseline; }
+  .sig-info h3{ font-size:1.4rem; font-weight:400; }
+  .sig-info span{ font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--brass); }
+
+  /* ---------- About ---------- */
+  .about{ background:var(--espresso); color:var(--ivory); padding:0; display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
+  .about-media{ position:relative; overflow:hidden; min-height:60vh; }
+  .about-media img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+  .about-copy{ padding:120px 6vw; display:flex; flex-direction:column; justify-content:center; }
+  .about-copy h2{ font-size:clamp(2.1rem,3.6vw,3rem); line-height:1.15; margin-bottom:28px; }
+  .about-copy h2 em{ font-style:italic; color:var(--brass-soft); }
+  .about-copy p{ color:var(--beige); line-height:1.75; max-width:440px; margin-bottom:16px; }
+  .about-stats{ display:flex; gap:50px; margin-top:44px; }
+  .about-stats div span{ display:block; font-family:'Fraunces', serif; font-size:2rem; }
+  .about-stats div small{ color:var(--beige); font-size:0.72rem; }
+
+  /* ---------- Gallery ---------- */
+  .gallery-section{ padding:160px 0 100px; background:var(--ivory); }
+  .gallery-head{ margin-bottom:70px; display:flex; align-items:flex-end; gap:24px; flex-wrap:wrap; }
+  .gallery-head h2{ font-size:clamp(2.4rem,5.6vw,4.6rem); }
+  .gallery-hint{ display:block; color:rgba(42,29,20,0.5); font-size:0.8rem; }
+  .gallery-track-wrap{ overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; }
+  .gallery-track-wrap::-webkit-scrollbar{ display:none; }
+  .gallery-track-wrap.grabbing{ cursor:grabbing; }
+  .gallery-track{ display:flex; gap:28px; padding:0 6vw 40px; width:max-content; }
+  .g-item{ flex:0 0 auto; overflow:hidden; border-radius:2px; position:relative; }
+  .g-item img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.3,0,.2,1); }
+  .g-item:hover img{ transform:scale(1.06); }
+  .g-item .g-num{ position:absolute; bottom:14px; left:14px; color:#fff; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; opacity:0; transition:opacity .3s ease; }
+  .g-item:hover .g-num{ opacity:0.85; }
+  .g1{ width:min(60vw,420px); height:520px; margin-top:60px; }
+  .g2{ width:min(40vw,300px); height:400px; }
+  .g3{ width:min(70vw,480px); height:340px; margin-top:120px; }
+  .g4{ width:min(34vw,260px); height:460px; }
+  .g5{ width:min(50vw,380px); height:480px; margin-top:30px; }
+  .g6{ width:min(44vw,320px); height:400px; margin-top:100px; }
+  .g7{ width:min(38vw,280px); height:440px; margin-top:20px; }
+  .g8{ width:min(56vw,400px); height:360px; margin-top:90px; }
+
+  /* Lightbox */
+  #lightbox{
+    position:fixed; inset:0; z-index:9000; background:rgba(23,20,15,0.96);
+    display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .4s ease;
+  }
+  #lightbox.open{ opacity:1; pointer-events:auto; }
+  #lightbox img{ max-width:82vw; max-height:82vh; object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,0.5); }
+  #lightbox .lb-close{ position:absolute; top:32px; right:6vw; color:var(--ivory); font-size:0.8rem; letter-spacing:0.1em; display:flex; align-items:center; gap:10px; }
+  #lightbox .lb-count{ position:absolute; bottom:32px; left:6vw; color:var(--beige); font-family:'IBM Plex Mono',monospace; font-size:0.8rem; }
+
+  /* ---------- Atmosphere ---------- */
+  .atmosphere{ background:var(--charcoal); color:var(--ivory); }
+  .atmo-row{ display:grid; grid-template-columns:1fr 1fr; min-height:70vh; }
+  .atmo-row:nth-child(even){ direction:rtl; }
+  .atmo-row:nth-child(even) > *{ direction:ltr; }
+  .atmo-media{ position:relative; overflow:hidden; }
+  .atmo-media img{ width:100%; height:100%; object-fit:cover; }
+  .atmo-copy{ display:flex; align-items:center; padding:8vw; }
+  .atmo-copy h3{ font-size:clamp(2.2rem,4.2vw,3.6rem); font-style:italic; font-weight:400; margin-bottom:22px; }
+  .atmo-copy .an{ font-family:'IBM Plex Mono',monospace; color:var(--brass-soft); font-size:0.75rem; display:block; margin-bottom:18px; }
+  .atmo-copy p{ color:var(--beige); line-height:1.8; font-size:1.02rem; max-width:440px; }
+
+  /* ---------- Location ---------- */
+  .location{ padding:160px 0; background:var(--ivory); }
+  .loc-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center; }
+  .loc-grid h2{ font-size:clamp(2.4rem,5.2vw,4rem); margin-bottom:34px; }
+  .loc-detail{ display:flex; gap:16px; padding:20px 0; border-top:1px solid var(--line); }
+  .loc-detail:last-of-type{ border-bottom:1px solid var(--line); }
+  .loc-detail .ld-label{ width:110px; font-size:0.72rem; color:var(--brass); flex-shrink:0; }
+  .loc-detail .ld-value{ line-height:1.6; }
+  .loc-cta{ margin-top:36px; display:inline-flex; align-items:center; gap:14px; border:1px solid var(--espresso); padding:14px 26px; border-radius:100px; font-size:0.78rem; }
+  .loc-map{
+    position:relative; aspect-ratio:1/1; border-radius:3px; overflow:hidden; background:var(--espresso);
+  }
+  .loc-map svg{ width:100%; height:100%; }
+  .loc-pin{ position:absolute; top:50%; left:50%; transform:translate(-50%,-100%); }
+
+  /* ---------- Footer ---------- */
+  footer{ background:var(--espresso); color:var(--ivory); padding-top:130px; }
+  .footer-cta{ text-align:center; padding-bottom:110px; }
+  .footer-cta h2{ font-size:clamp(3rem,9vw,7.5rem); font-style:italic; }
+  .footer-grid{
+    border-top:1px solid var(--line-on-dark); padding:60px 6vw; display:grid; grid-template-columns:1.2fr 0.8fr 0.8fr 1fr; gap:40px;
+  }
+  .footer-grid h4{ font-size:0.72rem; color:var(--brass-soft); margin-bottom:18px; letter-spacing:0.08em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; font-weight:400;}
+  .footer-grid ul{ list-style:none; }
+  .footer-grid li{ margin-bottom:10px; color:var(--beige); font-size:0.92rem; }
+  .footer-grid li a:hover{ color:var(--ivory); }
+  .footer-form{ display:flex; border-bottom:1px solid var(--line-on-dark); padding-bottom:10px; margin-top:6px; }
+  .footer-form input{ background:none; border:none; color:var(--ivory); flex:1; font-size:0.9rem; outline:none; font-family:inherit; }
+  .footer-form input::placeholder{ color:rgba(242,236,225,0.4); }
+  .footer-form button{ font-size:0.75rem; color:var(--brass-soft); }
+  .footer-bottom{ display:flex; justify-content:space-between; padding:26px 6vw 30px; color:rgba(242,236,225,0.4); font-size:0.75rem; flex-wrap:wrap; gap:10px; border-top:1px solid var(--line-on-dark); }
+
+  /* ---------- Magnetic ---------- */
+  .magnetic{ display:inline-block; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .nav-links{ display:none; }
+    .nav-burger{ display:flex; }
+    .story-grid{ grid-template-columns:1fr; }
+    .about{ grid-template-columns:1fr; }
+    .about-media{ min-height:50vh; }
+    .about-copy{ padding:70px 8vw; }
+    .atmo-row{ grid-template-columns:1fr; }
+    .atmo-media{ min-height:50vh; }
+    .atmo-copy{ padding:60px 8vw; }
+    .loc-grid{ grid-template-columns:1fr; }
+    .loc-map{ order:-1; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .menu-item .mi-desc{ display:none !important; }
+  }
+  @media (max-width:560px){
+    .footer-grid{ grid-template-columns:1fr; }
+    .footer-grid > div{ margin-bottom:10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pl-word" id="plWord">LUMIÈRE</div>
+  <div class="pl-bar"><span id="plBar"></span></div>
+  <div class="pl-tag mono" style="font-size:0.68rem;">Coffee · Food · Moments</div>
+</div>
+
+<!-- NAV -->
+<header id="siteHeader">
+  <a href="#top" class="logo">LUMIÈRE</a>
+  <nav class="nav-links">
+    <a href="#top">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#visit">Visit</a>
+    <a href="#visit" class="nav-cta magnetic">Book a Table</a>
+  </nav>
+  <button class="nav-burger" id="burgerBtn" aria-label="Open menu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div id="mobile-menu">
+  <a href="#top">Home</a>
+  <a href="#menu">Menu</a>
+  <a href="#about">About</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#visit">Visit</a>
+  <div class="mm-foot mono" style="font-size:0.7rem;">Brooklyn, NY — Mon–Sun 8:00 AM–11:00 PM</div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2000&auto=format&fit=crop" alt="Interior of LUMIÈRE café in Brooklyn, warm light through large windows" />
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow mono"><span id="heroEyebrowText">An All-Day Café — Brooklyn, NY</span></div>
+    <h1 class="hero-title" id="heroTitle">
+      <span class="chunk"><span>LUMIÈRE</span></span>
+    </h1>
+    <div class="hero-sub">
+      <p class="hero-line" id="heroLine"><span>An all-day café where good coffee, thoughtful food and beautiful spaces meet.</span></p>
+      <p class="hero-tagline">Coffee. Food. Moments.</p>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span class="mono" style="writing-mode:vertical-rl;">Scroll</span>
+    <div class="line"><span></span></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="container story-grid">
+    <div>
+      <div class="eyebrow mono">The Idea</div>
+      <h2 class="reveal-up">Made for slow<br>mornings. Designed<br>for long <em>conversations.</em></h2>
+      <p class="story-copy">LUMIÈRE was never meant to be a place you pass through. It's built around the pause — the second cup, the unhurried lunch, the conversation that runs long. Every detail, from the light to the ceramics, is chosen to slow the day down.</p>
+    </div>
+    <div class="story-media">
+      <div class="frame" data-parallax-img>
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1400&auto=format&fit=crop" alt="Barista pouring latte art at LUMIÈRE" />
+      </div>
+      <div class="story-num mono" style="font-size:0.7rem; color:rgba(42,29,20,0.5);">
+        <span>Brooklyn, Williamsburg</span>
+        <span>Est. 2019</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="menu-head">
+      <div>
+        <div class="eyebrow mono" style="color:var(--brass-soft);">The Menu</div>
+        <h2>What we're<br>pouring & plating.</h2>
+      </div>
+      <p>A short, considered list — coffee from a single roaster, food built around the season. Nothing that doesn't earn its place.</p>
+    </div>
+
+    <div class="menu-cats mono" id="menuCats">
+      <button class="menu-cat-btn active" data-cat="coffee">Coffee</button>
+      <button class="menu-cat-btn" data-cat="breakfast">Breakfast</button>
+      <button class="menu-cat-btn" data-cat="lunch">Lunch</button>
+      <button class="menu-cat-btn" data-cat="dessert">Dessert</button>
+    </div>
+
+    <div class="menu-list" id="menuList">
+      <div class="menu-cat-block active" data-cat="coffee">
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Espresso</span><span class="mi-desc">Single origin, pulled short.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$4</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Flat White</span><span class="mi-desc">Double ristretto, steamed milk.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$5</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba9?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Cappuccino</span><span class="mi-desc">Equal parts espresso, milk, foam.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$5</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Matcha Latte</span><span class="mi-desc">Ceremonial grade, oat milk.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$6</span>
+        </div>
+      </div>
+
+      <div class="menu-cat-block" data-cat="breakfast">
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Avocado Toast</span><span class="mi-desc">Sourdough, chili oil, lime.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$11</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Croissant & Butter</span><span class="mi-desc">Baked at dawn, cultured butter.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$8</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1519676867240-f03562e64548?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">French Toast</span><span class="mi-desc">Brioche, maple, brown butter.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$12</span>
+        </div>
+      </div>
+
+      <div class="menu-cat-block" data-cat="lunch">
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Burrata Salad</span><span class="mi-desc">Heirloom tomato, basil oil.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$14</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Truffle Pasta</span><span class="mi-desc">Tagliolini, black truffle, parmesan.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$17</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Grilled Chicken</span><span class="mi-desc">Charred lemon, herb jus.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$16</span>
+        </div>
+      </div>
+
+      <div class="menu-cat-block" data-cat="dessert">
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Tiramisu</span><span class="mi-desc">Espresso-soaked, mascarpone.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$9</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1524351199678-941a58a3df50?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Basque Cheesecake</span><span class="mi-desc">Burnt top, vanilla bean.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="menu-preview" id="menuPreview"><img id="menuPreviewImg" src="" alt=""></div>
+
+<!-- SIGNATURE -->
+<section class="signature" id="signature">
+  <div class="container">
+    <div class="sig-head">
+      <h2>Four things we'd<br>ask you to try first.</h2>
+      <p class="mono" style="max-width:260px; color:rgba(42,29,20,0.55); font-size:0.75rem;">Signature drinks & dishes, chosen by the kitchen and bar.</p>
+    </div>
+  </div>
+  <div class="sig-track-wrap" id="sigTrackWrap">
+    <div class="sig-track" id="sigTrack">
+      <div class="sig-card">
+        <div class="sig-frame"><img data-speed="0.15" src="https://images.unsplash.com/photo-1495856458515-0637185db551?q=80&w=1200&auto=format&fit=crop" alt="Signature flat white at LUMIÈRE"></div>
+        <div class="sig-info"><h3>The Williamsburg Flat White</h3><span>$6</span></div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-frame"><img data-speed="0.3" src="https://images.unsplash.com/photo-1461988091159-192b6df7054f?q=80&w=1200&auto=format&fit=crop" alt="Pastry counter at LUMIÈRE"></div>
+        <div class="sig-info"><h3>Morning Pastry Board</h3><span>$13</span></div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-frame"><img data-speed="0.2" src="https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=1200&auto=format&fit=crop" alt="Coffee flatlay at LUMIÈRE"></div>
+        <div class="sig-info"><h3>Iced Brass Latte</h3><span>$7</span></div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-frame"><img data-speed="0.1" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=1200&auto=format&fit=crop" alt="Truffle pasta at LUMIÈRE"></div>
+        <div class="sig-info"><h3>Truffle Tagliolini</h3><span>$17</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-media">
+    <img data-speed="0.15" src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1600&auto=format&fit=crop" alt="LUMIÈRE café interior architecture">
+  </div>
+  <div class="about-copy">
+    <div class="eyebrow mono" style="color:var(--brass-soft);">About Lumière</div>
+    <h2>LUMIÈRE was built around one idea: <em>the best cafés</em> aren't places you drink coffee — they're places that become part of your day.</h2>
+    <p>We opened our doors in Williamsburg in 2019 with a single espresso machine, a short menu, and a belief that good design and good coffee should live in the same room. Six years on, that hasn't changed.</p>
+    <div class="about-stats mono">
+      <div><span class="serif">2019</span><small>Founded</small></div>
+      <div><span class="serif">1</span><small>Roaster</small></div>
+      <div><span class="serif">08–23</span><small>Daily</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="container gallery-head">
+    <h2>A few<br>quiet moments.</h2>
+    <span class="gallery-hint mono">Drag to explore →</span>
+  </div>
+  <div class="gallery-track-wrap" id="galleryWrap">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="g-item g1" data-idx="0"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1200&auto=format&fit=crop" alt="Wide interior view of LUMIÈRE café"><span class="g-num mono">01</span></div>
+      <div class="g-item g2" data-idx="1"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=900&auto=format&fit=crop" alt="Guests at LUMIÈRE café"><span class="g-num mono">02</span></div>
+      <div class="g-item g3" data-idx="2"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200&auto=format&fit=crop" alt="Coffee beans close up"><span class="g-num mono">03</span></div>
+      <div class="g-item g4" data-idx="3"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=900&auto=format&fit=crop" alt="Coffee cup close up detail"><span class="g-num mono">04</span></div>
+      <div class="g-item g5" data-idx="4"><img src="https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=1100&auto=format&fit=crop" alt="Guest reading in the café"><span class="g-num mono">05</span></div>
+      <div class="g-item g6" data-idx="5"><img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1000&auto=format&fit=crop" alt="Fresh croissant detail"><span class="g-num mono">06</span></div>
+      <div class="g-item g7" data-idx="6"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" alt="Latte art close up at LUMIÈRE"><span class="g-num mono">07</span></div>
+      <div class="g-item g8" data-idx="7"><img src="https://images.unsplash.com/photo-1522992319-0365e5f11656?q=80&w=1200&auto=format&fit=crop" alt="Sunlit corner table at LUMIÈRE"><span class="g-num mono">08</span></div>
+    </div>
+  </div>
+</section>
+
+<div id="lightbox">
+  <button class="lb-close mono"><span>Close</span> ✕</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-count mono" id="lbCount">01 / 08</div>
+</div>
+
+<!-- ATMOSPHERE -->
+<section class="atmosphere">
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1200&auto=format&fit=crop" alt="Steam rising from coffee cup"></div>
+    <div class="atmo-copy"><div><span class="an">01 — Mornings</span><h3>Slow mornings.</h3><p>The first hour is ours before it's anyone else's. Light comes in low through the front windows, the espresso machine warms up, and the first pour-overs go out slow and unhurried — no rush, just the quiet ritual of getting the day started right.</p></div></div>
+  </div>
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1200&auto=format&fit=crop" alt="Freshly roasted coffee beans"></div>
+    <div class="atmo-copy"><div><span class="an">02 — The Roast</span><h3>Freshly roasted.</h3><p>We work with a single roaster we've trusted since day one, and every bag is roasted in small batches just days before it reaches the bar. Beans are weighed and dialed in each morning, so the cup in your hand always tastes like it was made for today.</p></div></div>
+  </div>
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=1200&auto=format&fit=crop" alt="Careful plating of food at LUMIÈRE"></div>
+    <div class="atmo-copy"><div><span class="an">03 — The Kitchen</span><h3>Made with intention.</h3><p>Our kitchen keeps the menu short on purpose — fewer dishes, more care in each one. Produce comes from nearby markets, plates change with the seasons, and nothing goes out that the team wouldn't order for themselves.</p></div></div>
+  </div>
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200&auto=format&fit=crop" alt="Guests relaxing at LUMIÈRE café"></div>
+    <div class="atmo-copy"><div><span class="an">04 — The Room</span><h3>Stay a little longer.</h3><p>There's no pressure to turn the table. Soft seating by the window, low music, and enough space between tables to actually hear each other — LUMIÈRE was designed for people who came to stay, not just to grab a cup and go.</p></div></div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location" id="visit">
+  <div class="container loc-grid">
+    <div>
+      <div class="eyebrow mono">Visit Us</div>
+      <h2>Find your table<br>in Williamsburg.</h2>
+      <div class="loc-detail"><span class="ld-label mono">Address</span><span class="ld-value">204 Bedford Ave,<br>Williamsburg, Brooklyn, NY</span></div>
+      <div class="loc-detail"><span class="ld-label mono">Hours</span><span class="ld-value">Mon–Fri — 8:00 AM–10:00 PM<br>Sat–Sun — 9:00 AM–11:00 PM</span></div>
+      <div class="loc-detail"><span class="ld-label mono">Phone</span><span class="ld-value">+1 (718) 555-0142</span></div>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="loc-cta magnetic">Get Directions →</a>
+    </div>
+    <div class="loc-map">
+      <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+        <rect width="600" height="600" fill="#2A1D14"/>
+        <g stroke="#8A6D3B" stroke-opacity="0.35" stroke-width="1.4" fill="none">
+          <path d="M0 120 H600" /><path d="M0 260 H600" /><path d="M0 400 H600" /><path d="M0 500 H600" />
+          <path d="M120 0 V600" /><path d="M280 0 V600" /><path d="M420 0 V600" /><path d="M520 0 V600" />
+        </g>
+        <path d="M0 300 Q150 220 300 300 T600 300" stroke="#C7B9A3" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+        <path d="M180 0 Q220 300 180 600" stroke="#C7B9A3" stroke-opacity="0.35" stroke-width="1.6" fill="none"/>
+        <circle cx="300" cy="300" r="70" fill="#8A6D3B" fill-opacity="0.12"/>
+      </svg>
+      <div class="loc-pin">
+        <svg width="34" height="46" viewBox="0 0 34 46" fill="none">
+          <path d="M17 0C7.6 0 0 7.6 0 17c0 12.75 17 29 17 29s17-16.25 17-29C34 7.6 26.4 0 17 0z" fill="#F2ECE1"/>
+          <circle cx="17" cy="17" r="6" fill="#2A1D14"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-cta container">
+    <h2 class="serif">See you at LUMIÈRE.</h2>
+  </div>
+  <div class="footer-grid">
+    <div>
+      <h4>Lumière</h4>
+      <p style="color:var(--beige); max-width:260px; font-size:0.92rem; line-height:1.6;">An all-day café in Williamsburg, Brooklyn. Coffee, food, and moments — since 2019.</p>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="mailto:hello@lumierecafe.com">hello@lumierecafe.com</a></li>
+        <li>+1 (718) 555-0142</li>
+        <li>204 Bedford Ave, Brooklyn</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Stay in the loop</h4>
+      <p style="color:var(--beige); font-size:0.88rem;">Slow-morning notes, once a month.</p>
+      <form class="footer-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thank you';">
+        <input type="email" placeholder="Your email" required />
+        <button class="mono" type="submit">Join →</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom mono">
+    <span>© 2026 LUMIÈRE CAFÉ</span>
+    <span>Design & Development — Portfolio Piece</span>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- Preloader ---------------- */
+window.addEventListener('load', () => {
+  const tl = gsap.timeline({
+    onComplete(){ document.getElementById('preloader').style.pointerEvents='none'; ScrollTrigger.refresh(); }
+  });
+  tl.to('#plBar', { width:'100%', duration: reduced?0.1:1.3, ease:'power2.inOut' })
+    .to('#preloader', { yPercent:-100, duration: reduced?0.1:0.9, ease:'power4.inOut' }, '-=0.15')
+    .add(runHeroIntro, '-=0.5');
+});
+
+function runHeroIntro(){
+  const tl = gsap.timeline();
+  tl.fromTo('#heroImg', {scale:1.28}, {scale:1.05, duration:1.8, ease:'power2.out'}, 0)
+    .fromTo('.hero-eyebrow span', {yPercent:120}, {yPercent:0, duration:0.9, ease:'power3.out'}, 0.1)
+    .fromTo('.hero-title .chunk span', {yPercent:120}, {yPercent:0, duration:1.1, ease:'power4.out'}, 0.2)
+    .fromTo('.hero-line span', {yPercent:120}, {yPercent:0, duration:0.9, ease:'power3.out'}, 0.5)
+    .fromTo('.hero-tagline', {opacity:0, y:14}, {opacity:1, y:0, duration:0.9, ease:'power3.out'}, 0.6)
+    .fromTo('.scroll-indicator', {opacity:0}, {opacity:1, duration:0.8}, 0.9)
+    .fromTo('header', {opacity:0, y:-14}, {opacity:1, y:0, duration:0.8}, 0.3);
+}
+
+/* ---------------- Nav scroll state ---------------- */
+const header = document.getElementById('siteHeader');
+ScrollTrigger.create({
+  start: 60, end: 99999,
+  onUpdate(self){ header.classList.toggle('scrolled', self.scroll() > 60); }
+});
+
+/* ---------------- Mobile menu ---------------- */
+const burger = document.getElementById('burgerBtn');
+const mobileMenu = document.getElementById('mobile-menu');
+burger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  burger.querySelectorAll('span')[0].style.transform = open ? 'translateY(3.5px) rotate(45deg)' : '';
+  burger.querySelectorAll('span')[1].style.transform = open ? 'translateY(-3.5px) rotate(-45deg)' : '';
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  burger.querySelectorAll('span').forEach(s => s.style.transform = '');
+}));
+
+/* ---------------- Generic scroll reveals ---------------- */
+gsap.utils.toArray('.story-copy, .story-num, .eyebrow, .about-stats, .loc-detail, .loc-cta, .atmo-copy p').forEach(el => {
+  gsap.fromTo(el, {opacity:0, y:26}, {
+    opacity:1, y:0, duration:0.9, ease:'power3.out',
+    scrollTrigger:{ trigger:el, start:'top 88%' }
+  });
+});
+
+gsap.utils.toArray('h2, .about-copy h2, .atmo-copy h3').forEach(h => {
+  gsap.fromTo(h, {opacity:0, y:50}, {
+    opacity:1, y:0, duration:1.1, ease:'power4.out',
+    scrollTrigger:{ trigger:h, start:'top 90%' }
+  });
+});
+
+/* Image mask reveals */
+gsap.utils.toArray('.frame img, .about-media img, .atmo-media img').forEach(img => {
+  const wrap = img.parentElement;
+  gsap.set(wrap, { overflow:'hidden' });
+  gsap.fromTo(img, {scale:1.3, opacity:0.4}, {
+    scale:1, opacity:1, duration:1.4, ease:'power3.out',
+    scrollTrigger:{ trigger:wrap, start:'top 85%' }
+  });
+});
+
+/* Parallax images (data-speed) */
+gsap.utils.toArray('[data-speed]').forEach(img => {
+  const speed = parseFloat(img.dataset.speed);
+  gsap.to(img, {
+    yPercent: speed*-30, ease:'none',
+    scrollTrigger:{ trigger: img.closest('div'), start:'top bottom', end:'bottom top', scrub:true }
+  });
+});
+
+/* Menu items stagger-in per block */
+document.querySelectorAll('.menu-cat-block').forEach(block => {
+  gsap.fromTo(block.querySelectorAll('.menu-item'), {opacity:0, y:24}, {
+    opacity:1, y:0, duration:0.7, stagger:0.06, ease:'power3.out',
+    scrollTrigger:{ trigger:block, start:'top 85%' }
+  });
+});
+
+/* Signature cards parallax + reveal */
+gsap.utils.toArray('.sig-card').forEach((card, i) => {
+  gsap.fromTo(card, {opacity:0, y:60}, {
+    opacity:1, y:0, duration:1, ease:'power3.out', delay:i*0.05,
+    scrollTrigger:{ trigger:card, start:'top 92%' }
+  });
+});
+
+/* Gallery items reveal (simple fade-in on section enter, since track scrolls horizontally) */
+gsap.fromTo('.g-item', {opacity:0, y:40}, {
+  opacity:1, y:0, duration:0.9, stagger:0.08, ease:'power3.out',
+  scrollTrigger:{ trigger:'.gallery-track-wrap', start:'top 85%' }
+});
+
+/* ---------------- Menu category tabs ---------------- */
+document.querySelectorAll('.menu-cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.menu-cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.menu-cat-block').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+    ScrollTrigger.refresh();
+  });
+});
+
+/* ---------------- Menu hover preview ---------------- */
+const preview = document.getElementById('menuPreview');
+const previewImg = document.getElementById('menuPreviewImg');
+if (window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      previewImg.src = item.dataset.img;
+      preview.classList.add('show');
+    });
+    item.addEventListener('mousemove', e => {
+      gsap.to(preview, { x:e.clientX + 30, y:e.clientY - 220, duration:0.4, ease:'power3.out' });
+    });
+    item.addEventListener('mouseleave', () => preview.classList.remove('show'));
+  });
+}
+
+/* ---------------- Horizontal drag-scroll helper (gallery + signature) ---------------- */
+function makeDragScrollable(wrap){
+  let isDown = false, startX, scrollLeft;
+  wrap.addEventListener('mousedown', e => {
+    isDown = true; wrap.classList.add('grabbing');
+    startX = e.pageX - wrap.offsetLeft; scrollLeft = wrap.scrollLeft;
+  });
+  window.addEventListener('mouseup', () => { isDown = false; wrap.classList.remove('grabbing'); });
+  wrap.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - wrap.offsetLeft;
+    wrap.scrollLeft = scrollLeft - (x - startX) * 1.4;
+  });
+  /* Only hijack the wheel for horizontal movement while there is still room to
+     scroll within the track; once it hits either end, hand control back to the
+     page so vertical scrolling never fights with browsing the images. */
+  wrap.addEventListener('wheel', e => {
+    const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    const atStart = wrap.scrollLeft <= 0;
+    const atEnd = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 1;
+    const scrollingForward = delta > 0;
+    if ((scrollingForward && atEnd) || (!scrollingForward && atStart)) return; // let the page scroll
+    e.preventDefault();
+    wrap.scrollLeft += delta;
+  }, { passive:false });
+}
+
+/* ---------------- Gallery drag scroll + lightbox ---------------- */
+const wrap = document.getElementById('galleryWrap');
+makeDragScrollable(wrap);
+makeDragScrollable(document.getElementById('sigTrackWrap'));
+
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCount = document.getElementById('lbCount');
+const galleryImgs = Array.from(document.querySelectorAll('.g-item img'));
+document.querySelectorAll('.g-item').forEach((item, i) => {
+  item.addEventListener('click', () => {
+    lbImg.src = galleryImgs[i].src;
+    lbCount.textContent = String(i+1).padStart(2,'0') + ' / ' + String(galleryImgs.length).padStart(2,'0');
+    lightbox.classList.add('open');
+  });
+});
+lightbox.addEventListener('click', e => { if (e.target === lightbox || e.target.closest('.lb-close')) lightbox.classList.remove('open'); });
+window.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+/* ---------------- Hero subtle parallax on load without scroll ---------------- */
+gsap.to('#heroImg', {
+  yPercent: 12, ease:'none',
+  scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
+});
+</script>
+
+</body>
+</html>
