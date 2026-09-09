@@ -572,24 +572,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .case-meta .case-name { font-size: 1.02rem; font-weight: 500; color: #fff; }
 .case-meta .case-tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-dim); text-align: right; white-space: nowrap; }
 .case-link { margin-top: 10px; }
-
-/* ---- Portfolio: founding-clients panel (replaces placeholder case studies) ---- */
-.founding-panel {
-    position: relative; max-width: 720px; margin: 0 auto; text-align: center;
-    padding: clamp(48px, 7vw, 64px) clamp(20px, 4vw, 40px) clamp(8px, 2vw, 16px);
-    border: 1px solid var(--border-soft); border-radius: 20px;
-    background: radial-gradient(circle at 50% 0%, rgba(194,165,120,0.06), transparent 60%), #0a0a0c;
-    overflow: hidden;
-}
-.founding-visual { position: relative; width: 220px; height: 220px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; }
-.founding-visual .orbit-ring { left: 50%; top: 50%; transform: translate(-50%, -50%); }
-.founding-glow {
-    position: absolute; inset: 0; margin: auto; width: 120px; height: 120px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(194,165,120,0.18), transparent 70%); filter: blur(4px);
-}
-.founding-feather { position: relative; width: 46px; opacity: 0.9; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
-.section-title.center { text-align: center; }
-.section-desc.center { text-align: center; }
 .portfolio-btn-link {
     background: none; border: none; padding: 4px 0; color: var(--text-muted);
     font-family: var(--font-main); font-size: 0.88rem; font-weight: 500; cursor: pointer;
@@ -712,7 +694,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* ==========================================================================
    NEW — extra motion layer
-   Scroll progress, scroll-reveal, spotlight cards, magnetic buttons,
+   Scroll progress, scroll-reveal, spotlight cards,
    cursor glow, hero tilt, hero shine text, button ripple, icon pop.
    All additive: nothing above this line is modified.
    ========================================================================== */
@@ -743,7 +725,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .spotlight-card:hover::after { opacity: 1; }
 
 /* ---- Magnetic buttons ---- */
-.magnetic { transition: transform 0.28s var(--ease-premium); }
+/* (button magnetic-follow effect removed — buttons no longer track the cursor) */
 
 /* ---- Button click ripple ---- */
 .btn { position: relative; overflow: hidden; }
@@ -794,6 +776,68 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     .reveal { transition: none; opacity: 1; transform: none; }
     .hero-title.shine-text { animation: none; background-position: 0 0; }
     .scroll-progress { display: none; }
-    .magnetic, #heroStage { transition: none; }
+    #heroStage { transition: none; }
     .btn-ripple { display: none; }
 }
+
+/* ==========================================================================
+   Portfolio — real project preview mockups (Fieldwork / Steady Hand / AI Lead Agent)
+   Small in-CSS recreations of each project's own look, standing in for a
+   screenshot, plus a short description line under each case.
+   ========================================================================== */
+.case-desc { color: var(--text-dim); font-size: 0.86rem; line-height: 1.65; margin: 14px 0 0 0; }
+.portfolio-btn-link { text-decoration: none; }
+
+.proj-preview { width: 100%; height: 100%; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.proj-chrome { display: flex; align-items: center; gap: 6px; padding: 12px 16px 0; }
+.proj-chrome i { width: 6px; height: 6px; border-radius: 50%; display: block; }
+.proj-body { flex: 1; padding: 14px 20px 22px; display: flex; flex-direction: column; justify-content: center; }
+.proj-preview .p-word { font-family: Georgia, 'Times New Roman', serif; line-height: 1.15; }
+.proj-preview .p-tag { display: block; margin-top: 8px; }
+
+/* Fieldwork — warm stone, landscape architecture */
+.proj-preview.fieldwork { background: #ECE6D9; }
+.proj-preview.fieldwork .proj-chrome i { background: rgba(21,23,15,0.16); }
+.proj-preview.fieldwork .p-word { font-size: 25px; color: #15170F; }
+.proj-preview.fieldwork .p-tag { font-family: var(--font-main); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8E6F45; }
+.proj-preview.fieldwork .p-rule { display: block; width: 38px; height: 2px; background: #454B36; margin-top: 18px; }
+
+/* The Steady Hand — dark, copper barbershop */
+.proj-preview.steady { background: #15120f; }
+.proj-preview.steady .proj-chrome i { background: rgba(237,227,208,0.16); }
+.proj-preview.steady .p-stripe { position: absolute; top: 0; right: 0; width: 24px; height: 100%;
+    background: repeating-linear-gradient(-45deg, #a6511f 0 9px, #f4eedd 9px 18px, #2f4a50 18px 27px); opacity: 0.92; }
+.proj-preview.steady .p-word { font-size: 22px; font-style: italic; color: #f4eedd; }
+.proj-preview.steady .p-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #d4813f; }
+
+/* AI Lead Agent — dark, gold SaaS dashboard */
+.proj-preview.ai { background: #0B0A09; }
+.proj-preview.ai .proj-chrome i { background: rgba(243,238,226,0.14); }
+.proj-preview.ai .p-word { font-size: 21px; color: #F3EEE2; }
+.proj-preview.ai .p-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #C6A15B; }
+.proj-preview.ai .p-cells { display: flex; gap: 6px; margin-top: 18px; }
+.proj-preview.ai .p-cells i { flex: 1; height: 28px; border-radius: 4px; background: rgba(243,238,226,0.05); border: 1px solid rgba(243,238,226,0.09); }
+.proj-preview.ai .p-cells i:nth-child(2) { border-color: rgba(198,161,91,0.4); }
+
+/* APEX Auto Detailing — near-black, red accent, bold automotive display */
+.proj-preview.apex { background: #0A0C10; }
+.proj-preview.apex .proj-chrome i { background: rgba(240,242,246,0.14); }
+.proj-preview.apex .p-word { font-family: Arial, sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; font-size: 21px; color: #F0F2F6; }
+.proj-preview.apex .p-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #D62839; }
+.proj-preview.apex .p-streak { position: absolute; top: 0; right: -10%; width: 46%; height: 100%;
+    background: linear-gradient(100deg, transparent 40%, rgba(214,40,57,0.16) 48%, transparent 56%); }
+
+/* Aurelia Dental Studio — ivory & champagne, refined serif */
+.proj-preview.aurelia { background: #F6F2EA; }
+.proj-preview.aurelia .proj-chrome i { background: rgba(42,38,33,0.14); }
+.proj-preview.aurelia .p-word { font-family: Georgia, 'Times New Roman', serif; font-size: 24px; color: #2A2621; }
+.proj-preview.aurelia .p-tag { font-family: var(--font-main); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B8071; }
+.proj-preview.aurelia .p-rule { display: block; width: 32px; height: 2px; background: #C6A472; margin-top: 18px; }
+
+/* Lumière Café — ivory & brass, warm serif with mono accent */
+.proj-preview.lumiere { background: #F2ECE1; }
+.proj-preview.lumiere .proj-chrome i { background: rgba(23,20,15,0.14); }
+.proj-preview.lumiere .p-word { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 23px; color: #2A1D14; }
+.proj-preview.lumiere .p-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6D3B; }
+.proj-preview.lumiere .p-rule { display: block; width: 32px; height: 2px; background: #8A6D3B; margin-top: 18px; }
+

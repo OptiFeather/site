@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ---------- Spotlight glow that tracks the cursor on cards ---------- */
     if (fineHover) {
         const spotlightEls = document.querySelectorAll(
-            '.service-card, .case, .value-card, .pillar, .why-item, .pricing-card'
+            '.service-card, .value-card, .pillar, .why-item, .pricing-card'
         );
         spotlightEls.forEach((card) => {
             card.classList.add('spotlight-card');
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ---------- Magnetic buttons: disabled site-wide (no cursor-follow) ---------- */
+    /* Magnetic (cursor-following) buttons removed site-wide by request. */
 
     /* ---------- Button click ripple ---------- */
     if (!reduceMotion) {
