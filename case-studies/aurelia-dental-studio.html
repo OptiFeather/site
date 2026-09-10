@@ -157,20 +157,17 @@ header.scrolled .nav-wrap{padding:16px 0;}
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:70px;}
   .hero{padding-top:130px;}
-  /* The image was relying on aspect-ratio on the outer wrapper while both
-     children were absolutely positioned — on some mobile renders that
-     collapsed the wrapper's height to ~0, leaving the caption card
-     floating with nothing behind it. Rebuilt for mobile as plain,
-     self-sizing block flow: the photo gets its own aspect-ratio directly
-     (so it always has a real, predictable height), and the caption card
-     follows it in normal flow instead of being absolutely pinned to a
-     wrapper whose height can't be trusted. */
-  .hero-visual{order:-1;width:100%;max-width:420px;margin:0 auto;position:static;aspect-ratio:auto;}
+  /* The image needs a real, predictable height before the caption card can
+     be safely overlapped on top of it: the photo now sizes itself directly
+     (own aspect-ratio, normal flow) instead of depending on the wrapper's
+     aspect-ratio to size around absolutely-positioned children. Once the
+     wrapper has that real height, the card can go back to being a small,
+     inset overlay — like the desktop design — instead of a full-width bar. */
+  .hero-visual{order:-1;width:100%;max-width:420px;margin:0 auto;position:relative;aspect-ratio:auto;}
   .hero-visual .duo{position:static;width:100%;aspect-ratio:4/5;}
   .hero-visual .float-card{
-    position:static;left:auto;right:auto;bottom:auto;
-    width:calc(100% - 32px);max-width:none;
-    margin:-28px auto 0 auto;
+    position:absolute;left:16px;right:auto;bottom:16px;top:auto;
+    max-width:200px;margin:0;
   }
 }
 
