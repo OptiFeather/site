@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fieldwork — Landscape Architecture Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root{
+    --stone:#ECE6D9;
+    --stone-2:#E1D8C6;
+    --paper:#F6F2E9;
+    --ink:#15170F;
+    --ink-soft:#2B2C22;
+    --moss:#454B36;
+    --clay:#8E6F45;
+    --sand:#C6B99B;
+    --line: rgba(21,23,15,.15);
+    --line-dark: rgba(236,230,217,.18);
+    --serif:'Fraunces', serif;
+    --sans:'Inter', sans-serif;
+    --ease: cubic-bezier(.16,.84,.24,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--stone);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:400;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--ink); color:var(--stone); }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; background:none; border:none; color:inherit; }
+  .eyebrow{
+    font-family:var(--sans); font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--clay); font-weight:600;
+  }
+  .serif{ font-family:var(--serif); }
+  .container{ max-width:1400px; margin:0 auto; padding:0 6vw; }
+  @media(max-width:768px){ .container{ padding:0 24px; } }
+
+  /* grain overlay */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:9998; opacity:.045; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; width:100%; z-index:1000;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 6vw; transition:padding .5s var(--ease), background .5s var(--ease), border-color .5s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{ padding:18px 6vw; background:rgba(246,242,233,.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+  .logo{ font-family:var(--serif); font-size:20px; letter-spacing:.02em; color:var(--stone); font-weight:500; }
+  nav.scrolled .logo, nav.dark-text .logo{ color:var(--ink); }
+  .nav-links{ display:flex; gap:40px; list-style:none; }
+  .nav-links a{ color:var(--stone); font-size:13px; letter-spacing:.06em; text-transform:uppercase; position:relative; padding-bottom:4px; }
+  nav.scrolled .nav-links a, nav.dark-text .nav-links a{ color:var(--ink); }
+  .nav-links a::after{ content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:currentColor; transition:width .4s var(--ease); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:8px; color:var(--stone); font-size:13px; letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--line-dark); padding:11px 20px; border-radius:100px; }
+  nav.scrolled .nav-cta, nav.dark-text .nav-cta{ color:var(--ink); border-color:var(--line); }
+  .nav-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:30px; height:30px; background:none; border:none; cursor:pointer; padding:0; z-index:1100;
+  }
+  .nav-toggle span{ display:block; height:1px; width:100%; background:var(--stone); transition:transform .3s var(--ease), opacity .3s var(--ease), background .3s var(--ease); }
+  nav.scrolled .nav-toggle span, nav.dark-text .nav-toggle span{ background:var(--ink); }
+  .nav-toggle.is-open span{ background:var(--stone) !important; }
+  .nav-toggle.is-open span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+  .nav-toggle.is-open span:nth-child(2){ opacity:0; }
+  .nav-toggle.is-open span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
+  #mobile-menu{
+    position:fixed; inset:0; z-index:1050; background:var(--ink);
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:26px;
+    padding:8vh 8vw;
+    opacity:0; visibility:hidden; transform:translateY(-14px);
+    transition:opacity .4s var(--ease), transform .4s var(--ease), visibility .4s;
+  }
+  #mobile-menu.is-open{ opacity:1; visibility:visible; transform:translateY(0); }
+  #mobile-menu a{ font-family:var(--serif); font-size:clamp(30px,10vw,46px); color:var(--stone); }
+  #mobile-menu a:hover{ color:var(--clay); }
+  #mobile-menu .mm-cta{ margin-top:8px; font-family:var(--sans); font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--sand); border:1px solid var(--line-dark); padding:12px 22px; border-radius:100px; }
+  @media(max-width:900px){
+    .nav-links{ display:none; }
+    .nav-cta{ display:none; }
+    .nav-toggle{ display:flex; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ position:relative; height:100vh; min-height:640px; overflow:hidden; background:var(--ink); }
+  .hero-media{ position:absolute; inset:0; }
+  .hero-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.18); filter:saturate(.9) brightness(.62); }
+  .hero-media::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(21,23,15,.25) 0%, rgba(21,23,15,.15) 40%, rgba(21,23,15,.75) 100%); }
+  .hero-contour{ position:absolute; inset:0; opacity:.5; mix-blend-mode:screen; pointer-events:none; }
+  .hero-contour path{ fill:none; stroke:rgba(236,230,217,.5); stroke-width:1; }
+  .hero-inner{ position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:0 6vw 72px; color:var(--stone); }
+  .hero-eyebrow{ display:flex; align-items:center; gap:14px; margin-bottom:26px; overflow:hidden; }
+  .hero-eyebrow span{ font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--sand); }
+  .hero-eyebrow .dot{ width:5px; height:5px; border-radius:50%; background:var(--clay); }
+  .hero-title{ font-family:var(--serif); font-weight:400; font-size:clamp(46px, 8.4vw, 128px); line-height:1.08; letter-spacing:-.01em; }
+  .hero-title .line{ overflow:hidden; padding-bottom:0.14em; margin-bottom:-0.14em; }
+  .hero-title .line span{ display:inline-block; }
+  .hero-title em{ font-style:italic; font-weight:400; color:var(--sand); }
+  .hero-foot{ margin-top:44px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .hero-desc{ max-width:340px; font-size:15px; line-height:1.65; color:var(--sand); font-weight:300; }
+  .scroll-cue{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .scroll-cue .stick{ width:1px; height:46px; background:var(--line-dark); position:relative; overflow:hidden; }
+  .scroll-cue .stick i{ position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--stone); animation:scrollcue 2.2s var(--ease) infinite; }
+  .scroll-cue span{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--sand); writing-mode:vertical-rl; }
+  @keyframes scrollcue{ 0%{ top:-100%; } 50%{ top:0; } 100%{ top:100%; } }
+  @media(max-width:768px){ .hero-foot{ flex-direction:column; align-items:flex-start; gap:36px; } .scroll-cue{ flex-direction:row; } .scroll-cue .stick{ width:46px; height:1px; } .scroll-cue span{ writing-mode:horizontal-tb; } }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{ position:relative; }
+  .pad{ padding:150px 0; }
+  @media(max-width:768px){ .pad{ padding:96px 0; } }
+  .section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom:80px; flex-wrap:wrap; }
+  .section-head h2{ font-family:var(--serif); font-weight:400; font-size:clamp(34px, 4.6vw, 60px); line-height:1.05; max-width:640px; }
+  .section-head .note{ max-width:280px; font-size:14px; line-height:1.6; color:var(--ink-soft); font-weight:300; padding-bottom:6px; }
+  .reveal{ opacity:0; transform:translateY(42px); }
+
+  /* ---------- INTRO STATEMENT ---------- */
+  .statement{ padding:170px 0 130px; }
+  .statement p{ font-family:var(--serif); font-weight:400; font-size:clamp(26px, 3.6vw, 46px); line-height:1.35; max-width:1080px; color:var(--ink); }
+  .statement p .dim{ color:rgba(21,23,15,.32); }
+
+  /* ---------- WORK / PROJECTS ---------- */
+  .work-grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:28px; }
+  .proj{ position:relative; overflow:hidden; border-radius:2px; }
+  .proj-1{ grid-column:1 / 8; }
+  .proj-2{ grid-column:8 / 13; margin-top:120px; }
+  .proj-3{ grid-column:1 / 6; margin-top:-40px; }
+  .proj-4{ grid-column:6 / 13; }
+  .proj-5{ grid-column:1 / 8; margin-top:60px; }
+  .proj-6{ grid-column:8 / 13; margin-top:180px; }
+  @media(max-width:900px){
+    .work-grid{ grid-template-columns:1fr; gap:56px; }
+    .proj-1,.proj-2,.proj-3,.proj-4,.proj-5,.proj-6{ grid-column:1/-1; margin-top:0; }
+  }
+  .proj a{ display:block; }
+  .proj-frame{ position:relative; overflow:hidden; aspect-ratio:4/5; background:var(--ink-soft); }
+  .proj-2 .proj-frame, .proj-4 .proj-frame{ aspect-ratio:5/4; }
+  .proj-frame img{ width:100%; height:100%; object-fit:cover; transform:scale(1.08); transition:transform 1s var(--ease); filter:saturate(.92); }
+  .proj:hover .proj-frame img{ transform:scale(1.16); }
+  .proj-frame::after{ content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(21,23,15,.55), rgba(21,23,15,0) 46%); opacity:0; transition:opacity .5s var(--ease); }
+  .proj:hover .proj-frame::after{ opacity:1; }
+  .proj-meta{ display:flex; align-items:flex-end; justify-content:space-between; margin-top:18px; gap:16px; }
+  .proj-meta .num{ font-size:12px; color:var(--clay); letter-spacing:.08em; }
+  .proj-title{ font-family:var(--serif); font-size:22px; margin-top:4px; transition:transform .5s var(--ease); }
+  .proj-sub{ font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); opacity:.65; margin-top:6px; }
+  .proj:hover .proj-title{ transform:translateX(6px); }
+  .proj-arrow{ width:38px; height:38px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .5s var(--ease), background .5s, border-color .5s; }
+  .proj:hover .proj-arrow{ transform:rotate(45deg); background:var(--ink); border-color:var(--ink); }
+  .proj:hover .proj-arrow svg{ stroke:var(--stone); }
+  .proj-arrow svg{ width:14px; height:14px; stroke:var(--ink); transition:stroke .5s; }
+
+  /* ---------- PHILOSOPHY ---------- */
+  .philo{ background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .philo-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:80px; align-items:start; }
+  @media(max-width:900px){ .philo-grid{ grid-template-columns:1fr; gap:52px; } }
+  .philo-quote{ font-family:var(--serif); font-style:italic; font-weight:400; font-size:clamp(28px, 3.4vw, 44px); line-height:1.32; }
+  .philo-side p{ font-size:15px; line-height:1.75; color:var(--ink-soft); font-weight:300; margin-bottom:36px; max-width:420px; }
+  .principle{ display:flex; gap:20px; padding:24px 0; border-top:1px solid var(--line); }
+  .principle:last-child{ border-bottom:1px solid var(--line); }
+  .principle .mark{ font-family:var(--serif); font-style:italic; color:var(--clay); font-size:18px; flex-shrink:0; width:26px; }
+  .principle h4{ font-family:var(--sans); font-weight:600; font-size:14px; letter-spacing:.02em; margin-bottom:6px; }
+  .principle p{ font-size:13.5px; color:var(--ink-soft); line-height:1.6; font-weight:300; margin:0; max-width:none; }
+
+  /* ---------- SERVICES ---------- */
+  .services-wrap{ position:relative; }
+  .services-bg{ position:absolute; top:0; right:0; width:44%; height:100%; overflow:hidden; z-index:0; border-radius:2px; }
+  .services-bg img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .9s var(--ease), transform 1.4s var(--ease); transform:scale(1.06); image-rendering:auto; backface-visibility:hidden; }
+  .services-bg img.active{ opacity:1; transform:scale(1); }
+  .services-bg::after{ content:''; position:absolute; inset:0; background:linear-gradient(90deg, rgba(21,23,15,.08), rgba(21,23,15,0) 30%); }
+  @media(max-width:900px){ .services-bg{ display:none; } }
+  .service-row{ position:relative; z-index:1; border-top:1px solid var(--line); padding:38px 0; display:flex; align-items:center; gap:36px; cursor:pointer; max-width:56%; transition:padding .4s var(--ease); }
+  .service-row:last-child{ border-bottom:1px solid var(--line); }
+  @media(max-width:900px){ .service-row{ max-width:100%; } }
+  .service-row .num{ font-size:13px; color:var(--clay); flex-shrink:0; width:30px; }
+  .service-row h3{ font-family:var(--serif); font-weight:400; font-size:clamp(24px,3vw,36px); transition:transform .5s var(--ease), color .4s; flex:1; }
+  .service-row .desc{ max-width:0; overflow:hidden; opacity:0; transition:max-width .5s var(--ease), opacity .4s; font-size:13.5px; color:var(--ink-soft); font-weight:300; line-height:1.6; }
+  .service-row:hover{ padding-left:14px; }
+  .service-row:hover h3{ color:var(--clay); transform:translateX(4px); }
+  .service-row .arrow{ width:34px; height:34px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .5s var(--ease); }
+  .service-row:hover .arrow{ transform:rotate(45deg); }
+  .service-row .arrow svg{ width:13px; height:13px; stroke:var(--ink); }
+
+  /* ---------- FEATURED PROJECT ---------- */
+  .featured{ background:var(--ink); color:var(--stone); }
+  .featured-hero{ position:relative; height:78vh; min-height:520px; overflow:hidden; }
+  .featured-hero img{ width:100%; height:100%; object-fit:cover; filter:saturate(.85) brightness(.5); }
+  .featured-hero::after{ content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(10,11,7,.92) 0%, rgba(10,11,7,.55) 32%, rgba(10,11,7,.15) 60%, rgba(10,11,7,.35) 100%); }
+  .featured-overlay{ position:absolute; z-index:1; left:0; bottom:0; width:100%; padding:0 6vw 56px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
+  .featured-overlay .eyebrow{ color:var(--sand); text-shadow:0 2px 14px rgba(0,0,0,.65); }
+  .featured-overlay h2{ font-family:var(--serif); font-weight:400; font-size:clamp(38px,6vw,86px); margin-top:16px; text-shadow:0 4px 24px rgba(0,0,0,.55); }
+  .featured-meta{ display:flex; gap:44px; flex-wrap:wrap; }
+  .featured-meta div span{ display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--sand); margin-bottom:6px; text-shadow:0 2px 10px rgba(0,0,0,.6); }
+  .featured-meta div strong{ font-family:var(--serif); font-weight:400; font-size:19px; text-shadow:0 2px 12px rgba(0,0,0,.6); }
+  .strip{ display:flex; gap:20px; overflow-x:auto; padding:56px 6vw; scroll-snap-type:x proximity; scrollbar-width:none; }
+  .strip::-webkit-scrollbar{ display:none; }
+  .strip figure{ flex:0 0 auto; width:min(62vw, 460px); scroll-snap-align:start; }
+  .strip img{ width:100%; height:320px; object-fit:cover; border-radius:2px; filter:saturate(.92); }
+  .strip figcaption{ margin-top:14px; font-size:12px; letter-spacing:.04em; color:var(--sand); text-transform:uppercase; }
+
+  /* ---------- PROCESS ---------- */
+  .process-line-wrap{ position:relative; margin-top:80px; }
+  .process-line{ position:absolute; top:19px; left:0; width:100%; height:2px; }
+  .process-line svg{ width:100%; height:40px; overflow:visible; }
+  .process-line path{ fill:none; stroke:var(--line); stroke-width:1.4; }
+  .process-line path.draw{ stroke:var(--clay); stroke-dasharray:2000; stroke-dashoffset:2000; }
+  .process-steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:28px; position:relative; }
+  @media(max-width:900px){ .process-steps{ grid-template-columns:1fr 1fr; row-gap:56px; } .process-line{ display:none; } }
+  @media(max-width:560px){ .process-steps{ grid-template-columns:1fr; } }
+  .step .dot{ width:9px; height:9px; border-radius:50%; background:var(--ink); border:3px solid var(--stone); box-shadow:0 0 0 1px var(--line); margin-bottom:26px; }
+  .step .num{ font-size:12px; color:var(--clay); margin-bottom:14px; display:block; }
+  .step h4{ font-family:var(--serif); font-weight:400; font-size:22px; margin-bottom:10px; }
+  .step p{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); font-weight:300; max-width:240px; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:80px; align-items:center; }
+  @media(max-width:900px){ .about-grid{ grid-template-columns:1fr; gap:48px; } }
+  .about-media{ position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:2px; }
+  .about-media img{ width:100%; height:100%; object-fit:cover; }
+  .about-copy .eyebrow{ margin-bottom:22px; display:block; }
+  .about-copy h2{ font-family:var(--serif); font-weight:400; font-size:clamp(30px,3.6vw,46px); line-height:1.18; margin-bottom:26px; }
+  .about-copy p{ font-size:15px; line-height:1.75; color:var(--ink-soft); font-weight:300; max-width:480px; margin-bottom:18px; }
+  .stat-row{ display:flex; gap:52px; margin-top:44px; padding-top:36px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .stat-row div strong{ display:block; font-family:var(--serif); font-size:32px; font-weight:400; }
+  .stat-row div span{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi{ background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); text-align:center; }
+  .testi-track{ max-width:840px; margin:0 auto; position:relative; min-height:220px; }
+  .testi-item{ position:absolute; inset:0; opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); pointer-events:none; }
+  .testi-item.active{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .testi-item p{ font-family:var(--serif); font-style:italic; font-size:clamp(22px,2.8vw,32px); line-height:1.5; }
+  .testi-item .who{ margin-top:28px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--clay); }
+  .testi-nav{ display:flex; justify-content:center; gap:12px; margin-top:56px; }
+  .testi-dot{ width:7px; height:7px; border-radius:50%; background:var(--line); transition:background .4s, transform .4s; }
+  .testi-dot.active{ background:var(--ink); transform:scale(1.3); }
+
+  /* ---------- CTA / CONTACT ---------- */
+  .cta{ background:var(--ink); color:var(--stone); position:relative; overflow:hidden; }
+  .cta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:90px; }
+  @media(max-width:900px){ .cta-grid{ grid-template-columns:1fr; gap:56px; } }
+  .cta-left h2{ font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,64px); line-height:1.08; margin-bottom:28px; }
+  .cta-left p{ font-size:15px; line-height:1.7; color:var(--sand); font-weight:300; max-width:400px; margin-bottom:44px; }
+  .contact-info{ display:flex; flex-direction:column; gap:18px; }
+  .contact-info a{ font-size:14px; padding-bottom:4px; border-bottom:1px solid var(--line-dark); display:inline-block; width:fit-content; }
+  .field{ margin-bottom:26px; }
+  .field label{ display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--sand); margin-bottom:10px; }
+  .field input, .field select, .field textarea{
+    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line-dark);
+    color:var(--stone); font-family:var(--sans); font-size:15px; padding:8px 2px; font-weight:300;
+  }
+  .field select option{ background:var(--ink); color:var(--stone); }
+  .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--clay); }
+  .field textarea{ resize:none; height:70px; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  @media(max-width:520px){ .row2{ grid-template-columns:1fr; } }
+  .submit-btn{
+    margin-top:12px; display:inline-flex; align-items:center; gap:12px; border:1px solid var(--sand);
+    padding:16px 30px; border-radius:100px; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--stone);
+    transition:background .4s var(--ease), color .4s var(--ease);
+  }
+  .submit-btn:hover{ background:var(--stone); color:var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); color:var(--sand); border-top:1px solid var(--line-dark); }
+  .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; padding:70px 0 60px; gap:40px; flex-wrap:wrap; }
+  .foot-logo{ font-family:var(--serif); font-size:28px; color:var(--stone); }
+  .foot-links{ display:flex; gap:70px; flex-wrap:wrap; }
+  .foot-col h5{ font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--clay); margin-bottom:18px; }
+  .foot-col a, .foot-col span{ display:block; font-size:14px; margin-bottom:10px; color:var(--sand); }
+  .foot-col a:hover{ color:var(--stone); }
+  .foot-bottom{ display:flex; justify-content:space-between; padding:26px 0; border-top:1px solid var(--line-dark); font-size:12px; flex-wrap:wrap; gap:12px; }
+
+  /* magnetic btn helper */
+  .magnetic{ display:inline-flex; }
+
+  /* generic dividers */
+  .rule{ height:1px; background:var(--line); width:100%; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">Fieldwork</div>
+  <ul class="nav-links">
+    <li><a href="#work" data-magnetic>Work</a></li>
+    <li><a href="#services" data-magnetic>Services</a></li>
+    <li><a href="#process" data-magnetic>Approach</a></li>
+    <li><a href="#studio" data-magnetic>Studio</a></li>
+    <li><a href="#contact" data-magnetic>Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta magnetic" data-magnetic>Start a Project →</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <a href="#work">Work</a>
+  <a href="#services">Services</a>
+  <a href="#process">Approach</a>
+  <a href="#studio">Studio</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="mm-cta">Start a Project →</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-media">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" alt="Modern landscaped residence at dusk">
+  </div>
+  <svg class="hero-contour" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <path d="M0,620 C180,560 340,680 520,600 C700,520 820,660 1000,580 C1100,540 1160,600 1200,570" />
+    <path d="M0,700 C220,650 380,750 560,680 C740,610 880,720 1080,650 C1140,630 1180,660 1200,650" />
+    <path d="M0,520 C160,480 320,560 500,500 C680,440 840,540 1020,480 C1100,450 1160,490 1200,470" />
+  </svg>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      <span>Fieldwork — Landscape Architecture Studio</span>
+    </div>
+    <h1 class="hero-title">
+      <div class="line"><span>We shape the</span></div>
+      <div class="line"><span>ground <em>you</em></span></div>
+      <div class="line"><span>live on.</span></div>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-desc">Landscape architecture, construction and planting design for homes and estates that treat the outdoors as seriously as the architecture inside them.</p>
+      <div class="scroll-cue"><div class="stick"><i></i></div><span>Scroll</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- STATEMENT -->
+<section class="statement container">
+  <p class="reveal">Most gardens are decorated. <span class="dim">Ours are designed —</span> surveyed, drafted and built with the same discipline as a building, so the land holds its shape for decades, <span class="dim">not seasons.</span></p>
+</section>
+
+<!-- WORK -->
+<section id="work" class="pad container">
+  <div class="section-head reveal">
+    <h2>Selected work</h2>
+    <p class="note eyebrow">Index — 01–06</p>
+  </div>
+  <div class="work-grid">
+
+    <article class="proj reveal proj-1" data-magnetic>
+      <a href="#contact">
+        <div class="proj-frame"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop" alt="The Oak Residence"></div>
+        <div class="proj-meta">
+          <div><div class="num">01 / Residential</div><div class="proj-title">The Oak Residence</div><div class="proj-sub">Modern residential landscape — Ojai, CA</div></div>
+          <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+        </div>
+      </a>
+    </article>
+
+    <article class="proj reveal proj-2" data-magnetic>
+      <a href="#contact">
+        <div class="proj-frame"><img src="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?q=80&w=1400&auto=format&fit=crop" alt="Cedar House"></div>
+        <div class="proj-meta">
+          <div><div class="num">02 / Outdoor Living</div><div class="proj-title">Cedar House</div><div class="proj-sub">Pool &amp; pavilion — Sonoma, CA</div></div>
+          <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+        </div>
+      </a>
+    </article>
+
+    <article class="proj reveal proj-3" data-magnetic>
+      <a href="#contact">
+        <div class="proj-frame"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1400&auto=format&fit=crop" alt="Stonebrook Garden"></div>
+        <div class="proj-meta">
+          <div><div class="num">03 / Planting</div><div class="proj-title">Stonebrook Garden</div><div class="proj-sub">Native meadow design — Marin, CA</div></div>
+          <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+        </div>
+      </a>
+    </article>
+
+    <article class="proj reveal proj-4" data-magnetic>
+      <a href="#contact">
+        <div class="proj-frame"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1600&auto=format&fit=crop" alt="The Ridge"></div>
+        <div class="proj-meta">
+          <div><div class="num">04 / Estate</div><div class="proj-title">The Ridge</div><div class="proj-sub">Estate landscape architecture — Napa, CA</div></div>
+          <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+        </div>
+      </a>
+    </article>
+
+    <article class="proj reveal proj-5" data-magnetic>
+      <a href="#contact">
+        <div class="proj-frame"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=1600&auto=format&fit=crop" alt="Willow Court"></div>
+        <div class="proj-meta">
+          <div><div class="num">05 / Residential</div><div class="proj-title">Willow Court</div><div class="proj-sub">Courtyard &amp; entry garden — Palo Alto, CA</div></div>
+          <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+        </div>
+      </a>
+    </article>
+
+    <article class="proj reveal proj-6" data-magnetic>
+      <a href="#contact">
+        <div class="proj-frame"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1400&auto=format&fit=crop" alt="North Field"></div>
+        <div class="proj-meta">
+          <div><div class="num">06 / Land</div><div class="proj-title">North Field</div><div class="proj-sub">Working landscape masterplan — Healdsburg, CA</div></div>
+          <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+        </div>
+      </a>
+    </article>
+
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="approach-top" class="philo pad">
+  <div class="container philo-grid">
+    <p class="philo-quote reveal">We treat land the way an architect treats a building — with structure, restraint, and an understanding that it has to work in twenty years, not just in photographs.</p>
+    <div class="philo-side reveal">
+      <p>Every project begins the same way: on site, on foot, before a single line is drawn. Grade, drainage, light and existing growth decide the design — not the other way around.</p>
+      <div class="principle">
+        <span class="mark">01</span>
+        <div><h4>Site first</h4><p>Topography and soil dictate the plan, so the landscape sits naturally in its place rather than fighting it.</p></div>
+      </div>
+      <div class="principle">
+        <span class="mark">02</span>
+        <div><h4>Built to age well</h4><p>Stone, wood and concrete chosen for how they weather — landscapes should look better in ten years, not worse.</p></div>
+      </div>
+      <div class="principle">
+        <span class="mark">03</span>
+        <div><h4>Quiet materials</h4><p>A restrained palette lets the planting and the light do the work, instead of competing with it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="pad container services-wrap">
+  <div class="section-head reveal">
+    <h2>What we do</h2>
+    <p class="note eyebrow">Four disciplines, one studio</p>
+  </div>
+
+  <div class="services-bg" id="servicesBg">
+    <img class="active" data-key="0" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=90&w=2400&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=90&w=1400&auto=format&fit=crop 1400w, https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=90&w=2400&auto=format&fit=crop 2400w" sizes="44vw" alt="">
+    <img data-key="1" src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=90&w=2400&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=90&w=1400&auto=format&fit=crop 1400w, https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=90&w=2400&auto=format&fit=crop 2400w" sizes="44vw" alt="">
+    <img data-key="2" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=90&w=2400&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=90&w=1400&auto=format&fit=crop 1400w, https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=90&w=2400&auto=format&fit=crop 2400w" sizes="44vw" alt="">
+    <img data-key="3" src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=90&w=2400&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=90&w=1400&auto=format&fit=crop 1400w, https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=90&w=2400&auto=format&fit=crop 2400w" sizes="44vw" alt="">
+  </div>
+
+  <div class="service-row reveal" data-img="0" data-magnetic>
+    <span class="num">01</span>
+    <h3>Landscape Architecture</h3>
+    <p class="desc">Master planning, grading and construction documentation for full-property transformations.</p>
+    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+  </div>
+  <div class="service-row reveal" data-img="1" data-magnetic>
+    <span class="num">02</span>
+    <h3>Construction &amp; Build</h3>
+    <p class="desc">In-house crews for stonework, pools, decking and outdoor structures — built exactly as drawn.</p>
+    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+  </div>
+  <div class="service-row reveal" data-img="2" data-magnetic>
+    <span class="num">03</span>
+    <h3>Planting Design</h3>
+    <p class="desc">Climate-adapted planting plans that mature gracefully with minimal irrigation and upkeep.</p>
+    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+  </div>
+  <div class="service-row reveal" data-img="3" data-magnetic>
+    <span class="num">04</span>
+    <h3>Maintenance &amp; Stewardship</h3>
+    <p class="desc">Ongoing care from the team that designed the space, so it's tended the way it was intended.</p>
+    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg></div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT -->
+<section class="featured">
+  <div class="featured-hero">
+    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop" alt="The Ridge estate landscape">
+    <div class="featured-overlay">
+      <div>
+        <span class="eyebrow">Featured Project</span>
+        <h2>The Ridge</h2>
+      </div>
+      <div class="featured-meta">
+        <div><span>Location</span><strong>Napa Valley, CA</strong></div>
+        <div><span>Scope</span><strong>4.2 Acres</strong></div>
+        <div><span>Duration</span><strong>14 Months</strong></div>
+        <div><span>Completed</span><strong>2024</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="strip">
+    <figure><img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?q=80&w=1200&auto=format&fit=crop" alt=""><figcaption>Terraced stone retaining walls</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop" alt=""><figcaption>Reclaimed oak boundary</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=1200&auto=format&fit=crop" alt=""><figcaption>Native grass meadow</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1592595896616-c37162298647?q=80&w=1200&auto=format&fit=crop" alt=""><figcaption>Gravel arrival path</figcaption></figure>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="pad container">
+  <div class="section-head reveal">
+    <h2>How a project unfolds</h2>
+    <p class="note eyebrow">Four stages, twelve to eighteen months</p>
+  </div>
+  <div class="process-line-wrap">
+    <div class="process-line">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+        <path d="M0,0 L1200,0"/>
+        <path class="draw" d="M0,0 L1200,0"/>
+      </svg>
+    </div>
+    <div class="process-steps">
+      <div class="step reveal"><div class="dot"></div><span class="num">01</span><h4>Site Analysis</h4><p>Survey, soil, drainage and light studies that ground every decision that follows.</p></div>
+      <div class="step reveal"><div class="dot"></div><span class="num">02</span><h4>Design &amp; Documentation</h4><p>Concept plans, materials and full construction drawings, refined together with you.</p></div>
+      <div class="step reveal"><div class="dot"></div><span class="num">03</span><h4>Construction</h4><p>Our own crews build the hardscape, planting and lighting to the drawn detail.</p></div>
+      <div class="step reveal"><div class="dot"></div><span class="num">04</span><h4>Living Landscape</h4><p>A first year of stewardship as the planting establishes and settles in.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="studio" class="pad container">
+  <div class="about-grid">
+    <div class="about-media reveal">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1200&auto=format&fit=crop" alt="Fieldwork studio at work on site">
+    </div>
+    <div class="about-copy reveal">
+      <span class="eyebrow">The Studio</span>
+      <h2>A small studio of landscape architects, builders and gardeners.</h2>
+      <p>Fieldwork was founded on a simple frustration: landscaping and landscape architecture had become two separate industries — one that draws, and one that builds — rarely speaking to each other.</p>
+      <p>We kept them under one roof. The people who design your landscape are the same people accountable for building it, and for the way it looks five years on.</p>
+      <div class="stat-row">
+        <div><strong>120+</strong><span>Projects Completed</span></div>
+        <div><strong>15</strong><span>Years in Practice</span></div>
+        <div><strong>4.2</strong><span>Acres, Largest Site</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi pad">
+  <div class="container">
+    <div class="testi-track">
+      <div class="testi-item active">
+        <p>"They designed our garden the way our architect designed the house — with a plan, a logic, and materials that will still look right in twenty years."</p>
+        <div class="who">— Homeowner, The Oak Residence</div>
+      </div>
+      <div class="testi-item">
+        <p>"Fieldwork was the only studio that talked about drainage before they talked about plants. That's exactly the conversation we needed to have."</p>
+        <div class="who">— Homeowner, Cedar House</div>
+      </div>
+      <div class="testi-item">
+        <p>"What impressed us most was restraint. They talked us out of things that would have dated badly, and the landscape is better for it."</p>
+        <div class="who">— Homeowner, The Ridge</div>
+      </div>
+    </div>
+    <div class="testi-nav" id="testiNav"></div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section id="contact" class="cta pad">
+  <div class="container cta-grid">
+    <div class="cta-left reveal">
+      <span class="eyebrow">Start a Project</span>
+      <h2 style="margin-top:20px;">Let's shape something lasting.</h2>
+      <p>Tell us about the property and where you're at — a rough sketch is enough to start. We'll follow up within two business days.</p>
+      <div class="contact-info">
+        <a href="mailto:studio@fieldworkland.com" data-magnetic>studio@fieldworkland.com</a>
+        <a href="tel:+17075550148" data-magnetic>+1 (707) 555‑0148</a>
+        <a href="#" data-magnetic>Napa Valley, California</a>
+      </div>
+    </div>
+    <form class="cta-right reveal" id="contactForm">
+      <div class="row2">
+        <div class="field"><label>Name</label><input type="text" required></div>
+        <div class="field"><label>Email</label><input type="email" required></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Phone</label><input type="tel"></div>
+        <div class="field"><label>Project Type</label>
+          <select>
+            <option>Residential Landscape</option>
+            <option>Estate / Large Property</option>
+            <option>Outdoor Living / Pool</option>
+            <option>Planting Design</option>
+            <option>Maintenance</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Estimated Budget</label>
+        <select>
+          <option>$50,000 – $150,000</option>
+          <option>$150,000 – $350,000</option>
+          <option>$350,000 – $750,000</option>
+          <option>$750,000+</option>
+        </select>
+      </div>
+      <div class="field"><label>Tell us about the project</label><textarea></textarea></div>
+      <button type="submit" class="submit-btn magnetic" data-magnetic><span id="submitLabel">Send Inquiry</span> →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-logo">Fieldwork</div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h5>Studio</h5>
+          <a href="#work">Work</a>
+          <a href="#services">Services</a>
+          <a href="#process">Approach</a>
+          <a href="#studio">Studio</a>
+        </div>
+        <div class="foot-col">
+          <h5>Connect</h5>
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+          <a href="#">Journal</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contact</h5>
+          <span>studio@fieldworkland.com</span>
+          <span>+1 (707) 555‑0148</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Fieldwork Land Studio. All rights reserved.</span>
+      <span>Design portfolio piece — not a real business.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* ---------- image fallback ---------- */
+document.querySelectorAll('img').forEach(img=>{
+  img.addEventListener('error', function(){
+    this.style.background = 'linear-gradient(135deg, #454B36, #8E6F45)';
+    this.removeAttribute('src');
+  }, {once:true});
+});
+
+/* ---------- nav on scroll ---------- */
+const navEl = document.getElementById('nav');
+ScrollTrigger.create({
+  start: 'top -80',
+  onUpdate: self => { navEl.classList.toggle('scrolled', self.scroll() > 80); }
+});
+
+
+/* ---------- hero entrance ---------- */
+const heroTl = gsap.timeline({ defaults:{ ease:'power4.out' } });
+heroTl.to('.hero-media img', { scale:1, duration:2.2, ease:'power2.out' }, 0)
+  .from('.hero-eyebrow span', { opacity:0, y:14, duration:.9 }, 0.3)
+  .from('.hero-eyebrow .dot', { scale:0, duration:.6 }, 0.3)
+  .from('.hero-title .line span', { yPercent:120, duration:1.1, stagger:0.12 }, 0.45)
+  .from('.hero-desc', { opacity:0, y:16, duration:.9 }, 1.05)
+  .from('.scroll-cue', { opacity:0, duration:1 }, 1.2)
+  .from('.hero-contour path', { drawSVG:'0%' }, 0.4); // gracefully ignored if plugin absent
+
+/* contour draw fallback without DrawSVG plugin */
+document.querySelectorAll('.hero-contour path').forEach((p,i)=>{
+  const len = p.getTotalLength ? p.getTotalLength() : 1600;
+  p.style.strokeDasharray = len;
+  p.style.strokeDashoffset = len;
+  gsap.to(p, { strokeDashoffset:0, duration:2.4, delay:0.3+i*0.15, ease:'power2.out' });
+});
+
+/* ---------- generic reveal ---------- */
+gsap.utils.toArray('.reveal').forEach(el=>{
+  gsap.to(el, {
+    opacity:1, y:0, duration:1, ease:'power3.out',
+    scrollTrigger: { trigger: el, start:'top 88%' }
+  });
+});
+
+/* ---------- process line draw ---------- */
+ScrollTrigger.create({
+  trigger: '.process-line-wrap', start:'top 75%', end:'bottom 60%', scrub:0.6,
+  onUpdate: self => {
+    const path = document.querySelector('.process-line path.draw');
+    if(path){ path.style.strokeDashoffset = 2000 - (2000*self.progress); }
+  }
+});
+
+/* ---------- services image swap ---------- */
+document.querySelectorAll('.service-row').forEach(row=>{
+  row.addEventListener('mouseenter', ()=>{
+    const key = row.getAttribute('data-img');
+    document.querySelectorAll('.services-bg img').forEach(img=>{
+      img.classList.toggle('active', img.getAttribute('data-key')===key);
+    });
+  });
+});
+
+/* ---------- testimonials ---------- */
+const items = document.querySelectorAll('.testi-item');
+const navWrap = document.getElementById('testiNav');
+items.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.className = 'testi-dot' + (i===0 ? ' active':'');
+  d.addEventListener('click', ()=> showTesti(i));
+  navWrap.appendChild(d);
+});
+let testiIdx = 0;
+function showTesti(i){
+  items[testiIdx].classList.remove('active');
+  navWrap.children[testiIdx].classList.remove('active');
+  testiIdx = i;
+  items[testiIdx].classList.add('active');
+  navWrap.children[testiIdx].classList.add('active');
+}
+setInterval(()=>{ showTesti((testiIdx+1) % items.length); }, 5500);
+
+/* ---------- contact form ---------- */
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const label = document.getElementById('submitLabel');
+  label.textContent = 'Inquiry Sent';
+  this.querySelector('.submit-btn').style.opacity = '0.6';
+  this.querySelector('.submit-btn').style.pointerEvents = 'none';
+});
+
+/* refresh scrolltrigger after fonts load */
+document.fonts.ready.then(()=> ScrollTrigger.refresh());
+
+/* ---------- mobile menu ---------- */
+(function mobileNav(){
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+  const setOpen = (open) => {
+    toggle.classList.toggle('is-open', open);
+    menu.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  toggle.addEventListener('click', () => setOpen(!menu.classList.contains('is-open')));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+})();
+</script>
+</body>
+</html>

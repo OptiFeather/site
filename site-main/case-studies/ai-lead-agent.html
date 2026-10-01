@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Lead Agent — OptiFeather</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0B0A09;
+    --panel:#141210;
+    --panel-2:#1B1815;
+    --raised:#1F1C18;
+    --line: rgba(243,238,226,.09);
+    --line-strong: rgba(243,238,226,.17);
+    --paper:#F3EEE2;
+    --dim:#AFA898;
+    --faint:#726C5F;
+    --gold:#C6A15B;
+    --gold-dim: rgba(198,161,91,.5);
+    --gold-wash: rgba(198,161,91,.1);
+    --sage:#8FA37D;
+    --rose:#B5776B;
+    --serif:'Instrument Serif', serif;
+    --sans:'Inter', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+    --ease: cubic-bezier(.19,1,.22,1);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--black); color:var(--paper); font-family:var(--sans);
+    font-weight:400; line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  ::selection{ background:var(--gold); color:var(--black); }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; background:none; border:none; color:inherit; }
+  .container{ max-width:1180px; margin:0 auto; padding:0 40px; }
+  @media(max-width:768px){ .container{ padding:0 22px; } }
+  section{ position:relative; }
+  .pad{ padding:130px 0; }
+  @media(max-width:768px){ .pad{ padding:84px 0; } }
+
+  .label{ display:inline-block; font-size:12.5px; letter-spacing:.02em; color:var(--gold); font-weight:500; margin-bottom:22px; }
+  .label::before{ content:'—'; margin-right:9px; color:var(--gold-dim); }
+
+  h1,h2,h3{ font-family:var(--serif); font-weight:400; letter-spacing:-.01em; }
+
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* faint grain for tactile premium surface */
+  .grain{ position:fixed; inset:0; z-index:2000; pointer-events:none; opacity:.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ---------------- NAV ---------------- */
+  nav{ position:fixed; top:0; left:0; width:100%; z-index:1000; display:flex; align-items:center; justify-content:space-between;
+    padding:22px 40px; border-bottom:1px solid transparent; transition:border-color .5s, background .5s; }
+  nav.scrolled{ background:rgba(11,10,9,.86); backdrop-filter:blur(14px); border-color:var(--line); }
+  @media(max-width:768px){ nav{ padding:18px 22px; } }
+  .brand{ display:flex; align-items:center; gap:10px; font-size:16px; letter-spacing:.01em; font-weight:600; }
+  .brand svg{ width:19px; height:19px; }
+  .nav-tag{ font-size:12.5px; color:var(--dim); font-weight:400; }
+  @media(max-width:700px){ .nav-tag{ display:none; } }
+  .nav-cta{ font-size:13px; color:var(--paper); border:1px solid var(--line-strong); padding:9px 18px; border-radius:100px; transition:border-color .35s, background .35s; }
+  .nav-cta:hover{ border-color:var(--gold-dim); background:var(--gold-wash); }
+
+  /* ---------------- HERO ---------------- */
+  .hero{ padding:190px 0 110px; }
+  @media(max-width:768px){ .hero{ padding:150px 0 70px; } }
+  .hero-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:64px; align-items:center; }
+  @media(max-width:900px){ .hero-grid{ grid-template-columns:1fr; gap:56px; } }
+  .hero-copy .label{ margin-bottom:26px; }
+  .hero h1{ font-size:clamp(40px, 5.4vw, 68px); line-height:1.08; max-width:640px; }
+  .hero .lede{ margin-top:26px; max-width:460px; font-size:16.5px; line-height:1.7; color:var(--dim); font-weight:400; }
+  .hero-actions{ display:flex; gap:16px; margin-top:42px; flex-wrap:wrap; }
+  .btn-primary{ display:inline-flex; align-items:center; gap:8px; background:var(--paper); color:var(--black); font-size:14px; font-weight:600; padding:14px 24px; border-radius:100px; transition:transform .4s var(--ease), background .4s; }
+  .btn-primary:hover{ transform:translateY(-2px); background:var(--gold); }
+  .btn-ghost{ display:inline-flex; align-items:center; font-size:14px; font-weight:500; padding:14px 6px; color:var(--paper); border-bottom:1px solid var(--line-strong); transition:border-color .35s, color .35s; }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* hero widget preview */
+  .hero-visual{ position:relative; height:clamp(280px, 46vw, 420px); }
+  .site-ghost{ position:absolute; inset:0; border:1px solid var(--line); border-radius:14px; background:linear-gradient(155deg, #17151280, #0d0c0b80); overflow:hidden; }
+  .site-ghost .g-nav{ display:flex; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--line); }
+  .site-ghost .g-nav i{ display:block; width:64px; height:8px; border-radius:4px; background:var(--line-strong); }
+  .site-ghost .g-nav .g-links{ display:flex; gap:14px; }
+  .site-ghost .g-nav .g-links i{ width:34px; }
+  .site-ghost .g-hero{ padding:34px 24px; }
+  .site-ghost .g-hero i.big{ display:block; height:16px; width:70%; border-radius:4px; background:var(--line-strong); margin-bottom:14px; }
+  .site-ghost .g-hero i.mid{ display:block; height:16px; width:52%; border-radius:4px; background:var(--line-strong); margin-bottom:22px; }
+  .site-ghost .g-hero i.small{ display:block; height:9px; width:38%; border-radius:4px; background:var(--line); margin-bottom:8px; }
+
+  .widget-teaser{ position:absolute; right:min(22px, 4vw); bottom:min(22px, 4vw); width:min(250px, 62vw); background:var(--panel); border:1px solid var(--line-strong); border-radius:16px; box-shadow:0 30px 60px -20px rgba(0,0,0,.6); overflow:hidden; }
+  .widget-teaser .wt-head{ display:flex; align-items:center; gap:10px; padding:14px 16px; border-bottom:1px solid var(--line); }
+  .widget-teaser .wt-dot{ width:7px; height:7px; border-radius:50%; background:var(--sage); box-shadow:0 0 0 3px rgba(143,163,125,.18); }
+  .widget-teaser .wt-head span{ font-size:12.5px; color:var(--dim); }
+  .widget-teaser .wt-body{ padding:16px; }
+  .bubble{ font-size:13.5px; line-height:1.5; padding:10px 13px; border-radius:11px; max-width:88%; }
+  .bubble.ai{ background:var(--panel-2); border:1px solid var(--line); border-bottom-left-radius:3px; }
+  .widget-teaser .wt-input{ display:flex; align-items:center; justify-content:space-between; margin:0 16px 16px; padding:11px 14px; border:1px solid var(--line); border-radius:100px; font-size:12.5px; color:var(--faint); }
+
+  /* ---------------- SPLIT (problem / solution) ---------------- */
+  .split{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .split-grid{ display:grid; grid-template-columns:1fr 1fr; }
+  @media(max-width:800px){ .split-grid{ grid-template-columns:1fr; } }
+  .split-col{ padding:80px 56px; }
+  .split-col:first-child{ border-right:1px solid var(--line); }
+  @media(max-width:800px){ .split-col{ padding:56px 0; } .split-col:first-child{ border-right:none; border-bottom:1px solid var(--line); } }
+  @media(min-width:801px){ .split-col:first-child{ padding-left:0; } .split-col:last-child{ padding-right:0; } }
+  .split-text{ font-size:19px; line-height:1.65; max-width:440px; color:var(--dim); font-family:var(--serif); font-style:italic; }
+
+  /* ---------------- DEMO (conversation) ---------------- */
+  .demo h2{ font-size:clamp(28px,3.4vw,42px); max-width:620px; margin-bottom:64px; }
+  .demo-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:start; }
+  @media(max-width:900px){ .demo-grid{ grid-template-columns:1fr; gap:48px; } }
+
+  .chat-mock{ background:var(--panel); border:1px solid var(--line-strong); border-radius:18px; overflow:hidden; }
+  .chat-head{ display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--line); }
+  .chat-head .who{ display:flex; align-items:center; gap:11px; font-size:13.5px; font-weight:500; }
+  .chat-head .mono-dot{ width:7px; height:7px; border-radius:50%; background:var(--sage); box-shadow:0 0 0 3px rgba(143,163,125,.16); }
+  .chat-head .status{ font-size:11.5px; color:var(--faint); font-family:var(--mono); }
+  .chat-log{ padding:26px 22px; display:flex; flex-direction:column; gap:14px; min-height:360px; }
+  .msg{ display:flex; }
+  .msg.ai{ justify-content:flex-start; }
+  .msg.visitor{ justify-content:flex-end; }
+  .msg .bubble{ font-size:14.5px; line-height:1.55; padding:12px 16px; border-radius:14px; max-width:78%; opacity:0; transform:translateY(8px); transition:opacity .5s var(--ease), transform .5s var(--ease); }
+  .msg.in .bubble{ opacity:1; transform:translateY(0); }
+  .msg.ai .bubble{ background:var(--panel-2); border:1px solid var(--line); border-bottom-left-radius:4px; color:var(--paper); }
+  .msg.visitor .bubble{ background:var(--paper); color:var(--black); border-bottom-right-radius:4px; font-weight:500; }
+  .typing{ display:flex; gap:5px; align-items:center; padding:12px 16px; background:var(--panel-2); border:1px solid var(--line); border-radius:14px; border-bottom-left-radius:4px; width:fit-content; opacity:0; transition:opacity .3s; }
+  .typing.show{ opacity:1; }
+  .typing i{ width:5px; height:5px; border-radius:50%; background:var(--faint); animation:blink 1.1s infinite ease-in-out; }
+  .typing i:nth-child(2){ animation-delay:.15s; } .typing i:nth-child(3){ animation-delay:.3s; }
+  @keyframes blink{ 0%,80%,100%{ opacity:.25; } 40%{ opacity:1; } }
+  .chat-input{ display:flex; align-items:center; justify-content:space-between; margin:0 22px 22px; padding:13px 16px; border:1px solid var(--line); border-radius:100px; font-size:13px; color:var(--faint); }
+
+  .score-mock{ background:var(--panel); border:1px solid var(--line-strong); border-radius:18px; padding:32px; opacity:0; transform:translateY(14px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+  .score-mock.in{ opacity:1; transform:translateY(0); }
+  .score-top{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:6px; }
+  .score-top span.tag{ font-size:11px; letter-spacing:.06em; color:var(--sage); font-family:var(--mono); border:1px solid rgba(143,163,125,.35); padding:4px 9px; border-radius:100px; }
+  .score-num{ font-family:var(--serif); font-size:60px; line-height:1; margin:14px 0 4px; }
+  .score-num span{ font-size:24px; color:var(--faint); font-family:var(--mono); }
+  .score-bar{ height:4px; border-radius:4px; background:var(--panel-2); overflow:hidden; margin:18px 0 26px; }
+  .score-bar i{ display:block; height:100%; width:0%; background:linear-gradient(90deg, var(--gold-dim), var(--gold)); transition:width 1.4s var(--ease) .3s; }
+  .score-mock.in .score-bar i{ width:92%; }
+  .score-rows{ display:flex; flex-direction:column; gap:0; }
+  .score-row{ display:flex; justify-content:space-between; padding:13px 0; border-top:1px solid var(--line); font-size:13.5px; }
+  .score-row span:first-child{ color:var(--dim); }
+  .score-row span:last-child{ font-family:var(--mono); font-size:13px; }
+  .score-row.next span:last-child{ color:var(--gold); }
+
+  /* ---------------- DASHBOARD ---------------- */
+  .dashboard h2{ font-size:clamp(28px,3.4vw,42px); max-width:640px; margin-bottom:56px; }
+  .dash-frame{ border:1px solid var(--line-strong); border-radius:18px; background:var(--panel); overflow:hidden; box-shadow:0 60px 100px -50px rgba(0,0,0,.7); }
+  .dash-topbar{ display:flex; align-items:center; justify-content:space-between; padding:18px 26px; border-bottom:1px solid var(--line); }
+  .dash-nav{ display:flex; gap:26px; font-size:13px; color:var(--faint); }
+  .dash-nav .active{ color:var(--paper); }
+  .dash-avatar{ display:flex; align-items:center; gap:10px; font-size:12.5px; color:var(--dim); }
+  .dash-avatar i{ width:24px; height:24px; border-radius:50%; background:var(--gold-wash); border:1px solid var(--gold-dim); }
+  @media(max-width:700px){ .dash-nav{ display:none; } }
+
+  .dash-stats{ display:grid; grid-template-columns:repeat(6,1fr); border-bottom:1px solid var(--line); }
+  @media(max-width:900px){ .dash-stats{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:520px){ .dash-stats{ grid-template-columns:repeat(2,1fr); } }
+  .stat-cell{ padding:26px 22px; border-right:1px solid var(--line); }
+  .stat-cell:last-child{ border-right:none; }
+  .stat-cell .s-label{ font-size:11.5px; color:var(--faint); margin-bottom:12px; }
+  .stat-cell .s-val{ font-family:var(--serif); font-size:27px; }
+  .stat-cell .s-delta{ font-size:11.5px; color:var(--sage); margin-top:6px; font-family:var(--mono); }
+
+  .dash-body{ display:grid; grid-template-columns:1.6fr 1fr; }
+  @media(max-width:900px){ .dash-body{ grid-template-columns:1fr; } }
+  .dash-table-wrap{ padding:26px; border-right:1px solid var(--line); overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  @media(max-width:900px){ .dash-table-wrap{ border-right:none; border-bottom:1px solid var(--line); } }
+  .dash-table-wrap .t-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px; }
+  .dash-table-wrap .t-head h4{ font-family:var(--serif); font-size:19px; font-weight:400; }
+  .dash-table-wrap .t-head span{ font-size:12px; color:var(--faint); }
+  table{ width:100%; min-width:560px; border-collapse:collapse; font-size:13px; }
+  thead th{ text-align:left; font-weight:500; color:var(--faint); font-size:11.5px; padding:0 10px 12px 0; border-bottom:1px solid var(--line); }
+  tbody td{ padding:13px 10px 13px 0; border-bottom:1px solid var(--line); vertical-align:middle; }
+  tbody tr:last-child td{ border-bottom:none; }
+  .lead-name{ font-weight:500; }
+  .lead-need{ color:var(--dim); font-size:12.5px; }
+  .score-chip{ font-family:var(--mono); font-size:12px; padding:3px 8px; border-radius:100px; border:1px solid var(--line-strong); }
+  .score-chip.high{ color:var(--sage); border-color:rgba(143,163,125,.4); }
+  .score-chip.mid{ color:var(--gold); border-color:var(--gold-dim); }
+  .score-chip.low{ color:var(--faint); }
+  .status-pill{ font-size:11.5px; padding:4px 10px; border-radius:100px; border:1px solid var(--line-strong); color:var(--dim); white-space:nowrap; }
+  .status-pill.booked{ color:var(--sage); border-color:rgba(143,163,125,.4); }
+  .status-pill.qualified{ color:var(--gold); border-color:var(--gold-dim); }
+  .val-cell{ font-family:var(--mono); }
+  .rep-cell{ color:var(--dim); }
+  .table-note{ margin-top:14px; font-size:11.5px; color:var(--faint); }
+
+  .dash-side{ display:flex; flex-direction:column; }
+  .dash-side > div{ padding:24px 26px; border-bottom:1px solid var(--line); }
+  .dash-side > div:last-child{ border-bottom:none; }
+  .dash-side h5{ font-family:var(--serif); font-size:16px; font-weight:400; margin-bottom:16px; }
+  .source-row{ display:flex; align-items:center; gap:10px; margin-bottom:11px; font-size:12.5px; }
+  .source-row span:first-child{ width:76px; color:var(--dim); flex-shrink:0; }
+  .source-row .bar{ flex:1; height:4px; background:var(--panel-2); border-radius:4px; overflow:hidden; }
+  .source-row .bar i{ display:block; height:100%; background:var(--gold-dim); }
+  .source-row span:last-child{ font-family:var(--mono); color:var(--faint); width:32px; text-align:right; }
+
+  .notif-card{ background:var(--raised); border:1px solid var(--gold-dim); border-radius:10px; padding:14px 16px; }
+  .notif-card .n-top{ display:flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.03em; color:var(--gold); margin-bottom:8px; }
+  .notif-card .n-top i{ width:5px; height:5px; border-radius:50%; background:var(--gold); }
+  .notif-card p{ font-size:13px; line-height:1.5; color:var(--paper); }
+  .notif-card .n-time{ margin-top:8px; font-size:11px; color:var(--faint); font-family:var(--mono); }
+
+  .recent-item{ padding:11px 0; border-top:1px solid var(--line); }
+  .recent-item:first-of-type{ border-top:none; }
+  .recent-item p{ font-size:12.5px; color:var(--dim); line-height:1.5; margin-bottom:6px; }
+  .recent-item .r-meta{ display:flex; justify-content:space-between; font-size:11px; color:var(--faint); font-family:var(--mono); }
+
+  /* ---------------- FEATURES ---------------- */
+  .features h2{ font-size:clamp(28px,3.4vw,42px); max-width:640px; margin-bottom:64px; }
+  .feature-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:48px; }
+  @media(max-width:860px){ .feature-cols{ grid-template-columns:1fr; gap:0; } }
+  .feature-group h5{ font-size:12.5px; color:var(--faint); margin-bottom:22px; font-weight:500; }
+  .feature-item{ padding:18px 0; border-top:1px solid var(--line); }
+  .feature-group .feature-item:last-child{ border-bottom:1px solid var(--line); }
+  @media(max-width:860px){ .feature-group{ margin-bottom:44px; } }
+  .feature-item h6{ font-family:var(--serif); font-size:18px; font-weight:400; margin-bottom:6px; }
+  .feature-item p{ font-size:13px; color:var(--dim); line-height:1.55; max-width:260px; }
+
+  /* ---------------- FUNNEL ---------------- */
+  .funnel{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .funnel-grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:70px; }
+  @media(max-width:900px){ .funnel-grid{ grid-template-columns:1fr; gap:48px; } }
+  .funnel-copy h2{ font-size:clamp(26px,3.2vw,38px); margin:20px 0 20px; max-width:420px; }
+  .funnel-copy p{ font-size:14.5px; line-height:1.7; color:var(--dim); max-width:400px; }
+  .funnel-flow{ position:relative; padding-left:30px; }
+  .funnel-flow::before{ content:''; position:absolute; left:5px; top:8px; bottom:8px; width:1px; background:var(--line-strong); }
+  .f-step{ position:relative; padding:20px 0; }
+  .f-step::before{ content:''; position:absolute; left:-30px; top:26px; width:11px; height:11px; border-radius:50%; background:var(--black); border:2px solid var(--gold); }
+  .f-step h6{ font-family:var(--serif); font-size:20px; font-weight:400; margin-bottom:5px; }
+  .f-step span{ font-size:12.5px; color:var(--faint); }
+
+  /* ---------------- RESULTS ---------------- */
+  .results h2{ font-size:clamp(26px,3vw,36px); max-width:560px; margin-bottom:56px; }
+  .results-row{ display:flex; flex-wrap:wrap; }
+  .r-stat{ flex:1 1 220px; padding:0 32px 32px 0; border-right:1px solid var(--line); margin-right:32px; margin-bottom:0; }
+  .r-stat:last-child{ border-right:none; margin-right:0; }
+  @media(max-width:760px){ .r-stat{ border-right:none; margin-right:0; padding-right:0; border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:24px; flex:1 1 100%; } }
+  .r-stat .r-num{ font-family:var(--serif); font-size:44px; color:var(--gold); }
+  .r-stat .r-label{ margin-top:10px; font-size:13px; color:var(--dim); max-width:200px; }
+  .disclaimer{ margin-top:52px; padding-top:26px; border-top:1px solid var(--line); font-size:12.5px; color:var(--faint); font-style:italic; max-width:640px; }
+
+  /* ---------------- FOOTER ---------------- */
+  footer{ padding:80px 0 40px; }
+  .foot-top{ display:flex; justify-content:space-between; align-items:flex-end; gap:32px; flex-wrap:wrap; padding-bottom:44px; border-bottom:1px solid var(--line); }
+  .foot-brand{ font-family:var(--serif); font-size:30px; }
+  .foot-brand + p{ margin-top:14px; font-size:14px; color:var(--dim); max-width:340px; }
+  .foot-bottom{ display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; padding-top:26px; font-size:12px; color:var(--faint); }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav id="nav">
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+      <path d="M20 4C13 4 5 9 5 19c0 0 8-1 11-6"/>
+      <path d="M20 4c-6 3-10 8-11 15"/>
+      <path d="M9 15l4-4"/>
+    </svg>
+    OptiFeather
+  </div>
+  <div class="nav-tag">AI Lead Agent — Concept</div>
+  <a class="nav-cta" href="#dashboard">View the product</a>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="label">Concept case study</span>
+      <h1 class="reveal">Turn every website visitor into an opportunity.</h1>
+      <p class="lede reveal">Businesses lose potential customers when visitors leave without a word. AI Lead Agent starts the conversation instead, qualifies what a visitor needs, and moves the good ones straight into the sales pipeline — day or night.</p>
+      <div class="hero-actions reveal">
+        <a href="#demo" class="btn-primary">See it in conversation</a>
+        <a href="#dashboard" class="btn-ghost">Open the dashboard</a>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="site-ghost">
+        <div class="g-nav"><i></i><div class="g-links"><i></i><i></i><i></i></div></div>
+        <div class="g-hero"><i class="big"></i><i class="mid"></i><i class="small"></i><i class="small" style="width:26%"></i></div>
+      </div>
+      <div class="widget-teaser">
+        <div class="wt-head"><div class="wt-dot"></div><span>AI Lead Agent · online</span></div>
+        <div class="wt-body">
+          <div class="bubble ai">Hey! How can we help you today?</div>
+        </div>
+        <div class="wt-input"><span>Type a message…</span><span>→</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="split" id="problem">
+  <div class="container split-grid">
+    <div class="split-col reveal">
+      <span class="label">Problem</span>
+      <p class="split-text">Most visitors leave without saying a word. A phone number in the footer and a static contact form aren't enough to hold their attention — the business never even knows they were there.</p>
+    </div>
+    <div class="split-col reveal">
+      <span class="label">Solution</span>
+      <p class="split-text">AI Lead Agent asks the right questions, judges intent and budget in real time, and hands the sales team a scored, qualified lead — already booked, if the timing is right.</p>
+    </div>
+  </div>
+</section>
+
+<section class="demo pad" id="demo">
+  <div class="container">
+    <span class="label">Live conversation</span>
+    <h2 class="reveal">It asks like someone who actually works there.</h2>
+    <div class="demo-grid">
+      <div class="chat-mock reveal">
+        <div class="chat-head">
+          <div class="who"><div class="mono-dot"></div>Website widget</div>
+          <div class="status">southbend­scapes.com</div>
+        </div>
+        <div class="chat-log" id="chatLog"></div>
+        <div class="chat-input"><span>Message the agent…</span><span>Send</span></div>
+      </div>
+      <div class="score-mock" id="scoreMock">
+        <div class="score-top"><span class="label" style="margin:0">Lead score</span><span class="tag">High intent</span></div>
+        <div class="score-num">92<span>/100</span></div>
+        <div class="score-bar"><i></i></div>
+        <div class="score-rows">
+          <div class="score-row"><span>Estimated value</span><span>$8,500</span></div>
+          <div class="score-row"><span>Timeline</span><span>Within 30 days</span></div>
+          <div class="score-row"><span>Service fit</span><span>Landscape redesign</span></div>
+          <div class="score-row next"><span>Next action</span><span>Book discovery call</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dashboard pad" id="dashboard">
+  <div class="container">
+    <span class="label">Behind the scenes</span>
+    <h2 class="reveal">Every conversation becomes a number the sales team can act on.</h2>
+    <div class="dash-frame reveal">
+      <div class="dash-topbar">
+        <div class="dash-nav"><span class="active">Leads</span><span>Conversations</span><span>Analytics</span><span>Settings</span></div>
+        <div class="dash-avatar"><i></i>Front desk team</div>
+      </div>
+      <div class="dash-stats">
+        <div class="stat-cell"><div class="s-label">Total leads</div><div class="s-val">214</div><div class="s-delta">+18% this month</div></div>
+        <div class="stat-cell"><div class="s-label">Qualified leads</div><div class="s-val">138</div><div class="s-delta">64% qualify rate</div></div>
+        <div class="stat-cell"><div class="s-label">Conversion rate</div><div class="s-val">34%</div><div class="s-delta">+6pt vs last month</div></div>
+        <div class="stat-cell"><div class="s-label">Appointments booked</div><div class="s-val">61</div><div class="s-delta">+11 this month</div></div>
+        <div class="stat-cell"><div class="s-label">Avg. lead value</div><div class="s-val">$4,200</div><div class="s-delta">+$380 this month</div></div>
+        <div class="stat-cell"><div class="s-label">Response time</div><div class="s-val">8 sec</div><div class="s-delta">24/7 coverage</div></div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-table-wrap">
+          <div class="t-head"><h4>Recent leads</h4><span>Illustrative sample data</span></div>
+          <table>
+            <thead><tr><th>Name</th><th>Score</th><th>Status</th><th>Value</th><th>Date</th><th>Rep</th></tr></thead>
+            <tbody>
+              <tr><td><div class="lead-name">Karen Mills</div><div class="lead-need">Backyard drainage &amp; regrade</div></td><td><span class="score-chip high">92</span></td><td><span class="status-pill booked">Booked</span></td><td class="val-cell">$8,500</td><td>Sep 3</td><td class="rep-cell">Alex</td></tr>
+              <tr><td><div class="lead-name">Robert Chen</div><div class="lead-need">Full smile consultation</div></td><td><span class="score-chip mid">78</span></td><td><span class="status-pill qualified">Qualified</span></td><td class="val-cell">$3,200</td><td>Sep 3</td><td class="rep-cell">Priya</td></tr>
+              <tr><td><div class="lead-name">Tom Reyes</div><div class="lead-need">Patio &amp; outdoor kitchen</div></td><td><span class="score-chip mid">74</span></td><td><span class="status-pill qualified">Qualified</span></td><td class="val-cell">$22,000</td><td>Sep 2</td><td class="rep-cell">Priya</td></tr>
+              <tr><td><div class="lead-name">Sophie Okafor</div><div class="lead-need">Emergency water heater</div></td><td><span class="score-chip high">88</span></td><td><span class="status-pill booked">Booked</span></td><td class="val-cell">$1,450</td><td>Sep 1</td><td class="rep-cell">Sam</td></tr>
+              <tr><td><div class="lead-name">Elena Ford</div><div class="lead-need">Private event catering, 80 guests</div></td><td><span class="score-chip mid">81</span></td><td><span class="status-pill qualified">Qualified</span></td><td class="val-cell">$6,400</td><td>Aug 31</td><td class="rep-cell">Sam</td></tr>
+              <tr><td><div class="lead-name">Dana Whitfield</div><div class="lead-need">Kitchen remodel estimate</div></td><td><span class="score-chip low">41</span></td><td><span class="status-pill">New</span></td><td class="val-cell">$12,000</td><td>Aug 31</td><td class="rep-cell">Jordan</td></tr>
+            </tbody>
+          </table>
+          <p class="table-note">Names, needs and values above are illustrative placeholder data for this concept.</p>
+        </div>
+        <div class="dash-side">
+          <div>
+            <h5>Leads by source</h5>
+            <div class="source-row"><span>Website chat</span><div class="bar"><i style="width:46%"></i></div><span>46%</span></div>
+            <div class="source-row"><span>Google search</span><div class="bar"><i style="width:28%"></i></div><span>28%</span></div>
+            <div class="source-row"><span>Referral</span><div class="bar"><i style="width:15%"></i></div><span>15%</span></div>
+            <div class="source-row"><span>Social</span><div class="bar"><i style="width:11%"></i></div><span>11%</span></div>
+          </div>
+          <div>
+            <h5>Notifications</h5>
+            <div class="notif-card"><div class="n-top"><i></i>High-value lead</div><p>Tom Reyes — $22,000 potential, patio &amp; outdoor kitchen. Qualified and awaiting a callback.</p><div class="n-time">2 minutes ago</div></div>
+          </div>
+          <div>
+            <h5>Recent conversations</h5>
+            <div class="recent-item"><p>"Interested in a full deck rebuild before spring…"</p><div class="r-meta"><span>Score 92</span><span>2m ago</span></div></div>
+            <div class="recent-item"><p>"Need someone to look at a cracked molar today"</p><div class="r-meta"><span>Score 85</span><span>14m ago</span></div></div>
+            <div class="recent-item"><p>"Just checking prices for weekly lawn care"</p><div class="r-meta"><span>Score 38</span><span>1h ago</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features pad" id="features">
+  <div class="container">
+    <span class="label">What it does</span>
+    <h2 class="reveal">A complete system, not a chat bubble.</h2>
+    <div class="feature-cols">
+      <div class="feature-group reveal">
+        <h5>Conversation</h5>
+        <div class="feature-item"><h6>Natural-language AI</h6><p>Understands what a visitor actually needs, in their own words, without a rigid menu of buttons.</p></div>
+        <div class="feature-item"><h6>Intent detection</h6><p>Reads context and urgency to tell a browsing visitor apart from someone ready to buy.</p></div>
+        <div class="feature-item"><h6>Smart follow-up questions</h6><p>Adapts its next question to the last answer instead of following a fixed script.</p></div>
+        <div class="feature-item"><h6>Lead scoring</h6><p>Weighs intent, budget, timeline and engagement into a single 0–100 score.</p></div>
+      </div>
+      <div class="feature-group reveal">
+        <h5>Conversion</h5>
+        <div class="feature-item"><h6>Contact capture</h6><p>Collects name, phone and preferred contact method without feeling like a form.</p></div>
+        <div class="feature-item"><h6>Appointment booking</h6><p>Offers open time slots directly in the conversation and confirms the booking.</p></div>
+        <div class="feature-item"><h6>CRM integration</h6><p>Sends every qualified lead into the business's existing CRM automatically.</p></div>
+        <div class="feature-item"><h6>Automated follow-ups</h6><p>Re-engages visitors who don't book right away with a timed follow-up sequence.</p></div>
+      </div>
+      <div class="feature-group reveal">
+        <h5>Insight</h5>
+        <div class="feature-item"><h6>Conversation history</h6><p>Every exchange is logged and searchable, so no context is lost between visits.</p></div>
+        <div class="feature-item"><h6>Lead dashboard</h6><p>One view of every lead, its score, status and value across the business.</p></div>
+        <div class="feature-item"><h6>Priority notifications</h6><p>Flags high-value leads the moment they're qualified, not at end of day.</p></div>
+        <div class="feature-item"><h6>Analytics</h6><p>Tracks conversion, response time and lead source to show what's working.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="funnel pad" id="funnel">
+  <div class="container funnel-grid">
+    <div class="funnel-copy reveal">
+      <span class="label">How a visit becomes a booking</span>
+      <h2>From anonymous visitor to appointment, automatically.</h2>
+      <p>Each step happens inside a single conversation. Nothing is handed off to a form, a voicemail, or a "someone will call you back."</p>
+    </div>
+    <div class="funnel-flow reveal">
+      <div class="f-step"><h6>Visitor</h6><span>Arrives on the website</span></div>
+      <div class="f-step"><h6>AI conversation</h6><span>Agent opens the dialogue and listens</span></div>
+      <div class="f-step"><h6>Qualification</h6><span>Service, location, timing and budget are established</span></div>
+      <div class="f-step"><h6>Lead score</h6><span>Conversation is scored 0–100 for intent and value</span></div>
+      <div class="f-step"><h6>CRM</h6><span>Qualified lead is pushed to the sales pipeline</span></div>
+      <div class="f-step"><h6>Appointment</h6><span>Available time slots are offered and booked</span></div>
+      <div class="f-step"><h6>Follow-up</h6><span>Automated sequence re-engages if no booking yet</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="results pad" id="results">
+  <div class="container">
+    <span class="label">Projected impact</span>
+    <h2 class="reveal">What this could mean for a business's pipeline.</h2>
+    <div class="results-row reveal">
+      <div class="r-stat"><div class="r-num">+38%</div><div class="r-label">Projected lead conversion</div></div>
+      <div class="r-stat"><div class="r-num">2.4×</div><div class="r-label">Faster lead response</div></div>
+      <div class="r-stat"><div class="r-num">+27%</div><div class="r-label">Projected booking rate</div></div>
+      <div class="r-stat"><div class="r-num">24/7</div><div class="r-label">Lead qualification coverage</div></div>
+    </div>
+    <p class="disclaimer">Projected results are illustrative estimates for this concept project and are not based on client data.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">OptiFeather</div>
+        <p>AI Lead Agent is a concept product built to show how an AI agent could qualify and convert leads for a service business.</p>
+      </div>
+      <a href="#" class="btn-primary">Start a project</a>
+    </div>
+    <div class="foot-bottom">
+      <span>studio@optifeather.com</span>
+      <span>OptiFeather portfolio concept — not a real client project.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* nav on scroll */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive:true });
+
+/* generic reveal on scroll */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold:.2 });
+document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+/* hero entrance */
+window.addEventListener('load', ()=>{
+  document.querySelectorAll('.hero .reveal').forEach((el,i)=> setTimeout(()=> el.classList.add('in'), 120*i));
+});
+
+/* chat conversation typing sequence */
+const conversation = [
+  { who:'ai', text:'Hey! How can we help you today?' },
+  { who:'visitor', text:"I'm interested in getting a new website for my landscaping company." },
+  { who:'ai', text:'Absolutely. Are you looking to replace your current website, or build one from scratch?' },
+  { who:'visitor', text:'Replace our current one.' },
+  { who:'ai', text:'Got it. What would you like the new site to help you achieve most?' },
+  { who:'visitor', text:'More leads, honestly. Right now people just call around.' },
+  { who:'ai', text:'Makes sense. Roughly how many qualified leads would you like to generate each month?' },
+  { who:'visitor', text:'Maybe 20–30 would be great.' }
+];
+const chatLog = document.getElementById('chatLog');
+const scoreMock = document.getElementById('scoreMock');
+let chatStarted = false;
+
+function runConversation(){
+  let delay = 200;
+  conversation.forEach((turn, i)=>{
+    const typingTime = turn.who === 'ai' ? 900 : 0;
+    setTimeout(()=>{
+      let typingEl;
+      if(typingTime){
+        typingEl = document.createElement('div');
+        typingEl.className = 'typing show';
+        typingEl.innerHTML = '<i></i><i></i><i></i>';
+        chatLog.appendChild(typingEl);
+        chatLog.scrollTop = chatLog.scrollHeight;
+      }
+      setTimeout(()=>{
+        if(typingEl) typingEl.remove();
+        const msg = document.createElement('div');
+        msg.className = 'msg ' + turn.who;
+        msg.innerHTML = '<div class="bubble">' + turn.text + '</div>';
+        chatLog.appendChild(msg);
+        chatLog.scrollTop = chatLog.scrollHeight;
+        requestAnimationFrame(()=> msg.classList.add('in'));
+        if(i === conversation.length - 1){
+          setTimeout(()=> scoreMock.classList.add('in'), 700);
+        }
+      }, typingTime);
+    }, delay);
+    delay += typingTime + (turn.who === 'ai' ? 1000 : 750);
+  });
+}
+
+const chatObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !chatStarted){
+      chatStarted = true;
+      runConversation();
+      chatObserver.disconnect();
+    }
+  });
+}, { threshold:.35 });
+chatObserver.observe(document.getElementById('demo'));
+</script>
+</body>
+</html>
