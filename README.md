@@ -1,5 +1,5 @@
 # site
-Made by
-Maksym Chorny
-Kanashchuk Andriy
+Made by:
+Maksym Chorny,
+Kanashchuk Andriy,
 Nikita
