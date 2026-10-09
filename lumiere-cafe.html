@@ -17,7 +17,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -52,9 +52,8 @@
   }
 
   h1,h2,h3,h4, .serif{
-    font-family:'Fraunces', serif;
+    font-family:'Caprasimo', serif;
     font-weight:650;
-    font-variation-settings:"SOFT" 100, "WONK" 1;
     letter-spacing:-0.02em;
     line-height:1.02;
   }
@@ -87,7 +86,7 @@
     display:flex; align-items:center; justify-content:center; flex-direction:column;
   }
   #preloader .pl-word{
-    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-family:'Caprasimo', serif; font-style:italic; font-weight:400;
     font-size:clamp(2.5rem, 8vw, 6rem); color:var(--ivory);
     padding-right:0.12em; /* prevents the italic final letter from being clipped */
   }
@@ -113,25 +112,30 @@
     color:var(--espresso);
   }
   .logo{
-    font-family:'Fraunces', serif; font-size:1.35rem; letter-spacing:0.04em; font-weight:500;
+    font-family:'Caprasimo', serif; font-size:1.35rem; letter-spacing:0.04em; font-weight:500;
   }
-  .nav-links{ display:flex; gap:38px; align-items:center; }
+  .nav-links{ display:flex; gap:34px; align-items:center; }
   .nav-links a{
-    font-size:0.83rem; letter-spacing:0.08em; text-transform:uppercase; position:relative; padding-bottom:3px;
+    font-family:'Caprasimo', serif; font-weight:400; font-size:1.08rem; letter-spacing:0.01em;
+    text-transform:none; position:relative; padding-bottom:3px; line-height:1.2;
   }
   .nav-links a:not(.nav-cta)::after{
-    content:''; position:absolute; left:0; bottom:0; width:0%; height:1px; background:currentColor;
+    content:''; position:absolute; left:0; bottom:0; width:0%; height:1.5px; background:var(--amber);
     transition:width .35s cubic-bezier(.5,0,0,1);
   }
+  header.scrolled .nav-links a:not(.nav-cta)::after{ background:var(--copper); }
   .nav-links a:not(.nav-cta):hover::after{ width:100%; }
   .nav-cta{
-    border:1px solid currentColor; padding:10px 20px; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;
-    border-radius:100px; transition:background .35s ease, color .35s ease;
+    font-family:'Caprasimo', serif; font-weight:400; text-transform:none;
+    background:var(--amber); color:var(--espresso); border:1.5px solid var(--amber);
+    padding:11px 24px; font-size:1.02rem; letter-spacing:0.01em;
+    border-radius:100px; transition:background .35s ease, color .35s ease, border-color .35s ease, transform .35s ease;
     display:inline-flex; align-items:center; justify-content:center; line-height:1;
   }
-  .nav-links a.nav-cta{ padding:11px 22px; }
-  .nav-cta:hover{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
-  header.scrolled .nav-cta:hover{ background:var(--espresso); color:var(--ivory); }
+  .nav-links a.nav-cta{ padding:12px 24px; }
+  .nav-cta:hover{ background:var(--ivory); border-color:var(--ivory); color:var(--espresso); }
+  header.scrolled .nav-cta{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
+  header.scrolled .nav-cta:hover{ background:var(--copper); border-color:var(--copper); color:var(--ivory); }
   .nav-burger{ display:none; flex-direction:column; gap:6px; width:30px; z-index:600; }
   .nav-burger span{ height:1px; background:currentColor; width:100%; display:block; transition:transform .35s ease, opacity .35s ease; }
 
@@ -143,7 +147,7 @@
     pointer-events:none;
   }
   #mobile-menu.open{ clip-path:circle(150% at 92% 6%); pointer-events:auto; }
-  #mobile-menu a{ font-family:'Fraunces', serif; font-size:12vw; color:var(--ivory); line-height:1.15; }
+  #mobile-menu a{ font-family:'Caprasimo', serif; font-size:12vw; color:var(--ivory); line-height:1.15; }
   #mobile-menu .mm-foot{ margin-top:40px; color:var(--beige); }
 
   /* ---------- Hero ---------- */
@@ -157,7 +161,7 @@
     text-align:center; padding:0 6vw; opacity:0; pointer-events:none; will-change:opacity, transform;
     background:radial-gradient(ellipse at center, rgba(28,15,9,0.55) 0%, rgba(28,15,9,0.25) 70%);
   }
-  .hero-overlay p{ font-family:'Fraunces', serif; font-weight:700; font-variation-settings:"SOFT" 100, "WONK" 1;
+  .hero-overlay p{ font-family:'Caprasimo', serif; font-weight:700;
     font-size:clamp(2.6rem,8vw,7rem); line-height:1.02; letter-spacing:-0.02em; color:var(--ivory); }
   .hero-overlay p em{ font-style:italic; font-weight:500; color:var(--amber); }
   .hero-media{ position:absolute; inset:0; }
@@ -180,14 +184,14 @@
   }
   .hero-line{ font-size:1.02rem; line-height:1.6; max-width:380px; color:var(--ivory-dim); overflow:hidden; }
   .hero-line span{ display:inline-block; }
-  .hero-tagline{ font-family:'Fraunces', serif; font-style:italic; font-size:clamp(1.1rem,2vw,1.5rem); color:var(--amber); flex-shrink:0; }
+  .hero-tagline{ font-family:'Caprasimo', serif; font-style:italic; font-size:clamp(1.1rem,2vw,1.5rem); color:var(--amber); flex-shrink:0; }
   .scroll-indicator{
     position:absolute; bottom:36px; right:6vw; z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px;
     color:var(--beige); font-size:0.7rem;
   }
   @media (prefers-reduced-motion: reduce){
     .hero-track{ height:auto; } .hero{ position:relative; } .hero-overlay{ display:none; }
-    .story{ margin-top:0; border-radius:0; box-shadow:none; }
+    .menu-section{ margin-top:0; border-radius:0; box-shadow:none; }
   }
   @media (max-width:900px){
     .hero-inner{ padding-right:6vw; }
@@ -218,25 +222,9 @@
   .reveal-mask{ overflow:hidden; }
   .reveal-mask .inner{ display:block; }
 
-  /* ---------- Intro / Story ---------- */
-  .story{ position:relative; z-index:5; margin-top:-100svh; min-height:100svh; display:flex; flex-direction:column; justify-content:center; padding:140px 0 120px; background:var(--ivory);
-    border-radius:44px 44px 0 0; box-shadow:0 -32px 80px rgba(28,15,9,0.35); }
-  .story .container{ width:100%; }
-  .story-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:end; }
-  .story h2{ font-size:clamp(2.4rem, 5.4vw, 4.6rem); font-weight:650; }
-  .story h2 em{ font-style:italic; color:var(--copper); font-weight:500; }
-  .story-copy{ max-width:400px; margin-top:26px; color:rgba(46,24,16,0.72); font-size:1.02rem; line-height:1.7; }
-  .story-copy + .story-copy{ margin-top:16px; }
-  .story-stats{ display:flex; gap:50px; margin-top:44px; }
-  .story-stats div span{ display:block; font-family:'Fraunces', serif; font-size:2rem; }
-  .story-stats div small{ color:rgba(46,24,16,0.55); font-size:0.72rem; }
-  .story-media{ position:relative; }
-  .story-media .frame{ position:relative; overflow:hidden; border-radius:20px; aspect-ratio:4/5; }
-  .story-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.2); }
-  .story-num{ margin-top:20px; display:flex; justify-content:space-between; }
-
   /* ---------- Menu ---------- */
-  .menu-section{ background:var(--oat); color:var(--espresso); padding:150px 0 170px; }
+  .menu-section{ position:relative; z-index:5; margin-top:-100svh; min-height:100svh; background:var(--oat); color:var(--espresso); padding:150px 0 170px;
+    border-radius:44px 44px 0 0; box-shadow:0 -32px 80px rgba(28,15,9,0.35); }
   .menu-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:70px; flex-wrap:wrap; }
   .menu-head h2{ font-size:clamp(2.6rem,6vw,5.2rem); }
   .menu-head p{ max-width:320px; color:rgba(46,24,16,0.72); line-height:1.6; }
@@ -303,7 +291,8 @@
   .g-item:hover img{ transform:scale(1.06); }
   .g-item .g-num{ position:absolute; bottom:14px; left:14px; color:#fff; font-family:'Instrument Sans',sans-serif; font-size:0.72rem; opacity:0; transition:opacity .3s ease; }
   .g-item:hover .g-num{ opacity:0.85; }
-  .g1{ width:min(60vw,420px); height:520px; margin-top:60px; }
+  .g1{ width:min(84vw,560px); height:520px; margin-top:60px; }
+  .g1 img{ object-position:67% 50%; }
   .g2{ width:min(40vw,300px); height:400px; }
   .g3{ width:min(70vw,480px); height:340px; margin-top:120px; }
   .g4{ width:min(34vw,260px); height:460px; }
@@ -362,7 +351,7 @@
   .res-step.active{ display:block; animation:resIn .5s cubic-bezier(.2,.7,.2,1) both; }
   @keyframes resIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
   .res-kicker{ font-size:0.9rem; color:rgba(46,24,16,0.55); margin-bottom:6px; }
-  .res-q{ display:block; font-family:'Fraunces',serif; font-weight:650; font-variation-settings:"SOFT" 100,"WONK" 1; font-size:1.45rem; letter-spacing:-0.01em; margin-bottom:22px; }
+  .res-q{ display:block; font-family:'Caprasimo',serif; font-weight:650; font-size:1.45rem; letter-spacing:-0.01em; margin-bottom:22px; }
   .res-input{
     width:100%; background:none; border:none; border-bottom:2px solid rgba(162,74,27,0.45); padding:10px 0 12px;
     font-family:inherit; font-size:1.7rem; color:var(--espresso); outline:none; transition:border-color .3s ease; border-radius:0;
@@ -409,16 +398,22 @@
   .hours h2{ font-size:clamp(2.4rem,5vw,3.8rem); font-style:italic; font-weight:500; color:var(--ivory); }
   .hours-label{ display:block; margin-top:26px; font-size:0.78rem; color:var(--amber); }
   .hours-time{
-    font-family:'Fraunces',serif; font-weight:600; font-variation-settings:"SOFT" 100,"WONK" 1;
+    font-family:'Caprasimo',serif; font-weight:600;
     font-size:clamp(3.2rem,8.5vw,6.4rem); line-height:1; margin-top:14px; letter-spacing:-0.02em; color:var(--ivory);
   }
   .hours-time sup{ font-family:'Instrument Sans',sans-serif; font-size:0.28em; font-weight:600; letter-spacing:0.06em; vertical-align:top; position:relative; top:0.35em; margin:0 0.12em; color:var(--beige); }
   .hours-time .dash{ display:inline-block; width:0.55em; height:0.07em; background:var(--amber); margin:0 0.35em; vertical-align:middle; border-radius:2px; }
 
-  .scallop{
-    height:64px; margin-top:120px; background-color:var(--beige); background-repeat:repeat-x; background-position:center top; background-size:240px 64px;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 64'%3E%3Cpath d='M0 0H240V8Q120 112 0 8Z' fill='%231C0F09'/%3E%3C/svg%3E");
+  /* Ticker band (replaces the scalloped edge) */
+  .ticker{
+    margin-top:120px; background:var(--amber); color:var(--espresso); overflow:hidden;
+    border-top:1px solid var(--espresso); border-bottom:1px solid var(--espresso);
+    display:flex; white-space:nowrap; user-select:none;
   }
+  .ticker-track{ display:flex; flex-shrink:0; align-items:center; animation:tickerMove 38s linear infinite; }
+  .ticker-track span{ font-family:'Caprasimo',serif; font-size:clamp(1.3rem,2.4vw,2rem); padding:16px 0; line-height:1; }
+  .ticker-track i{ font-style:normal; display:inline-block; width:12px; height:12px; margin:0 34px; background:var(--espresso); transform:rotate(45deg); flex-shrink:0; }
+  @keyframes tickerMove{ to{ transform:translateX(-100%); } }
 
   /* ---------- Footer ---------- */
   footer{ background:var(--beige); color:var(--espresso); }
@@ -435,6 +430,12 @@
   .f-dir strong{ display:block; font-size:0.7rem; color:var(--copper); margin-bottom:8px; }
   .f-dir p{ margin-bottom:6px; font-size:0.9rem; }
   .f-link{ display:inline-block; margin-top:14px; font-size:0.72rem; border-bottom:1px solid var(--espresso); padding-bottom:2px; }
+  .footer-mark{
+    font-family:'Caprasimo',serif !important; font-weight:400; text-align:center; color:var(--espresso);
+    font-size:clamp(4rem,21.5vw,19rem); line-height:.82; letter-spacing:-0.02em; padding:0 2vw; margin-top:10px;
+    white-space:nowrap; overflow:hidden; user-select:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 100%); mask-image:linear-gradient(to bottom,#000 55%,transparent 100%);
+  }
   .footer-bottom{ display:flex; justify-content:space-between; padding:24px 6vw 28px; color:rgba(46,24,16,0.55); font-size:0.75rem; flex-wrap:wrap; gap:10px; border-top:1px solid rgba(46,24,16,0.2); }
 
   /* ---------- Magnetic ---------- */
@@ -444,7 +445,6 @@
   @media (max-width:900px){
     .nav-links{ display:none; }
     .nav-burger{ display:flex; }
-    .story-grid{ grid-template-columns:1fr; }
     .atmo-row{ grid-template-columns:1fr; }
     .atmo-media{ min-height:50vh; border-radius:20px; }
     .atmo-copy{ padding:32px 6vw 48px; }
@@ -453,7 +453,8 @@
     .res-form{ padding:36px 26px 30px; }
     .reserve{ padding-top:110px; }
     .hours{ padding-top:80px; }
-    .scallop{ margin-top:80px; height:44px; background-size:160px 44px; }
+    .ticker{ margin-top:80px; }
+    .ticker-track i{ margin:0 22px; width:9px; height:9px; }
     .footer-grid{ grid-template-columns:1fr; padding:50px 8vw 40px; }
     .footer-grid > div{ padding:28px 0; }
     .footer-grid > div + div{ border-left:none; border-top:1px solid rgba(46,24,16,0.2); }
@@ -464,18 +465,28 @@
   }
 
   @media (prefers-reduced-motion: reduce){
+    .ticker-track{ animation:none !important; }
     *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
   }
+
+  /* ---------- Display typeface: Caprasimo (Cooper-style soft serif, single weight) ---------- */
+  h1,h2,h3,h4,.serif,.logo,.nav-links a,#preloader .pl-word,.hero-overlay p,.hero-tagline,.res-q,.hours-time,.mc-name,#mobile-menu a,
+  .atmo-copy h3,.res-form h2,.res-done h3,.hours h2,.footer-grid h4{
+    font-family:'Caprasimo', serif !important; font-weight:400 !important; font-style:normal !important;
+    font-synthesis:none; letter-spacing:-0.005em;
+  }
+  em, .hero-overlay p em{ font-style:normal !important; font-weight:400 !important; }
+  .hero-title{ letter-spacing:-0.01em; line-height:1.05; }
+  h1,h2,h3,h4{ line-height:1.08; }
 
   :focus-visible{ outline:2px solid var(--copper); outline-offset:3px; }
 </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6VD4XDW"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-
 
 <div class="grain"></div>
 
@@ -491,7 +502,6 @@
   <a href="#top" class="logo">LUMIÈRE</a>
   <nav class="nav-links">
     <a href="#top">Home</a>
-    <a href="#about">About</a>
     <a href="#menu">Menu</a>
     <a href="#gallery">Gallery</a>
     <a href="#visit">Visit</a>
@@ -504,7 +514,6 @@
 
 <div id="mobile-menu">
   <a href="#top">Home</a>
-  <a href="#about">About</a>
   <a href="#menu">Menu</a>
   <a href="#gallery">Gallery</a>
   <a href="#visit">Visit</a>
@@ -537,31 +546,6 @@
   </div>
 </section>
 </div>
-
-<!-- STORY -->
-<section class="story" id="about">
-  <div class="container story-grid">
-    <div>
-      <div class="eyebrow mono">The Idea</div>
-      <h2 class="reveal-up">Made for slow<br>mornings. Designed<br>for long <em>conversations.</em></h2>
-      <p class="story-copy">LUMIÈRE was never meant to be a place you pass through. It's built around the pause — the second cup, the unhurried lunch, the conversation that runs long. The best cafés aren't places you drink coffee; they become part of your day.</p>
-      <p class="story-copy">We opened in Williamsburg in 2019 with a single espresso machine and a belief that good design and good coffee should live in the same room. That hasn't changed.</p>
-      <div class="story-stats mono">
-        <div><span class="serif">2019</span><small>Founded</small></div>
-        <div><span class="serif">08–23</span><small>Daily</small></div>
-      </div>
-    </div>
-    <div class="story-media">
-      <div class="frame" data-parallax-img>
-        <img src="assets/lumiere/img/flat-white.jpg" alt="Flat white with latte art at LUMIÈRE" />
-      </div>
-      <div class="story-num mono" style="font-size:0.7rem; color:rgba(46,24,16,0.5);">
-        <span>Brooklyn, Williamsburg</span>
-        <span>Est. 2019</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- MENU -->
 <section class="menu-section" id="menu">
@@ -687,7 +671,7 @@
 <!-- ATMOSPHERE -->
 <section class="atmosphere">
   <div class="atmo-row">
-    <div class="atmo-media"><img data-speed="0.1" src="assets/lumiere/img/cappuccino.jpg" alt="Cappuccino by the window"></div>
+    <div class="atmo-media"><img data-speed="0.1" src="assets/lumiere/img/flat-white.jpg" alt="Flat white by the window"></div>
     <div class="atmo-copy"><div><span class="an">01 — Mornings</span><h3>Slow mornings.</h3><p>Light comes in low through the front windows. The first pour-overs go out slow and unhurried.</p></div></div>
   </div>
   <div class="atmo-row">
@@ -796,7 +780,10 @@
     <span class="hours-label mono">Every day</span>
     <p class="hours-time">8<sup>AM</sup><span class="dash"></span>11<sup>PM</sup></p>
   </div>
-  <div class="scallop" aria-hidden="true"></div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track"><span>Coffee</span><i></i><span>Food</span><i></i><span>Moments</span><i></i><span>Williamsburg, Brooklyn</span><i></i><span>Open every day</span><i></i><span>Since 2019</span><i></i></div>
+    <div class="ticker-track"><span>Coffee</span><i></i><span>Food</span><i></i><span>Moments</span><i></i><span>Williamsburg, Brooklyn</span><i></i><span>Open every day</span><i></i><span>Since 2019</span><i></i></div>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -826,6 +813,7 @@
       </ul>
     </div>
   </div>
+  <div class="footer-mark" aria-hidden="true">LUMIÈRE</div>
   <div class="footer-bottom mono">
     <span>© 2026 LUMIÈRE CAFÉ</span>
     <span>Design &amp; Development — Portfolio Piece</span>
