@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Steady Hand — Barbershop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   THE STEADY HAND — design system
+   Warm charcoal + copper + petrol. Fraunces / Bebas Neue / Inter / IBM Plex Mono.
+   ========================================================================== */
+
+:root {
+  --ink: #15120f;
+  --ink-raised: #1e1a16;
+  --paper: #ede3d0;
+  --paper-dim: #8f8776;
+  --copper: #a6511f;
+  --copper-bright: #d4813f;
+  --petrol: #2f4a50;
+  --petrol-bright: #4a7178;
+  --chalk: #f4eedd;
+  --line: rgba(237, 227, 208, 0.12);
+
+  --font-display: 'Fraunces', serif;
+  --font-label: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+img, svg, video { display: block; max-width: 100%; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--copper-bright);
+  outline-offset: 3px;
+}
+
+.eyebrow {
+  font-family: var(--font-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--copper-bright);
+  margin: 0 0 12px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+  color: var(--chalk);
+}
+
+h1 em, h2 em { font-style: italic; font-weight: 500; color: var(--copper-bright); }
+
+/* ---------- Preloader ---------- */
+#preloader {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  animation: preloaderOut 1.5s var(--ease) forwards;
+}
+.pole-loader { width: 120px; height: 14px; border-radius: 7px; }
+@keyframes preloaderOut {
+  0%, 60% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* ---------- Signature: barber pole stripe ---------- */
+.pole-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--copper) 0px, var(--copper) 18px,
+    var(--chalk) 18px, var(--chalk) 36px,
+    var(--petrol) 36px, var(--petrol) 54px
+  );
+  background-size: 76px 76px;
+  animation: poleScroll 3.2s linear infinite;
+}
+@keyframes poleScroll {
+  from { background-position: 0 0; }
+  to { background-position: 152px 0; }
+}
+.pole-divider { height: 10px; width: 100%; }
+.pole-small { height: 8px; width: 64px; border-radius: 4px; }
+
+/* ---------- Nav ---------- */
+#nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 5vw;
+  background: rgba(21, 18, 15, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  transition: padding 0.3s var(--ease);
+}
+#nav.shrink { padding: 10px 5vw; }
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--chalk);
+  font-family: var(--font-label); letter-spacing: 0.04em; font-size: 18px;
+}
+.nav-logo svg { color: var(--copper-bright); }
+
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  text-decoration: none; color: var(--paper-dim);
+  font-size: 14px; font-weight: 500;
+  transition: color 0.2s var(--ease);
+}
+.nav-links a:hover { color: var(--chalk); }
+
+.nav-status {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--paper-dim);
+}
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--copper-bright);
+  box-shadow: 0 0 0 0 rgba(212, 129, 63, 0.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(212, 129, 63, 0.5); }
+  70% { box-shadow: 0 0 0 7px rgba(212, 129, 63, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 129, 63, 0); }
+}
+
+.nav-burger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 30px; height: 30px; background: none; border: none; cursor: pointer;
+  padding: 0; z-index: 210;
+}
+.nav-burger span {
+  display: block; height: 1px; width: 100%; background: var(--chalk);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.nav-burger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-burger.is-open span:nth-child(2) { opacity: 0; }
+.nav-burger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+#mobile-nav {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--ink);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  gap: 28px; padding: 8vh 8vw;
+  opacity: 0; visibility: hidden; transform: translateY(-12px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), visibility 0.35s;
+}
+#mobile-nav.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+#mobile-nav a {
+  font-family: var(--font-display); font-size: clamp(28px, 9vw, 44px); color: var(--chalk);
+  text-decoration: none;
+}
+#mobile-nav a:hover { color: var(--copper-bright); }
+#mobile-nav .mobile-nav-foot {
+  margin-top: 12px; font-family: var(--font-mono); font-size: 13px; color: var(--paper-dim);
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+}
+
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 12vh 6vw 8vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hero-inner { max-width: 780px; }
+.hero-title {
+  font-size: clamp(40px, 7vw, 84px);
+  line-height: 1.03;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 18px;
+  color: var(--paper-dim);
+  max-width: 520px;
+  margin: 24px 0 36px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 15px 28px; border-radius: 3px; background: transparent;
+  font-family: var(--font-body); font-weight: 600; font-size: 14.5px;
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.btn-primary { background: var(--copper); color: var(--chalk); }
+.btn-primary:hover { background: var(--copper-bright); transform: translateY(-2px); }
+.btn-ghost { border-color: var(--line); color: var(--paper); background: transparent; }
+.btn-ghost:hover { border-color: var(--copper-bright); color: var(--copper-bright); }
+.btn-wide { width: 100%; padding: 16px; margin-top: 28px; }
+
+.hero-stats {
+  display: flex; gap: 56px;
+  margin-top: 10vh; padding-top: 32px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.stat-num {
+  display: block; font-family: var(--font-display); font-size: 40px; color: var(--chalk);
+}
+.stat-label {
+  font-family: var(--font-label); letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 12px; color: var(--paper-dim);
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--ink-raised);
+}
+.marquee-track {
+  display: flex; width: max-content;
+  animation: marqueeScroll 26s linear infinite;
+}
+.marquee-set {
+  display: flex; gap: 20px; white-space: nowrap; flex-shrink: 0;
+  font-family: var(--font-label);
+  letter-spacing: 0.08em;
+  font-size: 15px;
+  color: var(--paper-dim);
+  padding-right: 20px;
+}
+.marquee-track .dot { color: var(--copper-bright); }
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-1 * var(--marquee-set-width, 50%))); }
+}
+
+/* ---------- Sections ---------- */
+.section { padding: 11vh 6vw; max-width: 1200px; margin: 0 auto; }
+.section-head { margin-bottom: 56px; max-width: 560px; }
+.section-head h2 { font-size: clamp(28px, 4vw, 42px); }
+
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ---------- Services / price menu ---------- */
+.menu-list { list-style: none; margin: 0; padding: 0; max-width: 720px; }
+.menu-item {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.menu-name { font-family: var(--font-display); font-size: 20px; color: var(--chalk); white-space: nowrap; }
+.menu-name small { font-family: var(--font-body); font-size: 13px; color: var(--paper-dim); }
+.menu-leader {
+  flex: 1; border-bottom: 2px dotted var(--paper-dim); opacity: 0.4;
+  margin-bottom: 6px;
+}
+.menu-price {
+  font-family: var(--font-mono); font-size: 17px; color: var(--copper-bright);
+  transition: transform 0.2s var(--ease);
+}
+.menu-item:hover .menu-price { transform: scale(1.08); }
+.menu-item.featured .menu-name,
+.menu-item.featured .menu-price { color: var(--petrol-bright); }
+.menu-item.featured .menu-price { color: var(--copper-bright); }
+
+/* ---------- Barbers ---------- */
+.barber-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;
+}
+.barber-card {
+  background: var(--ink-raised);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 32px 28px;
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.barber-card:hover { transform: translateY(-6px); border-color: var(--copper); }
+.barber-mark { color: var(--copper-bright); width: 52px; margin-bottom: 20px; }
+.barber-card h3 { font-size: 24px; margin-bottom: 4px; }
+.barber-role { font-family: var(--font-label); letter-spacing: 0.05em; color: var(--petrol-bright); font-size: 14px; margin: 0 0 16px; }
+.barber-note { color: var(--paper-dim); font-size: 14.5px; font-style: italic; margin: 0; }
+
+/* ---------- Craft ---------- */
+.craft-section {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center;
+}
+.craft-text { color: var(--paper-dim); font-size: 16.5px; max-width: 460px; margin-top: 20px; }
+.craft-illustration { color: var(--copper-bright); }
+
+@media (max-width: 800px) {
+  .craft-section { grid-template-columns: 1fr; }
+}
+
+/* ---------- Testimonials ---------- */
+.quote-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px;
+}
+.testimonials blockquote {
+  margin: 0; padding: 0; border-left: 2px solid var(--copper);
+  padding-left: 20px;
+}
+.testimonials p { font-family: var(--font-display); font-size: 18px; font-style: italic; color: var(--chalk); margin: 0 0 12px; }
+.testimonials cite { font-family: var(--font-mono); font-size: 12.5px; color: var(--paper-dim); font-style: normal; }
+
+/* ---------- Booking ---------- */
+.book-section { text-align: center; }
+.book-inner { max-width: 640px; margin: 0 auto; }
+.book-section .section-head, .book-inner .eyebrow, .book-inner h2 { text-align: center; }
+.book-inner h2 { margin-bottom: 40px; }
+
+.day-picker, .slot-picker { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
+.day-btn, .slot-btn {
+  font-family: var(--font-mono); font-size: 14px;
+  background: var(--ink-raised); color: var(--paper);
+  border: 1px solid var(--line); border-radius: 4px;
+  padding: 10px 16px; cursor: pointer;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.day-btn:hover, .slot-btn:hover:not(:disabled) { border-color: var(--copper-bright); }
+.day-btn.is-active, .slot-btn.is-active {
+  background: var(--copper); border-color: var(--copper); color: var(--chalk);
+}
+.slot-btn.is-taken { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; }
+
+#confirm-msg { margin-top: 16px; font-size: 14px; color: var(--copper-bright); min-height: 20px; }
+
+/* ---------- Footer ---------- */
+.footer { padding: 8vh 6vw 6vh; max-width: 1200px; margin: 0 auto; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+.footer-brand span { font-family: var(--font-label); font-size: 20px; letter-spacing: 0.04em; color: var(--chalk); }
+.footer-brand p { color: var(--paper-dim); font-size: 13.5px; margin: 4px 0 0; }
+.footer-note { color: var(--paper-dim); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 20px; }
+
+/* ==========================================================================
+   PREMIUM LAYER — grain, cursor, motion polish
+   ========================================================================== */
+
+/* ---------- Grain overlay ---------- */
+.grain-defs { position: absolute; width: 0; height: 0; }
+.grain-overlay {
+  position: fixed; inset: 0; z-index: 40; pointer-events: none;
+  filter: url(#grainFilter);
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+
+/* ---------- Preloader percentage ---------- */
+.preload-pct {
+  position: absolute; margin-top: 46px;
+  font-family: var(--font-mono); font-size: 13px; color: var(--paper-dim);
+}
+#preloader { flex-direction: column; gap: 4px; }
+
+/* ---------- Hero spotlight + word reveal ---------- */
+.hero { position: relative; overflow: hidden; }
+.hero::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(180deg, rgba(21,18,15,0.58) 0%, rgba(21,18,15,0.86) 65%, var(--ink) 100%),
+    url('https://images.unsplash.com/photo-1759134248487-e8baaf31e33e?auto=format&fit=crop&w=1800&q=70');
+  background-size: cover;
+  background-position: center 32%;
+  filter: saturate(0.85);
+}
+.hero-inner, .hero-stats { position: relative; z-index: 1; }
+
+.reveal-word {
+  display: inline-block;
+  opacity: 0; transform: translateY(0.5em);
+  animation: wordUp 0.8s var(--ease) forwards;
+  animation-delay: calc(var(--d) * 0.075s + 0.2s);
+}
+p.reveal-word, div.reveal-word { display: block; }
+h1 .reveal-word { display: inline-block; }
+.reveal-word.em { color: var(--copper-bright); font-style: italic; font-weight: 500; }
+@keyframes wordUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Magnetic buttons ---------- */
+
+/* ---------- About section ---------- */
+.about-section {
+  display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: center;
+}
+.about-panel {
+  aspect-ratio: 4/5; border-radius: 6px; overflow: hidden;
+  position: relative; border: 1px solid var(--line);
+}
+.about-panel-inner {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(212, 129, 63, 0.35), transparent 55%),
+    radial-gradient(circle at 75% 70%, rgba(47, 74, 80, 0.45), transparent 60%),
+    linear-gradient(160deg, rgba(36,29,22,0.55), rgba(20,16,12,0.75)),
+    url('https://images.unsplash.com/photo-1546664278-c0a27e0cdc88?auto=format&fit=crop&w=1000&q=80');
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.1);
+}
+.about-panel-inner::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(90deg, rgba(237,227,208,0.04) 0 1px, transparent 1px 3px);
+}
+.about-text { color: var(--paper-dim); font-size: 16px; max-width: 520px; margin: 20px 0 24px; }
+.about-quote {
+  margin: 0; padding-left: 18px; border-left: 2px solid var(--petrol-bright);
+  font-family: var(--font-display); font-style: italic; font-size: 17px; color: var(--chalk);
+}
+.about-quote cite { display: block; margin-top: 8px; font-family: var(--font-mono); font-style: normal; font-size: 12.5px; color: var(--paper-dim); }
+@media (max-width: 800px) { .about-section { grid-template-columns: 1fr; } }
+
+/* ---------- Barber tilt ---------- */
+.tilt-card { transform-style: preserve-3d; transition: transform 0.15s ease-out, border-color 0.35s var(--ease); }
+
+.barber-photo {
+  width: 86px; height: 86px; border-radius: 50%; overflow: hidden;
+  border: 2px solid var(--line); margin-bottom: 18px;
+  transition: border-color 0.3s var(--ease);
+}
+.barber-card:hover .barber-photo { border-color: var(--copper-bright); }
+.barber-photo img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
+  filter: grayscale(0.35) contrast(1.08);
+  display: block;
+}
+
+/* ---------- Craft illustration photo backdrop ---------- */
+.craft-illustration {
+  position: relative;
+  border-radius: 10px; overflow: hidden;
+  aspect-ratio: 6 / 5;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(160deg, rgba(21,18,15,0.25), rgba(21,18,15,0.78)),
+    url('https://images.unsplash.com/photo-1596362601603-b74f6ef166e4?auto=format&fit=crop&w=1000&q=80') center/cover;
+}
+
+/* ---------- Gallery ---------- */
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+}
+.gallery-item {
+  margin: 0; border-radius: 6px; overflow: hidden; aspect-ratio: 3 / 4;
+  border: 1px solid var(--line); background: var(--ink-raised);
+}
+.gallery-item.gallery-tall { aspect-ratio: 3 / 4.6; margin-top: 26px; }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(0.15) contrast(1.05);
+  transition: transform 0.6s var(--ease), filter 0.6s var(--ease);
+  display: block;
+}
+.gallery-item:hover img { transform: scale(1.07); filter: grayscale(0) contrast(1.1); }
+@media (max-width: 800px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item.gallery-tall { margin-top: 0; }
+}
+
+/* ---------- Membership plans ---------- */
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.plan-card {
+  background: var(--ink-raised); border: 1px solid var(--line); border-radius: 8px;
+  padding: 32px 26px; display: flex; flex-direction: column; gap: 14px;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.plan-card:hover { transform: translateY(-4px); border-color: var(--copper); }
+.featured-plan { border-color: var(--copper); background: linear-gradient(165deg, rgba(166,81,31,0.14), var(--ink-raised) 60%); position: relative; }
+.plan-tag {
+  position: absolute; top: -12px; left: 26px;
+  font-family: var(--font-label); font-size: 11px; letter-spacing: 0.08em;
+  background: var(--copper); color: var(--chalk); padding: 3px 10px; border-radius: 3px; margin: 0;
+}
+.plan-name { font-family: var(--font-label); letter-spacing: 0.04em; font-size: 18px; color: var(--chalk); margin: 0; }
+.plan-price { font-family: var(--font-display); font-size: 32px; color: var(--copper-bright); margin: 0; }
+.plan-price span { font-family: var(--font-body); font-size: 14px; color: var(--paper-dim); }
+.plan-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.plan-list li { color: var(--paper-dim); font-size: 14px; padding-left: 16px; position: relative; }
+.plan-list li::before { content: "—"; position: absolute; left: 0; color: var(--petrol-bright); }
+
+/* ---------- Testimonial carousel ---------- */
+.quote-carousel { max-width: 640px; margin: 0 auto; overflow: hidden; }
+.quote-track { display: flex; transition: transform 0.6s var(--ease); }
+.quote-track blockquote {
+  min-width: 100%; margin: 0; border-left: 2px solid var(--copper); padding-left: 20px; box-sizing: border-box;
+}
+.quote-dots { display: flex; gap: 8px; justify-content: center; margin-top: 28px; }
+.quote-dots button {
+  width: 8px; height: 8px; border-radius: 50%; border: none; background: var(--line); cursor: pointer; padding: 0;
+}
+.quote-dots button.is-active { background: var(--copper-bright); }
+
+/* ---------- Multi-step booking ---------- */
+.step-progress { display: flex; gap: 10px; justify-content: center; margin-bottom: 40px; }
+.step-dot { width: 28px; height: 3px; border-radius: 2px; background: var(--line); transition: background 0.3s var(--ease); }
+.step-dot.is-active, .step-dot.is-done { background: var(--copper-bright); }
+
+.book-step { display: none; }
+.book-step.is-active { display: block; animation: stepIn 0.5s var(--ease); }
+@keyframes stepIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.step-label { font-family: var(--font-label); letter-spacing: 0.06em; color: var(--paper-dim); font-size: 13px; margin-bottom: 18px; }
+
+.option-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.option-btn {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  background: var(--ink-raised); border: 1px solid var(--line); color: var(--paper);
+  border-radius: 5px; padding: 13px 16px; font-family: var(--font-body); font-size: 14px; cursor: pointer;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+  text-align: left;
+}
+.option-btn span { font-family: var(--font-mono); color: var(--copper-bright); }
+.option-btn:hover { border-color: var(--copper-bright); transform: translateY(-2px); }
+.option-btn.is-active { border-color: var(--copper); background: rgba(166,81,31,0.14); }
+
+.step-next { margin-top: 24px; }
+
+.confirm-summary { max-width: 340px; margin: 0 auto 24px; text-align: left; }
+.confirm-summary p { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line); margin: 0; }
+.confirm-summary span { color: var(--paper-dim); font-size: 13.5px; }
+.confirm-summary strong { font-family: var(--font-mono); font-weight: 500; color: var(--chalk); font-size: 13.5px; }
+
+/* ---------- Nav scroll-spy ---------- */
+.nav-links a { position: relative; padding-bottom: 4px; }
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--copper-bright);
+  transition: width 0.25s var(--ease);
+}
+.nav-links a.is-active { color: var(--chalk); }
+.nav-links a.is-active::after { width: 100%; }
+
+</style>
+</head>
+<body>
+
+<svg class="grain-defs" aria-hidden="true" width="0" height="0">
+  <filter id="grainFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+  </filter>
+</svg>
+<div class="grain-overlay" aria-hidden="true"></div>
+
+<div id="preloader" aria-hidden="true">
+  <div class="pole-stripe pole-loader"></div>
+  <span class="preload-pct">0%</span>
+</div>
+
+<nav id="nav">
+  <a href="#top" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <path d="M4 6C4 6 8 8 8 13C8 18 4 20 4 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M22 6C22 6 18 8 18 13C18 18 22 20 22 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="4" y1="13" x2="22" y2="13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <span>The Steady Hand</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#barbers">Barbers</a>
+    <a href="#membership">Membership</a>
+    <a href="#book">Book</a>
+  </div>
+  <div class="nav-status">
+    <span class="status-dot"></span>
+    <span id="status-text">Open now</span>
+  </div>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-nav">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#barbers">Barbers</a>
+  <a href="#membership">Membership</a>
+  <a href="#book">Book</a>
+  <div class="mobile-nav-foot">Open now</div>
+</div>
+
+<header id="top" class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow reveal-word" style="--d:0">Neighborhood barbershop · Est. 2015</p>
+    <h1 class="hero-title">
+      <span class="reveal-word" style="--d:1">A</span> <span class="reveal-word em" style="--d:2">steady</span> <span class="reveal-word" style="--d:3">hand</span><br>
+      <span class="reveal-word" style="--d:4">on</span> <span class="reveal-word" style="--d:5">every</span> <span class="reveal-word" style="--d:6">chair.</span>
+    </h1>
+    <p class="hero-sub reveal-word" style="--d:7">Fades, shaves, and beard work done the unhurried way — six chairs, one standard, no rushing a good cut.</p>
+    <div class="hero-actions reveal-word" style="--d:8">
+      <a href="#book" class="btn btn-primary">Book your chair</a>
+      <a href="#services" class="btn btn-ghost">See prices</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num" data-count="9">0</span>
+      <span class="stat-label">Years cutting</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-count="6">0</span>
+      <span class="stat-label">Chairs</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-count="41000" data-suffix="+">0</span>
+      <span class="stat-label">Cuts given</span>
+    </div>
+  </div>
+</header>
+
+<div class="pole-stripe pole-divider" aria-hidden="true"></div>
+
+<section class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee-track">
+    <div class="marquee-set"><span>FADES</span><span class="dot">·</span><span>LINE-UPS</span><span class="dot">·</span><span>HOT TOWEL SHAVES</span><span class="dot">·</span><span>BEARD SCULPTING</span><span class="dot">·</span><span>CLASSIC CUTS</span><span class="dot">·</span></div>
+  </div>
+</section>
+
+<section id="about" class="section about-section">
+  <div class="about-panel reveal" aria-hidden="true">
+    <div class="about-panel-inner"></div>
+  </div>
+  <div class="about-copy reveal">
+    <p class="eyebrow">Since 2015</p>
+    <h2>Started with one chair and a landlord who didn't believe in it.</h2>
+    <p class="about-text">Marcus opened The Steady Hand in the back third of a laundromat, one chair, no sign. Word got around the way it does in a neighborhood — not through ads, through Tuesday regulars telling Friday regulars. Nine years and five more chairs later, the standard hasn't moved: no phone at the chair, no rushing the line-up, no cut that walks out the door before it's right.</p>
+    <blockquote class="about-quote">"A good barbershop isn't a service. It's a standing appointment with yourself." <cite>— Marcus, owner</cite></blockquote>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <div class="section-head reveal">
+    <p class="eyebrow">The board</p>
+    <h2>What's on the chair today</h2>
+  </div>
+
+  <ul class="menu-list">
+    <li class="menu-item reveal">
+      <span class="menu-name">Signature Fade</span>
+      <span class="menu-leader"></span>
+      <span class="menu-price">$38</span>
+    </li>
+    <li class="menu-item reveal">
+      <span class="menu-name">Classic Cut</span>
+      <span class="menu-leader"></span>
+      <span class="menu-price">$32</span>
+    </li>
+    <li class="menu-item reveal">
+      <span class="menu-name">Beard Sculpt</span>
+      <span class="menu-leader"></span>
+      <span class="menu-price">$24</span>
+    </li>
+    <li class="menu-item reveal">
+      <span class="menu-name">Hot Towel Shave</span>
+      <span class="menu-leader"></span>
+      <span class="menu-price">$35</span>
+    </li>
+    <li class="menu-item reveal featured">
+      <span class="menu-name">Fade + Beard Combo</span>
+      <span class="menu-leader"></span>
+      <span class="menu-price">$55</span>
+    </li>
+    <li class="menu-item reveal">
+      <span class="menu-name">Line-Up</span>
+      <span class="menu-leader"></span>
+      <span class="menu-price">$15</span>
+    </li>
+    <li class="menu-item reveal">
+      <span class="menu-name">Kid's Cut <small>(12 &amp; under)</small></span>
+      <span class="menu-leader"></span>
+      <span class="menu-price">$22</span>
+    </li>
+  </ul>
+</section>
+
+<div class="pole-stripe pole-divider" aria-hidden="true"></div>
+
+<section id="barbers" class="section">
+  <div class="section-head reveal">
+    <p class="eyebrow">Behind the chairs</p>
+    <h2>Three hands, one standard</h2>
+  </div>
+
+  <div class="barber-grid">
+    <article class="barber-card tilt-card reveal">
+      <div class="barber-photo">
+        <img src="https://images.unsplash.com/photo-1657105052497-f996284ffff8?auto=format&fit=crop&w=300&h=300&q=80" alt="Marcus, barber at The Steady Hand" loading="lazy">
+      </div>
+      <h3>Marcus</h3>
+      <p class="barber-role">Fades &amp; tapers</p>
+      <p class="barber-note">"A fade should disappear into skin, not fall off a cliff."</p>
+    </article>
+
+    <article class="barber-card tilt-card reveal">
+      <div class="barber-photo">
+        <img src="https://images.unsplash.com/photo-1571154182577-a63c5101f8d5?auto=format&fit=crop&w=300&h=300&q=80" alt="Junior, barber at The Steady Hand" loading="lazy">
+      </div>
+      <h3>Junior</h3>
+      <p class="barber-role">Beard sculpting &amp; straight razor</p>
+      <p class="barber-note">"The hot towel isn't a formality. It's half the shave."</p>
+    </article>
+
+    <article class="barber-card tilt-card reveal">
+      <div class="barber-photo">
+        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=300&h=300&q=80" alt="Dee, barber at The Steady Hand" loading="lazy">
+      </div>
+      <h3>Dee</h3>
+      <p class="barber-role">Classic cuts, walk-ins</p>
+      <p class="barber-note">"No appointment book beats a barber who remembers your name."</p>
+    </article>
+  </div>
+</section>
+
+<section id="craft" class="section craft-section">
+  <div class="craft-copy reveal">
+    <p class="eyebrow">The craft</p>
+    <h2>Tools that don't cut corners</h2>
+    <p class="craft-text">Every chair runs the same kit: Japanese steel shears, straight razors stropped between every shave, and clippers tuned weekly — not because it's expected, but because a rushed edge shows up in the mirror a week later.</p>
+  </div>
+  <div class="craft-illustration reveal" aria-hidden="true"></div>
+</section>
+
+<div class="pole-stripe pole-divider" aria-hidden="true"></div>
+
+<section id="gallery" class="section gallery-section">
+  <div class="section-head reveal">
+    <p class="eyebrow">Fresh cuts</p>
+    <h2>Off the chair, out the door</h2>
+  </div>
+  <div class="gallery-grid">
+    <figure class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1654097800183-574ba7368f74?auto=format&fit=crop&w=900&q=80" alt="Client getting a precision fade at The Steady Hand" loading="lazy">
+    </figure>
+    <figure class="gallery-item gallery-tall reveal">
+      <img src="https://images.unsplash.com/photo-1582771498000-8ad44e6c84db?auto=format&fit=crop&w=900&q=80" alt="Barber finishing a haircut in the chair" loading="lazy">
+    </figure>
+    <figure class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1603899968034-1a56ca48d172?auto=format&fit=crop&w=900&q=80" alt="Regular relaxing mid-cut" loading="lazy">
+    </figure>
+    <figure class="gallery-item gallery-tall reveal">
+      <img src="https://images.unsplash.com/photo-1703792684940-a05aa0f1188f?auto=format&fit=crop&w=900&q=80" alt="Sharp line-up detail work" loading="lazy">
+    </figure>
+    <figure class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1654097801176-cb1795fd0c5e?auto=format&fit=crop&w=900&q=80" alt="Finishing touches on a classic cut" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<div class="pole-stripe pole-divider" aria-hidden="true"></div>
+
+<section id="membership" class="section membership-section">
+  <div class="section-head reveal">
+    <p class="eyebrow">Standing appointment</p>
+    <h2>Join the chair club</h2>
+  </div>
+  <div class="plan-grid">
+    <article class="plan-card reveal">
+      <p class="plan-name">Walk-In</p>
+      <p class="plan-price">Pay per visit</p>
+      <ul class="plan-list">
+        <li>Standard board pricing</li>
+        <li>Book anytime, no queue priority</li>
+        <li>No commitment</li>
+      </ul>
+      <a href="#book" class="btn btn-ghost">Book a visit</a>
+    </article>
+    <article class="plan-card featured-plan reveal">
+      <p class="plan-tag">Most joined</p>
+      <p class="plan-name">The Steady Club</p>
+      <p class="plan-price">$79<span>/mo</span></p>
+      <ul class="plan-list">
+        <li>2 cuts included monthly</li>
+        <li>10% off beard work &amp; shaves</li>
+        <li>Priority booking window</li>
+      </ul>
+      <a href="#book" class="btn btn-primary">Join Steady Club</a>
+    </article>
+    <article class="plan-card reveal">
+      <p class="plan-name">Founder's Chair</p>
+      <p class="plan-price">$129<span>/mo</span></p>
+      <ul class="plan-list">
+        <li>Unlimited line-ups</li>
+        <li>1 hot towel shave included</li>
+        <li>Same-week priority, any barber</li>
+      </ul>
+      <a href="#book" class="btn btn-ghost">Join Founder's</a>
+    </article>
+  </div>
+</section>
+
+<div class="pole-stripe pole-divider" aria-hidden="true"></div>
+
+<section class="section testimonials">
+  <div class="section-head reveal">
+    <p class="eyebrow">The regulars</p>
+    <h2>Word around the block</h2>
+  </div>
+  <div class="quote-carousel reveal">
+    <div class="quote-track" id="quote-track">
+      <blockquote>
+        <p>"Been going every three weeks for two years. Never once had to explain what I want twice."</p>
+        <cite>— Owen R.</cite>
+      </blockquote>
+      <blockquote>
+        <p>"The hot towel shave alone is worth the trip. First place that's made me put my phone down."</p>
+        <cite>— Malik T.</cite>
+      </blockquote>
+      <blockquote>
+        <p>"Took my son for his first real haircut. Dee had him laughing by the second minute."</p>
+        <cite>— Priya S.</cite>
+      </blockquote>
+      <blockquote>
+        <p>"Joined the Steady Club after one visit. Paid for itself by the second cut."</p>
+        <cite>— Andre F.</cite>
+      </blockquote>
+    </div>
+    <div class="quote-dots" id="quote-dots"></div>
+  </div>
+</section>
+
+<section id="book" class="section book-section">
+  <div class="book-inner reveal">
+    <p class="eyebrow">Reserve a chair</p>
+    <h2>Three steps, one confirmation</h2>
+
+    <div class="step-progress" aria-hidden="true">
+      <span class="step-dot is-active" data-step="1"></span>
+      <span class="step-dot" data-step="2"></span>
+      <span class="step-dot" data-step="3"></span>
+    </div>
+
+    <div class="book-step is-active" data-step="1">
+      <p class="step-label">Step 1 — Choose a service</p>
+      <div class="option-grid" role="group" aria-label="Choose a service">
+        <button class="option-btn" type="button" data-service="Signature Fade">Signature Fade <span>$38</span></button>
+        <button class="option-btn" type="button" data-service="Classic Cut">Classic Cut <span>$32</span></button>
+        <button class="option-btn" type="button" data-service="Beard Sculpt">Beard Sculpt <span>$24</span></button>
+        <button class="option-btn" type="button" data-service="Hot Towel Shave">Hot Towel Shave <span>$35</span></button>
+        <button class="option-btn" type="button" data-service="Fade + Beard Combo">Fade + Beard Combo <span>$55</span></button>
+        <button class="option-btn" type="button" data-service="Line-Up">Line-Up <span>$15</span></button>
+      </div>
+    </div>
+
+    <div class="book-step" data-step="2">
+      <p class="step-label">Step 2 — Pick a day and time</p>
+      <div class="day-picker" role="group" aria-label="Choose a day">
+        <button class="day-btn is-active" type="button">Tue</button>
+        <button class="day-btn" type="button">Wed</button>
+        <button class="day-btn" type="button">Thu</button>
+        <button class="day-btn" type="button">Fri</button>
+        <button class="day-btn" type="button">Sat</button>
+      </div>
+      <div class="slot-picker" role="group" aria-label="Choose a time">
+        <button class="slot-btn" type="button">9:30</button>
+        <button class="slot-btn" type="button">10:15</button>
+        <button class="slot-btn" type="button">11:00</button>
+        <button class="slot-btn is-taken" type="button" disabled>12:30</button>
+        <button class="slot-btn" type="button">1:15</button>
+        <button class="slot-btn" type="button">2:45</button>
+        <button class="slot-btn is-taken" type="button" disabled>3:30</button>
+        <button class="slot-btn" type="button">4:15</button>
+        <button class="slot-btn" type="button">5:00</button>
+      </div>
+      <button class="btn btn-ghost step-next" type="button" data-goto="3">Continue</button>
+    </div>
+
+    <div class="book-step" data-step="3">
+      <p class="step-label">Step 3 — Confirm</p>
+      <div class="confirm-summary" id="confirm-summary">
+        <p><span>Service</span><strong id="sum-service">—</strong></p>
+        <p><span>Day</span><strong id="sum-day">—</strong></p>
+        <p><span>Time</span><strong id="sum-time">—</strong></p>
+      </div>
+      <button id="confirm-btn" class="btn btn-primary btn-wide" type="button">Confirm chair time</button>
+      <p id="confirm-msg" role="status"></p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span>The Steady Hand</span>
+      <p>412 Row Street · Tue–Sat, 9am–7pm</p>
+    </div>
+    <div class="pole-stripe pole-small" aria-hidden="true"></div>
+  </div>
+  <p class="footer-note">Portfolio concept site — design &amp; build by OptiFeather.</p>
+</footer>
+
+<script>
+// ---------- Sticky nav shrink ----------
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('shrink', window.scrollY > 40);
+}, { passive: true });
+
+// ---------- Scroll reveal ----------
+const revealEls = document.querySelectorAll('.reveal, .craft-illustration');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach((el) => revealObserver.observe(el));
+
+// ---------- Stat counters ----------
+const statEls = document.querySelectorAll('.stat-num');
+function animateCount(el) {
+  const target = parseInt(el.dataset.count, 10);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1400;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      animateCount(entry.target);
+      statObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+statEls.forEach((el) => statObserver.observe(el));
+
+// ---------- Multi-step booking ----------
+const booking = { service: null, day: 'Tue', time: null };
+
+function goToStep(n) {
+  document.querySelectorAll('.book-step').forEach((s) => s.classList.toggle('is-active', s.dataset.step === String(n)));
+  document.querySelectorAll('.step-dot').forEach((d) => {
+    const step = parseInt(d.dataset.step, 10);
+    d.classList.toggle('is-active', step === n);
+    d.classList.toggle('is-done', step < n);
+  });
+}
+
+document.querySelectorAll('.option-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.option-btn').forEach((b) => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    booking.service = btn.dataset.service;
+    document.getElementById('sum-service').textContent = booking.service;
+    setTimeout(() => goToStep(2), 250);
+  });
+});
+
+document.querySelectorAll('.day-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.day-btn').forEach((b) => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    booking.day = btn.textContent;
+    document.getElementById('sum-day').textContent = booking.day;
+  });
+});
+
+document.querySelectorAll('.slot-btn:not(.is-taken)').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.slot-btn').forEach((b) => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    booking.time = btn.textContent;
+    document.getElementById('sum-time').textContent = booking.time;
+  });
+});
+
+document.querySelectorAll('.step-next').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    if (!booking.time) {
+      document.getElementById('confirm-msg').textContent = '';
+      const label = document.querySelector('.book-step[data-step="2"] .step-label');
+      label.textContent = 'Pick a time first ↓';
+      label.style.color = 'var(--copper-bright)';
+      return;
+    }
+    goToStep(parseInt(btn.dataset.goto, 10));
+  });
+});
+
+document.querySelectorAll('.step-dot').forEach((dot) => {
+  dot.addEventListener('click', () => goToStep(parseInt(dot.dataset.step, 10)));
+  dot.style.cursor = 'pointer';
+});
+
+const confirmBtn = document.getElementById('confirm-btn');
+const confirmMsg = document.getElementById('confirm-msg');
+confirmBtn.addEventListener('click', () => {
+  if (!booking.service || !booking.time) {
+    confirmMsg.textContent = 'Missing a step — pick a service and time first.';
+    return;
+  }
+  confirmMsg.textContent = `Booked: ${booking.service} on ${booking.day} at ${booking.time}. See you then.`;
+  confirmBtn.disabled = true;
+});
+
+// ---------- Testimonial carousel ----------
+const quoteTrack = document.getElementById('quote-track');
+const quoteDotsWrap = document.getElementById('quote-dots');
+const quoteCount = quoteTrack.children.length;
+let quoteIndex = 0;
+
+for (let i = 0; i < quoteCount; i++) {
+  const dot = document.createElement('button');
+  dot.setAttribute('aria-label', `Show testimonial ${i + 1}`);
+  if (i === 0) dot.classList.add('is-active');
+  dot.addEventListener('click', () => setQuote(i));
+  quoteDotsWrap.appendChild(dot);
+}
+
+function setQuote(i) {
+  quoteIndex = i;
+  quoteTrack.style.transform = `translateX(-${i * 100}%)`;
+  [...quoteDotsWrap.children].forEach((d, idx) => d.classList.toggle('is-active', idx === i));
+}
+
+setInterval(() => setQuote((quoteIndex + 1) % quoteCount), 5500);
+
+// ---------- Infinite marquee (auto-fills width, no gap) ----------
+(function setupMarquee() {
+  const track = document.getElementById('marquee-track');
+  if (!track) return;
+  const wrap = track.parentElement;
+  const original = track.querySelector('.marquee-set');
+  if (!original) return;
+  const SPEED = 31; // px per second — matches the original pace
+
+  function build() {
+    track.style.animation = 'none';
+    track.querySelectorAll('.marquee-set:not(:first-child)').forEach((el) => el.remove());
+    const setWidth = original.getBoundingClientRect().width;
+    const wrapWidth = wrap.getBoundingClientRect().width;
+    if (!setWidth) return;
+    const copiesNeeded = Math.max(2, Math.ceil((wrapWidth * 2) / setWidth) + 1);
+    for (let i = 1; i < copiesNeeded; i++) {
+      track.appendChild(original.cloneNode(true));
+    }
+    track.style.setProperty('--marquee-set-width', `${setWidth}px`);
+    const duration = setWidth / SPEED;
+    void track.offsetWidth; // force reflow before re-enabling animation
+    track.style.animation = `marqueeScroll ${duration}s linear infinite`;
+  }
+
+  build();
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(build, 200);
+  });
+})();
+
+// ---------- Nav scroll-spy ----------
+const spySections = ['about', 'services', 'gallery', 'barbers', 'membership', 'book'].map((id) => document.getElementById(id)).filter(Boolean);
+const spyLinks = document.querySelectorAll('.nav-links a');
+const spyObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      spyLinks.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === `#${entry.target.id}`));
+    }
+  });
+}, { rootMargin: '-40% 0px -50% 0px' });
+spySections.forEach((s) => spyObserver.observe(s));
+
+// ---------- Tilt cards (desktop only) ----------
+if (window.matchMedia('(pointer: fine)').matches) {
+  document.querySelectorAll('.tilt-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const relX = (e.clientX - rect.left) / rect.width - 0.5;
+      const relY = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(600px) rotateX(${relY * -8}deg) rotateY(${relX * 8}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+}
+
+// ---------- Preloader percentage ----------
+(function preload() {
+  const pct = document.querySelector('.preload-pct');
+  if (!pct) return;
+  let n = 0;
+  const timer = setInterval(() => {
+    n += Math.ceil(Math.random() * 18);
+    if (n >= 100) { n = 100; clearInterval(timer); }
+    pct.textContent = `${n}%`;
+  }, 90);
+})();
+
+// ---------- Open/closed status (based on shop hours: Tue–Sat 9–7) ----------
+(function setStatus() {
+  const el = document.getElementById('status-text');
+  const now = new Date();
+  const day = now.getDay(); // 0 Sun ... 6 Sat
+  const hour = now.getHours();
+  const isOpenDay = day >= 2 && day <= 6;
+  const isOpenHour = hour >= 9 && hour < 19;
+  el.textContent = isOpenDay && isOpenHour ? 'Open now' : 'Closed now';
+})();
+
+// ---------- Mobile menu ----------
+(function mobileNav() {
+  const burger = document.getElementById('navBurger');
+  const menu = document.getElementById('mobile-nav');
+  if (!burger || !menu) return;
+  const setOpen = (open) => {
+    burger.classList.toggle('is-open', open);
+    menu.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  burger.addEventListener('click', () => setOpen(!menu.classList.contains('is-open')));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+})();
+
+</script>
+</body>
+</html>

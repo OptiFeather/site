@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K6VD4XDW');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — OptiFeather</title>
+    <meta name="description" content="Book a free discovery call or send OptiFeather a message about AI automation, AI optimization, or your next website.">
+    <link rel="icon" href="assets/feather.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="limit-magnetic">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6VD4XDW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="page-loader" id="pageLoader" aria-hidden="true">
+        <div class="loader-ring-wrap">
+            <svg viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="30" stroke="rgba(194,165,120,0.18)" stroke-width="1"/>
+                <path d="M32 2 A30 30 0 0 1 62 32" stroke="#c2a578" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <img src="assets/feather.png" alt="">
+        </div>
+    </div>
+
+    <header class="header" id="siteHeader">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/feather.png" alt="OptiFeather" class="logo-icon">
+                <span class="logo-text">OPTIFEATHER</span>
+            </a>
+        </div>
+        <nav class="nav-list" id="navList">
+            <a href="index.html">Home</a>
+            <a href="abu.html">About</a>
+            <a href="pricing.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+        <a href="contact.html" class="btn btn-outline">Book a Call</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <main>
+        <!-- ============ CONTACT HERO ============ -->
+        <section class="section" style="padding-bottom:0;">
+            <div class="orbit-field" aria-hidden="true">
+                <div class="orbit-ring spin-slow" style="width:560px;height:560px;top:-40px;right:-100px;">
+                    <div class="orbit-planet" style="width:9px;height:9px;top:-4.5px;left:275.5px;"></div>
+                </div>
+                <div class="orbit-ring spin-slow-rev" style="width:430px;height:430px;top:25px;right:-35px;">
+                    <div class="orbit-planet" style="width:6px;height:6px;top:-3px;left:212px;"></div>
+                </div>
+            </div>
+            <div class="section-head center fade-up">
+                <p class="eyebrow center">Get in touch</p>
+                <h1 class="section-title">Let's talk about<br>your business.</h1>
+                <p class="section-desc" style="margin:0 auto;">Tell us a bit about what you're running today — or just book a free 20-minute call. We reply within one business day.</p>
+            </div>
+        </section>
+
+        <!-- ============ CONTACT FORM + INFO ============ -->
+        <section class="section section-tight">
+            <div class="contact-grid">
+
+                <div class="contact-form-card fade-up fade-up-1">
+                    <h3>Send us a message</h3>
+                    <form id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">Full name</label>
+                                <input class="form-input" type="text" id="fullName" name="fullName" placeholder="Jane Cooper" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input class="form-input" type="email" id="email" name="email" placeholder="jane@company.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="company">Company <span style="text-transform:none;">(optional)</span></label>
+                                <input class="form-input" type="text" id="company" name="company" placeholder="Company name">
+                            </div>
+                            <div class="form-group">
+                                <label for="service">I'm interested in</label>
+                                <select class="form-select" id="service" name="service" required>
+                                    <option value="" disabled selected>Select a service</option>
+                                    <option value="AI Automation">AI Automation</option>
+                                    <option value="AI Optimization">AI Optimization</option>
+                                    <option value="Website Development">Website Development</option>
+                                    <option value="Not sure yet">Not sure yet</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea class="form-textarea" id="message" name="message" placeholder="Tell us what you're working on and what you'd like to solve..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit" id="contactSubmit">Send Message <span class="icon-arrow">↗</span></button>
+                        <p class="form-note">Your message goes straight to our team — you'll get a confirmation right here once it's sent.</p>
+                        <div class="form-status" id="formStatus"></div>
+                    </form>
+                </div>
+
+                <div class="contact-info-card fade-up fade-up-2">
+                    <h3>Other ways to reach us</h3>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6l9 6 9-6M3 6v12h18V6"/></svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:optifeather@gmail.com">optifeather@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.3 4.8A19.5 19.5 0 0 0 15.4 3c-.2.4-.5 1-.7 1.4a18 18 0 0 0-5.4 0c-.2-.4-.4-1-.7-1.4a19.4 19.4 0 0 0-4.9 1.8C1 9 .3 13.1.6 17.1a19.6 19.6 0 0 0 5.7 2.8c.5-.6.8-1.3 1.2-2-.6-.2-1.2-.5-1.8-.9l.4-.3c3.5 1.6 7.3 1.6 10.7 0l.4.3c-.6.4-1.2.7-1.8.9.3.7.7 1.4 1.2 2a19.5 19.5 0 0 0 5.7-2.8c.4-4.6-.8-8.7-2.9-12.3ZM8.6 14.7c-1 0-1.9-1-1.9-2.1 0-1.2.8-2.2 1.9-2.2s2 1 1.9 2.2c0 1.1-.8 2.1-1.9 2.1Zm6.8 0c-1 0-1.9-1-1.9-2.1 0-1.2.8-2.2 1.9-2.2s2 1 1.9 2.2c0 1.1-.8 2.1-1.9 2.1Z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Discord</h4>
+                            <a href="https://discord.com/users/insetor" target="_blank" rel="noopener">insetor</a>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <h4>Availability</h4>
+                            <p>We work around the clock, 24/7</p>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div>
+                            <h4>Based in</h4>
+                            <p>Remote-first, working with clients worldwide</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-divider"></div>
+
+                    <div>
+                        <h4 style="margin:0 0 12px 0; font-size:0.95rem; font-weight:500; color:#fff;">Follow along</h4>
+                        <div class="contact-socials">
+                            <a href="https://www.instagram.com/optifeather/" class="social-link" target="_blank" rel="noopener">in</a>
+                            <a href="https://www.linkedin.com/in/optifeather-545935421/" class="social-link" target="_blank" rel="noopener">li</a>
+                            <a href="https://x.com/OptiFeather" class="social-link" target="_blank" rel="noopener">X</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============ CTA ============ -->
+        <section class="cta-section fade-up">
+            <div class="orbit-field" aria-hidden="true">
+                <div class="orbit-ring spin-slow" style="width:480px;height:480px;top:-160px;left:50%;transform:translateX(-50%);">
+                    <div class="orbit-planet" style="width:7px;height:7px;top:-3.5px;left:236.5px;"></div>
+                </div>
+            </div>
+            <p class="eyebrow center">Prefer to just talk?</p>
+            <h2 class="cta-title">Book a free 20-minute call.</h2>
+            <p class="cta-desc">No pressure, no generic pitch deck — just a straight answer on where OptiFeather can move the needle for your business.</p>
+            <div class="cta-actions">
+                <a href="mailto:optifeather@gmail.com" class="btn btn-primary btn-lg magnetic-only">Book a Call <span class="icon-arrow">↗</span></a>
+                <a href="pricing.html" class="btn btn-ghost">Compare services</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="assets/feather.png" alt="OptiFeather Logo" class="footer-logo-img">
+                    <span class="footer-logo-text">OPTIFEATHER</span>
+                </div>
+                <p class="footer-description">We build custom AI agents, optimize business workflows, and ship premium websites with the power of AI and modern engineering.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/optifeather/" class="social-link" target="_blank" rel="noopener">in</a>
+                    <a href="https://www.linkedin.com/in/optifeather-545935421/" class="social-link" target="_blank" rel="noopener">li</a>
+                    <a href="https://x.com/OptiFeather" class="social-link" target="_blank" rel="noopener">X</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="abu.html">About Us</a></li>
+                    <li><a href="pricing.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="pricing.html">AI Automation</a></li>
+                    <li><a href="pricing.html">AI Optimization</a></li>
+                    <li><a href="pricing.html">Website Development</a></li>
+                    <li><a href="pricing.html#pricing">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="portfolio.html">Case Studies</a></li>
+                    <li><a href="pricing.html#pricing">Pricing</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                    <li><a href="contact.html">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2026 OptiFeather. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const status = document.getElementById('formStatus');
+            if (!form) return;
+
+            const SUPABASE_URL = 'https://giinizeaozjoqwgbsthe.supabase.co';
+            const SUPABASE_KEY = 'sb_publishable_UKK3SRGSoMmBeFBhmaSzkQ_5laIfndl';
+            const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const company = document.getElementById('company').value.trim();
+                const service = document.getElementById('service').value;
+                const message = document.getElementById('message').value.trim();
+
+                if (!fullName || !email || !service || !message) {
+                    status.textContent = 'Please fill in your name, email, service, and message before sending.';
+                    status.className = 'form-status is-visible error';
+                    return;
+                }
+
+                const submitBtn = document.getElementById('contactSubmit');
+                submitBtn.disabled = true;
+                status.textContent = 'Sending...';
+                status.className = 'form-status is-visible';
+
+                const { error } = await supabaseClient.from('Contacts').insert([{
+                    full_name: fullName,
+                    email: email,
+                    company: company || null,
+                    service: service,
+                    message: message
+                }]);
+
+                submitBtn.disabled = false;
+
+                if (error) {
+                    console.error(error);
+                    status.textContent = 'Something went wrong sending your message. Please email us directly at optifeather@gmail.com.';
+                    status.className = 'form-status is-visible error';
+                    return;
+                }
+
+                status.textContent = 'Thanks! Your message has been sent — we\'ll get back to you soon.';
+                status.className = 'form-status is-visible success';
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>
