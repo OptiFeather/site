@@ -829,11 +829,11 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .proj-preview.aurelia .p-rule { display: block; width: 32px; height: 2px; background: #C6A472; margin-top: 18px; }
 
 /* Lumière Café — ivory & brass, warm serif with mono accent */
-.proj-preview.lumiere { background: #F2ECE1; }
-.proj-preview.lumiere .proj-chrome i { background: rgba(23,20,15,0.14); }
-.proj-preview.lumiere .p-word { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 23px; color: #2A1D14; }
-.proj-preview.lumiere .p-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6D3B; }
-.proj-preview.lumiere .p-rule { display: block; width: 32px; height: 2px; background: #8A6D3B; margin-top: 18px; }
+.proj-preview.lumiere { background: #FBF1DF; }
+.proj-preview.lumiere .proj-chrome i { background: rgba(46,24,16,0.16); }
+.proj-preview.lumiere .p-word { font-family: 'Caprasimo', Georgia, serif; font-style: normal; font-size: 26px; letter-spacing: 0.01em; color: #2E1810; }
+.proj-preview.lumiere .p-tag { font-family: 'Instrument Sans', var(--font-main), sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #A24A1B; }
+.proj-preview.lumiere .p-rule { display: block; width: 32px; height: 2px; background: #A24A1B; margin-top: 18px; }
 
 
 /* Forge Burger Kitchen preview */
