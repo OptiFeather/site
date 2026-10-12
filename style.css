@@ -775,7 +775,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ==========================================================================
-   Portfolio — real project preview mockups (Fieldwork / Steady Hand / AI Lead Agent)
+   Portfolio — real project preview mockups (Octant / Steady Hand / AI Lead Agent)
    Small in-CSS recreations of each project's own look, standing in for a
    screenshot, plus a short description line under each case.
    ========================================================================== */
@@ -789,12 +789,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .proj-preview .p-word { font-family: Georgia, 'Times New Roman', serif; line-height: 1.15; }
 .proj-preview .p-tag { display: block; margin-top: 8px; }
 
-/* Fieldwork — warm stone, landscape architecture */
-.proj-preview.fieldwork { background: #ECE6D9; }
-.proj-preview.fieldwork .proj-chrome i { background: rgba(21,23,15,0.16); }
-.proj-preview.fieldwork .p-word { font-size: 25px; color: #15170F; }
-.proj-preview.fieldwork .p-tag { font-family: var(--font-main); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8E6F45; }
-.proj-preview.fieldwork .p-rule { display: block; width: 38px; height: 2px; background: #454B36; margin-top: 18px; }
+/* Octant — black studio, warm metal */
+.proj-preview.octant { background: #0A0A0B; }
+.proj-preview.octant .proj-chrome i { background: rgba(236,235,231,0.2); }
+.proj-preview.octant .p-word { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; letter-spacing: 0.32em; text-transform: uppercase; color: #ECEBE7; }
+.proj-preview.octant .p-tag { font-family: var(--font-main); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #C9A46A; }
+.proj-preview.octant .p-rule { display: block; width: 38px; height: 1px; background: #C9A46A; margin-top: 18px; }
 
 /* The Steady Hand — dark, copper barbershop */
 .proj-preview.steady { background: #15120f; }
