@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K6VD4XDW');</script>
+  <!-- End Google Tag Manager -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Aurelia Dental Studio — Concept by OptiFeather</title>
@@ -146,6 +153,7 @@ header.scrolled .nav-wrap{padding:16px 0;}
   padding:22px 26px;border:1px solid var(--line);max-width:230px;
   box-shadow:0 30px 60px -20px rgba(42,38,33,0.25);
 }
+@media(max-width:900px){.hero-visual .float-card{left:16px;right:16px;bottom:16px;max-width:none;}}
 .float-card .fc-num{font-family:'Fraunces',serif;font-size:1.6rem;color:var(--champagne);}
 .float-card .fc-label{font-size:0.82rem;color:var(--taupe);margin-top:4px;}
 
@@ -157,18 +165,7 @@ header.scrolled .nav-wrap{padding:16px 0;}
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:70px;}
   .hero{padding-top:130px;}
-  /* The image needs a real, predictable height before the caption card can
-     be safely overlapped on top of it: the photo now sizes itself directly
-     (own aspect-ratio, normal flow) instead of depending on the wrapper's
-     aspect-ratio to size around absolutely-positioned children. Once the
-     wrapper has that real height, the card can go back to being a small,
-     inset overlay — like the desktop design — instead of a full-width bar. */
-  .hero-visual{order:-1;width:100%;max-width:420px;margin:0 auto;position:relative;aspect-ratio:auto;}
-  .hero-visual .duo{position:static;width:100%;aspect-ratio:4/5;}
-  .hero-visual .float-card{
-    position:absolute;left:16px;right:auto;bottom:16px;top:auto;
-    max-width:200px;margin:0;
-  }
+  .hero-visual{order:-1;max-width:420px;margin:0 auto;}
 }
 
 /* ---------- TRUST / METRICS BAR ---------- */
@@ -242,15 +239,7 @@ section{padding:120px 0;}
 .featured h2{font-size:clamp(2rem,3.6vw,3.2rem);font-weight:400;line-height:1.15;max-width:14ch;}
 .featured p{margin-top:24px;color:var(--taupe);font-size:1.05rem;max-width:46ch;}
 .featured .btn{margin-top:34px;}
-@media(max-width:900px){
-  .featured-grid{grid-template-columns:1fr;gap:50px;}
-  /* Same fix as the hero visual: give the photo its own aspect-ratio in
-     normal flow instead of relying on the wrapper's aspect-ratio to size
-     itself around purely absolutely-positioned children. */
-  .featured-visual{max-width:420px;margin:0 auto;order:-1;position:relative;aspect-ratio:auto;}
-  .featured-visual .duo{position:static;width:100%;aspect-ratio:5/6;}
-  .featured-visual .ring{top:16px;right:16px;width:90px;height:90px;}
-}
+@media(max-width:900px){.featured-grid{grid-template-columns:1fr;gap:50px;}.featured-visual{max-width:420px;margin:0 auto;order:-1;}}
 
 /* ---------- JOURNEY ---------- */
 .journey-track{
@@ -490,7 +479,10 @@ footer{padding:50px 0;border-top:1px solid var(--line);}
 </style>
 </head>
 <body>
-
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6VD4XDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 <a href="#main" class="hidden-sr">Skip to content</a>
 
 <header id="siteHeader">
@@ -773,7 +765,7 @@ footer{padding:50px 0;border-top:1px solid var(--line);}
       <h2 class="serif">How the experience could feel.</h2>
       <p>Illustrative copy written for this concept — not real patient testimonials.</p>
     </div>
-    <div class="services-grid reveal">
+    <div class="services-grid reveal" style="grid-template-columns:repeat(3,1fr);">
       <article class="service-card quote-card" style="min-height:auto;">
         <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--ink);margin-top:0;">"The first visit felt more like a conversation than an appointment — every option was explained clearly before anything was decided."</p>
         <p style="margin-top:20px;font-size:0.82rem;">Illustrative testimonial copy — concept only</p>
