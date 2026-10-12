@@ -8,7 +8,6 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-K6VD4XDW');</script>
   <!-- End Google Tag Manager -->
-
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LUMIÈRE — Coffee. Food. Moments. — Brooklyn, NY</title>
@@ -17,7 +16,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -25,21 +24,20 @@
 
 <style>
   :root{
-    --ivory:#FBF1DF;
-    --ivory-dim:#F0DFC3;
-    --oat:#F6E5C6;
-    --espresso:#2E1810;
-    --charcoal:#1C0F09;
-    --beige:#DDBF97;
-    --copper:#A24A1B;
-    --amber:#F2AC5C;
-    --line: rgba(46,24,16,0.16);
-    --line-on-dark: rgba(251,241,223,0.18);
+    --ivory:#F2ECE1;
+    --ivory-dim:#EAE2D3;
+    --espresso:#2A1D14;
+    --charcoal:#17140F;
+    --beige:#C7B9A3;
+    --brass:#8A6D3B;
+    --brass-soft:#B79A63;
+    --line: rgba(23,20,15,0.14);
+    --line-on-dark: rgba(242,236,225,0.16);
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
 
-  html{ scroll-behavior:auto; background:var(--ivory); }
+  html{ scroll-behavior:smooth; background:var(--ivory); }
 
   ::selection{ background:var(--espresso); color:var(--ivory); }
 
@@ -52,23 +50,21 @@
   }
 
   h1,h2,h3,h4, .serif{
-    font-family:'Caprasimo', serif;
-    font-weight:650;
-    letter-spacing:-0.02em;
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    letter-spacing:-0.01em;
     line-height:1.02;
   }
 
   .mono{
-    font-family:'Instrument Sans', sans-serif;
-    letter-spacing:0.08em;
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.06em;
     text-transform:uppercase;
-    font-weight:600;
-    font-variant-numeric:tabular-nums;
+    font-weight:400;
   }
 
   a{ color:inherit; text-decoration:none; }
   img{ display:block; max-width:100%; }
-  img[src^="http"]{ filter:sepia(.28) saturate(1.05) contrast(1.02); }
   button{ font-family:inherit; background:none; border:none; cursor:pointer; color:inherit; }
 
   .container{ max-width:1400px; margin:0 auto; padding:0 6vw; }
@@ -86,7 +82,7 @@
     display:flex; align-items:center; justify-content:center; flex-direction:column;
   }
   #preloader .pl-word{
-    font-family:'Caprasimo', serif; font-style:italic; font-weight:400;
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
     font-size:clamp(2.5rem, 8vw, 6rem); color:var(--ivory);
     padding-right:0.12em; /* prevents the italic final letter from being clipped */
   }
@@ -94,7 +90,7 @@
     width:min(260px, 40vw); height:1px; background:var(--line-on-dark); margin-top:28px; position:relative; overflow:hidden;
   }
   #preloader .pl-bar span{
-    position:absolute; left:0; top:0; height:100%; width:0%; background:var(--amber);
+    position:absolute; left:0; top:0; height:100%; width:0%; background:var(--brass-soft);
   }
   #preloader .pl-tag{ margin-top:14px; color:var(--beige); }
 
@@ -107,35 +103,29 @@
     color:var(--ivory);
   }
   header.scrolled{
-    padding:14px 6vw; background:rgba(251,241,223,0.86); backdrop-filter:blur(14px);
+    padding:14px 6vw; background:rgba(242,236,225,0.86); backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
     color:var(--espresso);
   }
   .logo{
-    font-family:'Caprasimo', serif; font-size:1.35rem; letter-spacing:0.04em; font-weight:500;
+    font-family:'Fraunces', serif; font-size:1.35rem; letter-spacing:0.04em; font-weight:500;
   }
-  .nav-links{ display:flex; gap:34px; align-items:center; }
+  .nav-links{ display:flex; gap:38px; align-items:center; }
   .nav-links a{
-    font-family:'Caprasimo', serif; font-weight:400; font-size:1.08rem; letter-spacing:0.01em;
-    text-transform:none; position:relative; padding-bottom:3px; line-height:1.2;
+    font-size:0.83rem; letter-spacing:0.08em; text-transform:uppercase; position:relative; padding-bottom:3px;
   }
   .nav-links a:not(.nav-cta)::after{
-    content:''; position:absolute; left:0; bottom:0; width:0%; height:1.5px; background:var(--amber);
+    content:''; position:absolute; left:0; bottom:0; width:0%; height:1px; background:currentColor;
     transition:width .35s cubic-bezier(.5,0,0,1);
   }
-  header.scrolled .nav-links a:not(.nav-cta)::after{ background:var(--copper); }
   .nav-links a:not(.nav-cta):hover::after{ width:100%; }
   .nav-cta{
-    font-family:'Caprasimo', serif; font-weight:400; text-transform:none;
-    background:var(--amber); color:var(--espresso); border:1.5px solid var(--amber);
-    padding:11px 24px; font-size:1.02rem; letter-spacing:0.01em;
-    border-radius:100px; transition:background .35s ease, color .35s ease, border-color .35s ease, transform .35s ease;
+    border:1px solid currentColor; padding:10px 20px; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;
+    border-radius:100px; transition:background .35s ease, color .35s ease;
     display:inline-flex; align-items:center; justify-content:center; line-height:1;
   }
-  .nav-links a.nav-cta{ padding:12px 24px; }
-  .nav-cta:hover{ background:var(--ivory); border-color:var(--ivory); color:var(--espresso); }
-  header.scrolled .nav-cta{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
-  header.scrolled .nav-cta:hover{ background:var(--copper); border-color:var(--copper); color:var(--ivory); }
+  .nav-cta:hover{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
+  header.scrolled .nav-cta:hover{ background:var(--espresso); color:var(--ivory); }
   .nav-burger{ display:none; flex-direction:column; gap:6px; width:30px; z-index:600; }
   .nav-burger span{ height:1px; background:currentColor; width:100%; display:block; transition:transform .35s ease, opacity .35s ease; }
 
@@ -147,67 +137,42 @@
     pointer-events:none;
   }
   #mobile-menu.open{ clip-path:circle(150% at 92% 6%); pointer-events:auto; }
-  #mobile-menu a{ font-family:'Caprasimo', serif; font-size:12vw; color:var(--ivory); line-height:1.15; }
+  #mobile-menu a{ font-family:'Fraunces', serif; font-size:12vw; color:var(--ivory); line-height:1.15; }
   #mobile-menu .mm-foot{ margin-top:40px; color:var(--beige); }
 
   /* ---------- Hero ---------- */
-  .hero-track{ position:relative; height:300svh; }
   .hero{
-    position:sticky; top:0; z-index:1; height:100svh; display:flex; flex-direction:column; justify-content:flex-end;
+    position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end;
     overflow:hidden; background:var(--charcoal);
   }
-  .hero-overlay{
-    position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding:0 6vw; opacity:0; pointer-events:none; will-change:opacity, transform;
-    background:radial-gradient(ellipse at center, rgba(28,15,9,0.55) 0%, rgba(28,15,9,0.25) 70%);
-  }
-  .hero-overlay p{ font-family:'Caprasimo', serif; font-weight:700;
-    font-size:clamp(2.6rem,8vw,7rem); line-height:1.02; letter-spacing:-0.02em; color:var(--ivory); }
-  .hero-overlay p em{ font-style:italic; font-weight:500; color:var(--amber); }
   .hero-media{ position:absolute; inset:0; }
-  .hero-media img, .hero-media video{ width:100%; height:100%; object-fit:cover; transform:scale(1.15); }
+  .hero-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.15); }
   .hero-media::after{
     content:''; position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(28,15,9,0.55) 0%, rgba(28,15,9,0.32) 40%, rgba(28,15,9,0.88) 100%);
+    background:linear-gradient(180deg, rgba(23,20,15,0.35) 0%, rgba(23,20,15,0.15) 35%, rgba(23,20,15,0.75) 100%);
   }
   .hero-inner{ position:relative; z-index:2; padding:0 calc(6vw + 60px) 64px 6vw; color:var(--ivory); }
   .hero-eyebrow{ color:var(--beige); font-size:0.78rem; margin-bottom:18px; overflow:hidden; }
   .hero-eyebrow span{ display:inline-block; }
   .hero-title{
-    font-weight:800;
     font-size:clamp(3.6rem, 13vw, 10.5rem); display:flex; overflow:hidden; padding-right:0.06em;
   }
   .hero-title .chunk{ display:inline-block; overflow:hidden; padding-right:0.06em; margin-right:-0.06em; }
-  .hero-title .chunk span{ display:inline-block; }
+  .hero-title .chunk span{ display:inline-block; transform:translateY(115%); }
   .hero-sub{
     display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-top:30px; flex-wrap:wrap;
   }
   .hero-line{ font-size:1.02rem; line-height:1.6; max-width:380px; color:var(--ivory-dim); overflow:hidden; }
   .hero-line span{ display:inline-block; }
-  .hero-tagline{ font-family:'Caprasimo', serif; font-style:italic; font-size:clamp(1.1rem,2vw,1.5rem); color:var(--amber); flex-shrink:0; }
+  .hero-tagline{ font-family:'Fraunces', serif; font-style:italic; font-size:clamp(1.1rem,2vw,1.5rem); color:var(--brass-soft); flex-shrink:0; }
   .scroll-indicator{
     position:absolute; bottom:36px; right:6vw; z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px;
     color:var(--beige); font-size:0.7rem;
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hero-track{ height:auto; } .hero{ position:relative; } .hero-overlay{ display:none; }
-    .menu-section{ margin-top:0; border-radius:0; box-shadow:none; }
   }
   @media (max-width:900px){
     .hero-inner{ padding-right:6vw; }
     .scroll-indicator{ display:none; }
   }
-  .sound-toggle{
-    position:absolute; bottom:22px; right:calc(6vw + 60px); z-index:3; height:34px; padding:0 16px; gap:10px;
-    display:inline-flex; align-items:center; font-size:0.68rem; color:var(--ivory);
-    border:1px solid var(--line-on-dark); border-radius:100px; background:rgba(28,15,9,0.35);
-    backdrop-filter:blur(8px); transition:background .3s ease, border-color .3s ease; opacity:0;
-  }
-  .sound-toggle:hover{ background:rgba(28,15,9,0.6); border-color:var(--ivory); }
-  .sound-toggle .sound-waves{ display:none; }
-  .sound-toggle[aria-pressed="true"] .sound-waves{ display:inline; }
-  .sound-toggle[aria-pressed="true"] .sound-off{ display:none; }
-  @media (max-width:900px){ .sound-toggle{ right:6vw; } }
   .scroll-indicator .line{ width:1px; height:52px; background:var(--line-on-dark); position:relative; overflow:hidden; }
   .scroll-indicator .line span{ position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--ivory); animation:scrolldrop 2.4s ease-in-out infinite; }
   @keyframes scrolldrop{ 0%{ top:-100%; } 50%{ top:0%; } 100%{ top:100%; } }
@@ -215,50 +180,62 @@
   /* ---------- Section basics ---------- */
   section{ position:relative; }
   .eyebrow{
-    font-size:0.75rem; color:var(--copper); margin-bottom:22px; display:flex; align-items:center; gap:12px;
+    font-size:0.75rem; color:var(--brass); margin-bottom:22px; display:flex; align-items:center; gap:12px;
   }
-  .eyebrow::before{ content:''; width:26px; height:1px; background:var(--copper); display:inline-block; }
+  .eyebrow::before{ content:''; width:26px; height:1px; background:var(--brass); display:inline-block; }
 
   .reveal-mask{ overflow:hidden; }
   .reveal-mask .inner{ display:block; }
 
+  /* ---------- Intro / Story ---------- */
+  .story{ padding:180px 0 140px; background:var(--ivory); }
+  .story-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:end; }
+  .story h2{ font-size:clamp(2.4rem, 5.4vw, 4.6rem); font-weight:400; }
+  .story h2 em{ font-style:italic; color:var(--brass); font-weight:400; }
+  .story-copy{ max-width:400px; margin-top:26px; color:rgba(42,29,20,0.72); font-size:1.02rem; line-height:1.7; }
+  .story-media{ position:relative; }
+  .story-media .frame{ position:relative; overflow:hidden; border-radius:2px; aspect-ratio:4/5; }
+  .story-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.2); }
+  .story-num{ margin-top:20px; display:flex; justify-content:space-between; }
+
   /* ---------- Menu ---------- */
-  .menu-section{ position:relative; z-index:5; margin-top:-100svh; min-height:100svh; background:var(--oat); color:var(--espresso); padding:150px 0 170px;
-    border-radius:44px 44px 0 0; box-shadow:0 -32px 80px rgba(28,15,9,0.35); }
-  .menu-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:70px; flex-wrap:wrap; }
+  .menu-section{ background:var(--charcoal); color:var(--ivory); padding:150px 0; }
+  .menu-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:90px; flex-wrap:wrap; }
   .menu-head h2{ font-size:clamp(2.6rem,6vw,5.2rem); }
-  .menu-head p{ max-width:320px; color:rgba(46,24,16,0.72); line-height:1.6; }
+  .menu-head p{ max-width:320px; color:var(--beige); line-height:1.6; }
 
-  .menu-cats{ display:flex; gap:12px; margin-bottom:64px; flex-wrap:wrap; justify-content:center; }
+  .menu-cats{ display:flex; gap:14px; margin-bottom:60px; flex-wrap:wrap; }
   .menu-cat-btn{
-    font-size:0.78rem; padding:11px 24px; border:1.5px solid rgba(46,24,16,0.28); border-radius:100px; color:var(--espresso);
-    transition:background-color .3s ease, color .3s ease, border-color .3s ease;
+    font-size:0.75rem; padding:9px 18px; border:1px solid var(--line-on-dark); border-radius:100px; color:var(--beige);
+    transition:all .3s ease;
   }
-  .menu-cat-btn:hover{ border-color:var(--espresso); }
-  .menu-cat-btn.active{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
+  .menu-cat-btn.active, .menu-cat-btn:hover{ border-color:var(--ivory); color:var(--ivory); }
 
+  .menu-list{ }
   .menu-cat-block{ display:none; }
-  .menu-cat-block.active{ display:block; }
-  .menu-grid{ display:grid; grid-template-columns:repeat(var(--cols,3),1fr); gap:36px 18px; max-width:1240px; margin:0 auto; }
-  .menu-grid.n2{ --cols:2; max-width:820px; }
-  .menu-grid.n4{ --cols:4; }
+  .menu-cat-block.active{ display:block; animation:fadein .5s ease; }
+  @keyframes fadein{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:translateY(0);} }
 
-  .menu-card{
-    position:relative; text-align:center; padding:32px 24px 38px; border-radius:40px;
-    background:transparent; transition:background-color .35s ease;
+  .menu-cat-title{ font-size:0.78rem; color:var(--brass-soft); margin-bottom:6px; }
+
+  .menu-item{
+    display:flex; justify-content:space-between; align-items:baseline; gap:24px;
+    padding:26px 0; border-top:1px solid var(--line-on-dark); position:relative; cursor:pointer;
   }
-  .menu-card:hover{ background:var(--tint); }
-  .mc-img{
-    width:min(100%,300px); aspect-ratio:1/1; margin:0 auto 28px; overflow:hidden;
-    border-radius:20px; box-shadow:0 28px 38px -24px rgba(46,24,16,0.55);
+  .menu-item:last-child{ border-bottom:1px solid var(--line-on-dark); }
+  .menu-item .mi-left{ display:flex; align-items:baseline; gap:16px; }
+  .menu-item .mi-name{ font-family:'Fraunces', serif; font-size:clamp(1.4rem,2.6vw,2.1rem); font-weight:400; transition:transform .4s cubic-bezier(.4,0,.1,1), color .4s; }
+  .menu-item .mi-desc{ color:var(--beige); font-size:0.85rem; max-width:280px; display:none; }
+  .menu-item .mi-dots{ flex:1; border-bottom:1px dotted var(--line-on-dark); margin:0 6px 6px; min-width:20px; }
+  .menu-item .mi-price{ font-family:'IBM Plex Mono', monospace; font-size:1rem; color:var(--beige); }
+  .menu-item:hover .mi-name{ transform:translateX(10px); color:var(--brass-soft); }
+
+  .menu-preview{
+    position:fixed; width:220px; height:280px; pointer-events:none; z-index:300; border-radius:2px; overflow:hidden;
+    opacity:0; transform:scale(0.9); transition:opacity .35s ease, transform .35s ease;
   }
-  .mc-img img{ width:100%; height:100%; object-fit:cover; object-position:var(--pos,50%) 50%; transition:transform .8s cubic-bezier(.3,0,.2,1); }
-  .menu-card:hover .mc-img img{ transform:scale(1.07); }
-  .mc-name{ font-size:clamp(1.7rem,2.5vw,2.35rem); font-weight:800; line-height:1.02; letter-spacing:-0.025em; }
-  .mc-desc{ max-width:250px; margin:12px auto 0; font-size:0.95rem; line-height:1.55; color:rgba(46,24,16,0.78); }
-  .mc-price{ display:inline-block; margin-top:18px; padding:6px 16px; border-radius:100px; background:var(--espresso); color:var(--ivory); font-size:0.88rem; font-weight:600; letter-spacing:0.02em; }
-  @media (max-width:1000px){ .menu-grid, .menu-grid.n4{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){ .menu-grid, .menu-grid.n4, .menu-grid.n2{ grid-template-columns:1fr; } .menu-card{ padding:24px 12px 30px; } }
+  .menu-preview.show{ opacity:1; transform:scale(1); }
+  .menu-preview img{ width:100%; height:100%; object-fit:cover; }
 
   /* ---------- Signature ---------- */
   .signature{ padding:160px 0; background:var(--ivory); overflow:hidden; }
@@ -267,32 +244,43 @@
   .sig-track-wrap{ overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; padding-bottom:10px; }
   .sig-track-wrap::-webkit-scrollbar{ display:none; }
   .sig-track-wrap.grabbing{ cursor:grabbing; }
-  .sig-track{ display:flex; gap:32px; width:max-content; padding:0 6vw; max-width:none; margin:0 auto; }
+  .sig-track{ display:flex; gap:32px; width:max-content; padding:0 6vw; max-width:none; }
   .sig-card{ flex:0 0 auto; width:min(64vw, 460px); }
   .sig-card:nth-child(2){ margin-top:100px; }
   .sig-card:nth-child(4){ margin-top:60px; }
-  .sig-frame{ position:relative; overflow:hidden; border-radius:18px; aspect-ratio:3/4; }
+  .sig-frame{ position:relative; overflow:hidden; border-radius:2px; aspect-ratio:3/4; }
   .sig-frame img{ width:100%; height:112%; object-fit:cover; will-change:transform; }
   .sig-info{ display:flex; justify-content:space-between; margin-top:18px; align-items:baseline; }
   .sig-info h3{ font-size:1.4rem; font-weight:400; }
-  .sig-info span{ font-family:'Instrument Sans', sans-serif; font-size:0.85rem; color:var(--copper); }
+  .sig-info span{ font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--brass); }
+
+  /* ---------- About ---------- */
+  .about{ background:var(--espresso); color:var(--ivory); padding:0; display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
+  .about-media{ position:relative; overflow:hidden; min-height:60vh; }
+  .about-media img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+  .about-copy{ padding:120px 6vw; display:flex; flex-direction:column; justify-content:center; }
+  .about-copy h2{ font-size:clamp(2.1rem,3.6vw,3rem); line-height:1.15; margin-bottom:28px; }
+  .about-copy h2 em{ font-style:italic; color:var(--brass-soft); }
+  .about-copy p{ color:var(--beige); line-height:1.75; max-width:440px; margin-bottom:16px; }
+  .about-stats{ display:flex; gap:50px; margin-top:44px; }
+  .about-stats div span{ display:block; font-family:'Fraunces', serif; font-size:2rem; }
+  .about-stats div small{ color:var(--beige); font-size:0.72rem; }
 
   /* ---------- Gallery ---------- */
   .gallery-section{ padding:160px 0 100px; background:var(--ivory); }
   .gallery-head{ margin-bottom:70px; display:flex; align-items:flex-end; gap:24px; flex-wrap:wrap; }
   .gallery-head h2{ font-size:clamp(2.4rem,5.6vw,4.6rem); }
-  .gallery-hint{ display:block; color:rgba(46,24,16,0.5); font-size:0.8rem; }
+  .gallery-hint{ display:block; color:rgba(42,29,20,0.5); font-size:0.8rem; }
   .gallery-track-wrap{ overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; }
   .gallery-track-wrap::-webkit-scrollbar{ display:none; }
   .gallery-track-wrap.grabbing{ cursor:grabbing; }
   .gallery-track{ display:flex; gap:28px; padding:0 6vw 40px; width:max-content; }
-  .g-item{ flex:0 0 auto; overflow:hidden; border-radius:18px; position:relative; }
+  .g-item{ flex:0 0 auto; overflow:hidden; border-radius:2px; position:relative; }
   .g-item img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.3,0,.2,1); }
   .g-item:hover img{ transform:scale(1.06); }
-  .g-item .g-num{ position:absolute; bottom:14px; left:14px; color:#fff; font-family:'Instrument Sans',sans-serif; font-size:0.72rem; opacity:0; transition:opacity .3s ease; }
+  .g-item .g-num{ position:absolute; bottom:14px; left:14px; color:#fff; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; opacity:0; transition:opacity .3s ease; }
   .g-item:hover .g-num{ opacity:0.85; }
-  .g1{ width:min(84vw,560px); height:520px; margin-top:60px; }
-  .g1 img{ object-position:67% 50%; }
+  .g1{ width:min(60vw,420px); height:520px; margin-top:60px; }
   .g2{ width:min(40vw,300px); height:400px; }
   .g3{ width:min(70vw,480px); height:340px; margin-top:120px; }
   .g4{ width:min(34vw,260px); height:460px; }
@@ -303,140 +291,57 @@
 
   /* Lightbox */
   #lightbox{
-    position:fixed; inset:0; z-index:9000; background:rgba(28,15,9,0.96);
+    position:fixed; inset:0; z-index:9000; background:rgba(23,20,15,0.96);
     display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .4s ease;
   }
   #lightbox.open{ opacity:1; pointer-events:auto; }
   #lightbox img{ max-width:82vw; max-height:82vh; object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,0.5); }
   #lightbox .lb-close{ position:absolute; top:32px; right:6vw; color:var(--ivory); font-size:0.8rem; letter-spacing:0.1em; display:flex; align-items:center; gap:10px; }
-  #lightbox .lb-count{ position:absolute; bottom:32px; left:6vw; color:var(--beige); font-family:'Instrument Sans',sans-serif; font-size:0.8rem; }
+  #lightbox .lb-count{ position:absolute; bottom:32px; left:6vw; color:var(--beige); font-family:'IBM Plex Mono',monospace; font-size:0.8rem; }
 
   /* ---------- Atmosphere ---------- */
   .atmosphere{ background:var(--charcoal); color:var(--ivory); }
-  .atmo-row{ display:grid; grid-template-columns:1fr 1fr; min-height:70vh; gap:clamp(16px,3vw,48px); padding:clamp(16px,2.5vw,40px); }
+  .atmo-row{ display:grid; grid-template-columns:1fr 1fr; min-height:70vh; }
   .atmo-row:nth-child(even){ direction:rtl; }
   .atmo-row:nth-child(even) > *{ direction:ltr; }
-  .atmo-media{ position:relative; overflow:hidden; border-radius:24px; isolation:isolate; -webkit-mask-image:-webkit-radial-gradient(white,black); }
-  .atmo-media img{ width:100%; height:114%; object-fit:cover; display:block; }
+  .atmo-media{ position:relative; overflow:hidden; }
+  .atmo-media img{ width:100%; height:100%; object-fit:cover; }
   .atmo-copy{ display:flex; align-items:center; padding:8vw; }
   .atmo-copy h3{ font-size:clamp(2.2rem,4.2vw,3.6rem); font-style:italic; font-weight:400; margin-bottom:22px; }
-  .atmo-copy .an{ font-family:'Instrument Sans',sans-serif; color:var(--amber); font-size:0.75rem; display:block; margin-bottom:18px; }
+  .atmo-copy .an{ font-family:'IBM Plex Mono',monospace; color:var(--brass-soft); font-size:0.75rem; display:block; margin-bottom:18px; }
   .atmo-copy p{ color:var(--beige); line-height:1.8; font-size:1.02rem; max-width:440px; }
 
-  /* ---------- Reserve ---------- */
-  .reserve{ background:var(--charcoal); color:var(--ivory); padding:150px 0 0; position:relative; }
-  .res-wrap{ padding:0 6vw; }
-  .res-card{
-    max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1.05fr 0.95fr;
-    background:var(--ivory); color:var(--espresso); border-radius:40px; overflow:hidden; min-height:640px;
-    box-shadow:0 40px 90px rgba(0,0,0,0.4);
+  /* ---------- Location ---------- */
+  .location{ padding:160px 0; background:var(--ivory); }
+  .loc-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center; }
+  .loc-grid h2{ font-size:clamp(2.4rem,5.2vw,4rem); margin-bottom:34px; }
+  .loc-detail{ display:flex; gap:16px; padding:20px 0; border-top:1px solid var(--line); }
+  .loc-detail:last-of-type{ border-bottom:1px solid var(--line); }
+  .loc-detail .ld-label{ width:110px; font-size:0.72rem; color:var(--brass); flex-shrink:0; }
+  .loc-detail .ld-value{ line-height:1.6; }
+  .loc-cta{ margin-top:36px; display:inline-flex; align-items:center; gap:14px; border:1px solid var(--espresso); padding:14px 26px; border-radius:100px; font-size:0.78rem; }
+  .loc-map{
+    position:relative; aspect-ratio:1/1; border-radius:3px; overflow:hidden; background:var(--espresso);
   }
-  .res-form{ padding:56px 56px 48px; display:flex; flex-direction:column; }
-  .res-form h2{ font-size:clamp(2.2rem,3.8vw,3.1rem); font-style:italic; font-weight:500; margin-bottom:30px; }
-  .res-steps{ list-style:none; display:flex; align-items:center; margin-bottom:38px; }
-  .res-dot{ display:flex; align-items:center; flex:1; }
-  .res-dot:last-child{ flex:0; }
-  .res-dot::after{ content:''; flex:1; height:1px; background:var(--line); margin:0 8px; transition:background .4s ease; }
-  .res-dot:last-child::after{ display:none; }
-  .res-dot b{
-    width:28px; height:28px; border-radius:50%; border:1px solid var(--line); display:grid; place-items:center;
-    font-size:0.72rem; font-weight:600; color:rgba(46,24,16,0.5); transition:all .35s ease; flex-shrink:0;
-  }
-  .res-dot.active b{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
-  .res-dot.done b{ background:var(--copper); border-color:var(--copper); color:var(--ivory); }
-  .res-dot.done::after{ background:var(--copper); }
-  #resForm{ display:flex; flex-direction:column; flex:1; }
-  .res-stage{ position:relative; flex:1; min-height:230px; }
-  .res-step{ display:none; }
-  .res-step.active{ display:block; animation:resIn .5s cubic-bezier(.2,.7,.2,1) both; }
-  @keyframes resIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
-  .res-kicker{ font-size:0.9rem; color:rgba(46,24,16,0.55); margin-bottom:6px; }
-  .res-q{ display:block; font-family:'Caprasimo',serif; font-weight:650; font-size:1.45rem; letter-spacing:-0.01em; margin-bottom:22px; }
-  .res-input{
-    width:100%; background:none; border:none; border-bottom:2px solid rgba(162,74,27,0.45); padding:10px 0 12px;
-    font-family:inherit; font-size:1.7rem; color:var(--espresso); outline:none; transition:border-color .3s ease; border-radius:0;
-  }
-  .res-input::placeholder{ color:rgba(46,24,16,0.3); }
-  .res-input:focus{ border-bottom-color:var(--copper); }
-  .res-input:focus-visible{ outline:none; }
-  .res-input.sm{ font-size:1.15rem; margin-bottom:18px; }
-  input[type=date].res-input{ color-scheme:light; }
-  .res-chips{ display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
-  .res-chips.g4{ grid-template-columns:repeat(4,1fr); }
-  .res-chip{
-    border:1px solid var(--line); border-radius:100px; padding:12px 6px; font-size:0.88rem; font-weight:500;
-    text-align:center; transition:all .25s ease; color:var(--espresso); background:transparent;
-  }
-  .res-chip:hover:not(:disabled){ border-color:var(--espresso); }
-  .res-chip.sel{ background:var(--espresso); border-color:var(--espresso); color:var(--ivory); }
-  .res-chip:disabled{ opacity:0.3; cursor:not-allowed; }
-  .res-note{ font-size:0.85rem; color:rgba(46,24,16,0.6); margin-top:16px; line-height:1.5; }
-  .res-note a{ color:var(--copper); text-decoration:underline; text-underline-offset:3px; }
-  .res-err{ color:var(--copper); font-size:0.85rem; margin-top:12px; min-height:1.2em; }
-  .res-sum{ list-style:none; border-top:1px solid var(--line); }
-  .res-sum li{ display:flex; gap:16px; padding:12px 0; border-bottom:1px solid var(--line); font-size:0.98rem; }
-  .res-sum span{ width:84px; flex-shrink:0; font-size:0.7rem; color:var(--copper); padding-top:3px; }
-  .res-actions{ display:flex; align-items:center; justify-content:space-between; margin-top:26px; }
-  .res-back{ font-size:0.88rem; color:rgba(46,24,16,0.6); padding:10px 4px; transition:color .25s ease; }
-  .res-back:hover{ color:var(--espresso); }
-  .res-back[hidden]{ display:none; }
-  .res-next{
-    margin-left:auto; background:var(--espresso); color:var(--ivory); padding:17px 34px; border-radius:100px;
-    font-size:0.95rem; font-weight:600; display:inline-flex; align-items:center; gap:10px; transition:background .3s ease, transform .3s ease;
-  }
-  .res-next:hover{ background:var(--copper); transform:translateY(-1px); }
-  .res-done{ display:none; flex:1; flex-direction:column; justify-content:center; }
-  .res-done.show{ display:flex; animation:resIn .6s cubic-bezier(.2,.7,.2,1) both; }
-  .res-done h3{ font-size:clamp(2rem,3.4vw,2.8rem); font-style:italic; font-weight:500; margin-bottom:16px; }
-  .res-done p{ line-height:1.7; color:rgba(46,24,16,0.75); max-width:380px; margin-bottom:28px; }
-  .res-done .res-next{ margin-left:0; align-self:flex-start; }
-  .res-photo{ position:relative; min-height:100%; }
-  .res-photo{ overflow:hidden; }
-  .res-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.05); }
-
-  .hours{ text-align:center; padding:110px 6vw 0; }
-  .hours h2{ font-size:clamp(2.4rem,5vw,3.8rem); font-style:italic; font-weight:500; color:var(--ivory); }
-  .hours-label{ display:block; margin-top:26px; font-size:0.78rem; color:var(--amber); }
-  .hours-time{
-    font-family:'Caprasimo',serif; font-weight:600;
-    font-size:clamp(3.2rem,8.5vw,6.4rem); line-height:1; margin-top:14px; letter-spacing:-0.02em; color:var(--ivory);
-  }
-  .hours-time sup{ font-family:'Instrument Sans',sans-serif; font-size:0.28em; font-weight:600; letter-spacing:0.06em; vertical-align:top; position:relative; top:0.35em; margin:0 0.12em; color:var(--beige); }
-  .hours-time .dash{ display:inline-block; width:0.55em; height:0.07em; background:var(--amber); margin:0 0.35em; vertical-align:middle; border-radius:2px; }
-
-  /* Ticker band (replaces the scalloped edge) */
-  .ticker{
-    margin-top:120px; background:var(--amber); color:var(--espresso); overflow:hidden;
-    border-top:1px solid var(--espresso); border-bottom:1px solid var(--espresso);
-    display:flex; white-space:nowrap; user-select:none;
-  }
-  .ticker-track{ display:flex; flex-shrink:0; align-items:center; animation:tickerMove 38s linear infinite; }
-  .ticker-track span{ font-family:'Caprasimo',serif; font-size:clamp(1.3rem,2.4vw,2rem); padding:16px 0; line-height:1; }
-  .ticker-track i{ font-style:normal; display:inline-block; width:12px; height:12px; margin:0 34px; background:var(--espresso); transform:rotate(45deg); flex-shrink:0; }
-  @keyframes tickerMove{ to{ transform:translateX(-100%); } }
+  .loc-map svg{ width:100%; height:100%; }
+  .loc-pin{ position:absolute; top:50%; left:50%; transform:translate(-50%,-100%); }
 
   /* ---------- Footer ---------- */
-  footer{ background:var(--beige); color:var(--espresso); }
-  .footer-grid{ max-width:1120px; margin:0 auto; padding:70px 6vw 80px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
-  .footer-grid > div{ padding:6px 40px; text-align:center; }
-  .footer-grid > div + div{ border-left:1px solid rgba(46,24,16,0.2); }
-  .footer-grid h4{ font-size:1.5rem; font-style:italic; font-weight:500; margin-bottom:22px; }
-  .footer-grid p, .footer-grid li{ font-size:0.95rem; line-height:1.7; color:rgba(46,24,16,0.82); }
-  .footer-grid ul{ list-style:none; }
-  .footer-grid li{ margin-bottom:6px; }
-  .footer-grid a{ transition:color .25s ease; }
-  .footer-grid a:hover{ color:var(--copper); }
-  .f-dir{ margin-top:18px; text-align:center; display:inline-block; max-width:300px; }
-  .f-dir strong{ display:block; font-size:0.7rem; color:var(--copper); margin-bottom:8px; }
-  .f-dir p{ margin-bottom:6px; font-size:0.9rem; }
-  .f-link{ display:inline-block; margin-top:14px; font-size:0.72rem; border-bottom:1px solid var(--espresso); padding-bottom:2px; }
-  .footer-mark{
-    font-family:'Caprasimo',serif !important; font-weight:400; text-align:center; color:var(--espresso);
-    font-size:clamp(4rem,21.5vw,19rem); line-height:.82; letter-spacing:-0.02em; padding:0 2vw; margin-top:10px;
-    white-space:nowrap; overflow:hidden; user-select:none;
-    -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 100%); mask-image:linear-gradient(to bottom,#000 55%,transparent 100%);
+  footer{ background:var(--espresso); color:var(--ivory); padding-top:130px; }
+  .footer-cta{ text-align:center; padding-bottom:110px; }
+  .footer-cta h2{ font-size:clamp(3rem,9vw,7.5rem); font-style:italic; }
+  .footer-grid{
+    border-top:1px solid var(--line-on-dark); padding:60px 6vw; display:grid; grid-template-columns:1.2fr 0.8fr 0.8fr 1fr; gap:40px;
   }
-  .footer-bottom{ display:flex; justify-content:space-between; padding:24px 6vw 28px; color:rgba(46,24,16,0.55); font-size:0.75rem; flex-wrap:wrap; gap:10px; border-top:1px solid rgba(46,24,16,0.2); }
+  .footer-grid h4{ font-size:0.72rem; color:var(--brass-soft); margin-bottom:18px; letter-spacing:0.08em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; font-weight:400;}
+  .footer-grid ul{ list-style:none; }
+  .footer-grid li{ margin-bottom:10px; color:var(--beige); font-size:0.92rem; }
+  .footer-grid li a:hover{ color:var(--ivory); }
+  .footer-form{ display:flex; border-bottom:1px solid var(--line-on-dark); padding-bottom:10px; margin-top:6px; }
+  .footer-form input{ background:none; border:none; color:var(--ivory); flex:1; font-size:0.9rem; outline:none; font-family:inherit; }
+  .footer-form input::placeholder{ color:rgba(242,236,225,0.4); }
+  .footer-form button{ font-size:0.75rem; color:var(--brass-soft); }
+  .footer-bottom{ display:flex; justify-content:space-between; padding:26px 6vw 30px; color:rgba(242,236,225,0.4); font-size:0.75rem; flex-wrap:wrap; gap:10px; border-top:1px solid var(--line-on-dark); }
 
   /* ---------- Magnetic ---------- */
   .magnetic{ display:inline-block; }
@@ -445,45 +350,32 @@
   @media (max-width:900px){
     .nav-links{ display:none; }
     .nav-burger{ display:flex; }
+    .story-grid{ grid-template-columns:1fr; }
+    .about{ grid-template-columns:1fr; }
+    .about-media{ min-height:50vh; }
+    .about-copy{ padding:70px 8vw; }
     .atmo-row{ grid-template-columns:1fr; }
-    .atmo-media{ min-height:50vh; border-radius:20px; }
-    .atmo-copy{ padding:32px 6vw 48px; }
-    .res-card{ grid-template-columns:1fr; border-radius:28px; }
-    .res-photo{ order:-1; min-height:260px; }
-    .res-form{ padding:36px 26px 30px; }
-    .reserve{ padding-top:110px; }
-    .hours{ padding-top:80px; }
-    .ticker{ margin-top:80px; }
-    .ticker-track i{ margin:0 22px; width:9px; height:9px; }
-    .footer-grid{ grid-template-columns:1fr; padding:50px 8vw 40px; }
-    .footer-grid > div{ padding:28px 0; }
-    .footer-grid > div + div{ border-left:none; border-top:1px solid rgba(46,24,16,0.2); }
+    .atmo-media{ min-height:50vh; }
+    .atmo-copy{ padding:60px 8vw; }
+    .loc-grid{ grid-template-columns:1fr; }
+    .loc-map{ order:-1; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .menu-item .mi-desc{ display:none !important; }
   }
   @media (max-width:560px){
-    .res-chips{ grid-template-columns:repeat(3,1fr); }
-    .res-input{ font-size:1.4rem; }
+    .footer-grid{ grid-template-columns:1fr; }
+    .footer-grid > div{ margin-bottom:10px; }
   }
 
   @media (prefers-reduced-motion: reduce){
-    .ticker-track{ animation:none !important; }
     *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
   }
 
-  /* ---------- Display typeface: Caprasimo (Cooper-style soft serif, single weight) ---------- */
-  h1,h2,h3,h4,.serif,.logo,.nav-links a,#preloader .pl-word,.hero-overlay p,.hero-tagline,.res-q,.hours-time,.mc-name,#mobile-menu a,
-  .atmo-copy h3,.res-form h2,.res-done h3,.hours h2,.footer-grid h4{
-    font-family:'Caprasimo', serif !important; font-weight:400 !important; font-style:normal !important;
-    font-synthesis:none; letter-spacing:-0.005em;
-  }
-  em, .hero-overlay p em{ font-style:normal !important; font-weight:400 !important; }
-  .hero-title{ letter-spacing:-0.01em; line-height:1.05; }
-  h1,h2,h3,h4{ line-height:1.08; }
-
-  :focus-visible{ outline:2px solid var(--copper); outline-offset:3px; }
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
 </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6VD4XDW"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
@@ -503,9 +395,10 @@
   <nav class="nav-links">
     <a href="#top">Home</a>
     <a href="#menu">Menu</a>
+    <a href="#about">About</a>
     <a href="#gallery">Gallery</a>
     <a href="#visit">Visit</a>
-    <a href="#reserve" class="nav-cta magnetic">Book a Table</a>
+    <a href="#visit" class="nav-cta magnetic">Book a Table</a>
   </nav>
   <button class="nav-burger" id="burgerBtn" aria-label="Open menu">
     <span></span><span></span>
@@ -515,19 +408,16 @@
 <div id="mobile-menu">
   <a href="#top">Home</a>
   <a href="#menu">Menu</a>
+  <a href="#about">About</a>
   <a href="#gallery">Gallery</a>
   <a href="#visit">Visit</a>
-  <a href="#reserve">Book a Table</a>
   <div class="mm-foot mono" style="font-size:0.7rem;">Brooklyn, NY — Mon–Sun 8:00 AM–11:00 PM</div>
 </div>
 
 <!-- HERO -->
-<div class="hero-track" id="heroTrack">
 <section class="hero" id="top">
   <div class="hero-media">
-    <video id="heroImg" muted playsinline preload="auto" aria-hidden="true" poster="assets/lumiere/video/hero-poster.jpg">
-      <source src="assets/lumiere/video/hero.mp4" type="video/mp4">
-    </video>
+    <img id="heroImg" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2000&auto=format&fit=crop" alt="Interior of LUMIÈRE café in Brooklyn, warm light through large windows" />
   </div>
   <div class="hero-inner">
     <div class="hero-eyebrow mono"><span id="heroEyebrowText">An All-Day Café — Brooklyn, NY</span></div>
@@ -539,20 +429,38 @@
       <p class="hero-tagline">Coffee. Food. Moments.</p>
     </div>
   </div>
-  <div class="hero-overlay" id="heroOverlay"><p>Coffee.<br>Food. <em>Moments.</em></p></div>
   <div class="scroll-indicator">
     <span class="mono" style="writing-mode:vertical-rl;">Scroll</span>
     <div class="line"><span></span></div>
   </div>
 </section>
-</div>
+
+<!-- STORY -->
+<section class="story">
+  <div class="container story-grid">
+    <div>
+      <div class="eyebrow mono">The Idea</div>
+      <h2 class="reveal-up">Made for slow<br>mornings. Designed<br>for long <em>conversations.</em></h2>
+      <p class="story-copy">LUMIÈRE was never meant to be a place you pass through. It's built around the pause — the second cup, the unhurried lunch, the conversation that runs long. Every detail, from the light to the ceramics, is chosen to slow the day down.</p>
+    </div>
+    <div class="story-media">
+      <div class="frame" data-parallax-img>
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1400&auto=format&fit=crop" alt="Barista pouring latte art at LUMIÈRE" />
+      </div>
+      <div class="story-num mono" style="font-size:0.7rem; color:rgba(42,29,20,0.5);">
+        <span>Brooklyn, Williamsburg</span>
+        <span>Est. 2019</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- MENU -->
 <section class="menu-section" id="menu">
   <div class="container">
     <div class="menu-head">
       <div>
-        <div class="eyebrow mono">The Menu</div>
+        <div class="eyebrow mono" style="color:var(--brass-soft);">The Menu</div>
         <h2>What we're<br>pouring & plating.</h2>
       </div>
       <p>A short, considered list — coffee from a single roaster, food built around the season. Nothing that doesn't earn its place.</p>
@@ -561,130 +469,120 @@
     <div class="menu-cats mono" id="menuCats">
       <button class="menu-cat-btn active" data-cat="coffee">Coffee</button>
       <button class="menu-cat-btn" data-cat="breakfast">Breakfast</button>
+      <button class="menu-cat-btn" data-cat="lunch">Lunch</button>
       <button class="menu-cat-btn" data-cat="dessert">Dessert</button>
     </div>
 
     <div class="menu-list" id="menuList">
       <div class="menu-cat-block active" data-cat="coffee">
-        <div class="menu-grid n4">
-        <article class="menu-card" style="--tint:#EBC795;--pos:50%">
-          <div class="mc-img"><img src="assets/lumiere/img/espresso.jpg" alt="Espresso" loading="lazy"></div>
-          <h3 class="mc-name">Espresso</h3>
-          <p class="mc-desc">Single origin, pulled short.</p>
-          <span class="mc-price">$4</span>
-        </article>
-        <article class="menu-card" style="--tint:#F4D6B0;--pos:50%">
-          <div class="mc-img"><img src="assets/lumiere/img/flat-white.jpg" alt="Flat White" loading="lazy"></div>
-          <h3 class="mc-name">Flat White</h3>
-          <p class="mc-desc">Double ristretto, steamed milk.</p>
-          <span class="mc-price">$5</span>
-        </article>
-        <article class="menu-card" style="--tint:#EFCFB4;--pos:56%">
-          <div class="mc-img"><img src="assets/lumiere/img/cappuccino.jpg" alt="Cappuccino" loading="lazy"></div>
-          <h3 class="mc-name">Cappuccino</h3>
-          <p class="mc-desc">Equal parts espresso, milk, foam.</p>
-          <span class="mc-price">$5</span>
-        </article>
-        <article class="menu-card" style="--tint:#CFE1A6;--pos:50%">
-          <div class="mc-img"><img src="assets/lumiere/img/matcha.jpg" alt="Matcha Latte" loading="lazy"></div>
-          <h3 class="mc-name">Matcha Latte</h3>
-          <p class="mc-desc">Ceremonial grade, oat milk.</p>
-          <span class="mc-price">$6</span>
-        </article>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Espresso</span><span class="mi-desc">Single origin, pulled short.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$4</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Flat White</span><span class="mi-desc">Double ristretto, steamed milk.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$5</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba9?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Cappuccino</span><span class="mi-desc">Equal parts espresso, milk, foam.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$5</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Matcha Latte</span><span class="mi-desc">Ceremonial grade, oat milk.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$6</span>
         </div>
       </div>
 
       <div class="menu-cat-block" data-cat="breakfast">
-        <div class="menu-grid">
-        <article class="menu-card" style="--tint:#D9E4A4;--pos:50%">
-          <div class="mc-img"><img src="assets/lumiere/img/avocado.jpg" alt="Avocado Toast" loading="lazy"></div>
-          <h3 class="mc-name">Avocado Toast</h3>
-          <p class="mc-desc">Sourdough, chili oil, lime.</p>
-          <span class="mc-price">$11</span>
-        </article>
-        <article class="menu-card" style="--tint:#F7D08B;--pos:48%">
-          <div class="mc-img"><img src="assets/lumiere/img/croissant.jpg" alt="Croissant & Butter" loading="lazy"></div>
-          <h3 class="mc-name">Croissant &amp; Butter</h3>
-          <p class="mc-desc">Baked at dawn, cultured butter.</p>
-          <span class="mc-price">$8</span>
-        </article>
-        <article class="menu-card" style="--tint:#F8C3AE;--pos:50%">
-          <div class="mc-img"><img src="assets/lumiere/img/french-toast.jpg" alt="French Toast" loading="lazy"></div>
-          <h3 class="mc-name">French Toast</h3>
-          <p class="mc-desc">Brioche, maple, brown butter.</p>
-          <span class="mc-price">$12</span>
-        </article>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Avocado Toast</span><span class="mi-desc">Sourdough, chili oil, lime.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$11</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Croissant & Butter</span><span class="mi-desc">Baked at dawn, cultured butter.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$8</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1519676867240-f03562e64548?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">French Toast</span><span class="mi-desc">Brioche, maple, brown butter.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$12</span>
+        </div>
+      </div>
+
+      <div class="menu-cat-block" data-cat="lunch">
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Burrata Salad</span><span class="mi-desc">Heirloom tomato, basil oil.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$14</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Truffle Pasta</span><span class="mi-desc">Tagliolini, black truffle, parmesan.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$17</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Grilled Chicken</span><span class="mi-desc">Charred lemon, herb jus.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$16</span>
         </div>
       </div>
 
       <div class="menu-cat-block" data-cat="dessert">
-        <div class="menu-grid n2">
-        <article class="menu-card" style="--tint:#E6C2A2;--pos:50%">
-          <div class="mc-img"><img src="assets/lumiere/img/tiramisu.jpg" alt="Tiramisu" loading="lazy"></div>
-          <h3 class="mc-name">Tiramisu</h3>
-          <p class="mc-desc">Espresso-soaked, mascarpone.</p>
-          <span class="mc-price">$9</span>
-        </article>
-        <article class="menu-card" style="--tint:#F5C0BE;--pos:50%">
-          <div class="mc-img"><img src="assets/lumiere/img/cheesecake.jpg" alt="Basque Cheesecake" loading="lazy"></div>
-          <h3 class="mc-name">Basque Cheesecake</h3>
-          <p class="mc-desc">Burnt top, vanilla bean.</p>
-          <span class="mc-price">$10</span>
-        </article>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Tiramisu</span><span class="mi-desc">Espresso-soaked, mascarpone.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$9</span>
+        </div>
+        <div class="menu-item" data-img="https://images.unsplash.com/photo-1524351199678-941a58a3df50?q=80&w=800&auto=format&fit=crop">
+          <div class="mi-left"><span class="mi-name">Basque Cheesecake</span><span class="mi-desc">Burnt top, vanilla bean.</span></div>
+          <div class="mi-dots"></div><span class="mi-price">$10</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
+
+<div class="menu-preview" id="menuPreview"><img id="menuPreviewImg" src="" alt=""></div>
 
 <!-- SIGNATURE -->
 <section class="signature" id="signature">
   <div class="container">
     <div class="sig-head">
       <h2>Four things we'd<br>ask you to try first.</h2>
-      <p class="mono" style="max-width:260px; color:rgba(46,24,16,0.55); font-size:0.75rem;">Signature drinks & dishes, chosen by the kitchen and bar.</p>
+      <p class="mono" style="max-width:260px; color:rgba(42,29,20,0.55); font-size:0.75rem;">Signature drinks & dishes, chosen by the kitchen and bar.</p>
     </div>
   </div>
   <div class="sig-track-wrap" id="sigTrackWrap">
     <div class="sig-track" id="sigTrack">
       <div class="sig-card">
-        <div class="sig-frame"><img data-speed="0.15" src="assets/lumiere/img/flat-white.jpg" alt="Signature flat white at LUMIÈRE"></div>
-        <div class="sig-info"><h3>The Williamsburg Flat White</h3><span>$5</span></div>
+        <div class="sig-frame"><img data-speed="0.15" src="https://images.unsplash.com/photo-1495856458515-0637185db551?q=80&w=1200&auto=format&fit=crop" alt="Signature flat white at LUMIÈRE"></div>
+        <div class="sig-info"><h3>The Williamsburg Flat White</h3><span>$6</span></div>
       </div>
       <div class="sig-card">
-        <div class="sig-frame"><img data-speed="0.3" src="assets/lumiere/img/croissant.jpg" alt="Croissant with butter at LUMIÈRE"></div>
-        <div class="sig-info"><h3>Croissant &amp; Butter</h3><span>$8</span></div>
+        <div class="sig-frame"><img data-speed="0.3" src="https://images.unsplash.com/photo-1461988091159-192b6df7054f?q=80&w=1200&auto=format&fit=crop" alt="Pastry counter at LUMIÈRE"></div>
+        <div class="sig-info"><h3>Morning Pastry Board</h3><span>$13</span></div>
       </div>
       <div class="sig-card">
-        <div class="sig-frame"><img data-speed="0.2" src="assets/lumiere/img/matcha.jpg" alt="Iced matcha latte at LUMIÈRE"></div>
-        <div class="sig-info"><h3>Matcha Latte</h3><span>$6</span></div>
+        <div class="sig-frame"><img data-speed="0.2" src="https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=1200&auto=format&fit=crop" alt="Coffee flatlay at LUMIÈRE"></div>
+        <div class="sig-info"><h3>Iced Brass Latte</h3><span>$7</span></div>
       </div>
       <div class="sig-card">
-        <div class="sig-frame"><img data-speed="0.1" src="assets/lumiere/img/french-toast.jpg" alt="French toast with berries"></div>
-        <div class="sig-info"><h3>French Toast</h3><span>$12</span></div>
+        <div class="sig-frame"><img data-speed="0.1" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=1200&auto=format&fit=crop" alt="Truffle pasta at LUMIÈRE"></div>
+        <div class="sig-info"><h3>Truffle Tagliolini</h3><span>$17</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ATMOSPHERE -->
-<section class="atmosphere">
-  <div class="atmo-row">
-    <div class="atmo-media"><img data-speed="0.1" src="assets/lumiere/img/flat-white.jpg" alt="Flat white by the window"></div>
-    <div class="atmo-copy"><div><span class="an">01 — Mornings</span><h3>Slow mornings.</h3><p>Light comes in low through the front windows. The first pour-overs go out slow and unhurried.</p></div></div>
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-media">
+    <img data-speed="0.15" src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1600&auto=format&fit=crop" alt="LUMIÈRE café interior architecture">
   </div>
-  <div class="atmo-row">
-    <div class="atmo-media"><img data-speed="0.1" src="assets/lumiere/img/roast.jpg" alt="Barista scooping freshly roasted beans into a ceramic bowl"></div>
-    <div class="atmo-copy"><div><span class="an">02 — The Roast</span><h3>Freshly roasted.</h3><p>Roasted in small batches, just days before it reaches the bar. Dialed in fresh every morning.</p></div></div>
-  </div>
-  <div class="atmo-row">
-    <div class="atmo-media"><img data-speed="0.1" src="assets/lumiere/img/kitchen.jpg" alt="Chef finishing a vegetable toast with microgreens"></div>
-    <div class="atmo-copy"><div><span class="an">03 — The Kitchen</span><h3>Made with intention.</h3><p>Produce from nearby markets. Nothing goes out that the team wouldn't order for themselves.</p></div></div>
-  </div>
-  <div class="atmo-row">
-    <div class="atmo-media"><img data-speed="0.1" src="assets/lumiere/img/room.jpg" alt="Cozy armchair corner by the window at LUMIÈRE"></div>
-    <div class="atmo-copy"><div><span class="an">04 — The Room</span><h3>Stay a little longer.</h3><p>No pressure to turn the table. Soft seating, low music, and enough space to actually hear each other.</p></div></div>
+  <div class="about-copy">
+    <div class="eyebrow mono" style="color:var(--brass-soft);">About Lumière</div>
+    <h2>LUMIÈRE was built around one idea: <em>the best cafés</em> aren't places you drink coffee — they're places that become part of your day.</h2>
+    <p>We opened our doors in Williamsburg in 2019 with a single espresso machine, a short menu, and a belief that good design and good coffee should live in the same room. Six years on, that hasn't changed.</p>
+    <div class="about-stats mono">
+      <div><span class="serif">2019</span><small>Founded</small></div>
+      <div><span class="serif">1</span><small>Roaster</small></div>
+      <div><span class="serif">08–23</span><small>Daily</small></div>
+    </div>
   </div>
 </section>
 
@@ -696,14 +594,14 @@
   </div>
   <div class="gallery-track-wrap" id="galleryWrap">
     <div class="gallery-track" id="galleryTrack">
-      <div class="g-item g1" data-idx="0"><img src="assets/lumiere/img/cappuccino.jpg" alt="Cappuccino with cocoa"><span class="g-num mono">01</span></div>
-      <div class="g-item g2" data-idx="1"><img src="assets/lumiere/img/espresso.jpg" alt="Espresso on an oak table"><span class="g-num mono">02</span></div>
-      <div class="g-item g3" data-idx="2"><img src="assets/lumiere/img/french-toast.jpg" alt="French toast with berries"><span class="g-num mono">03</span></div>
-      <div class="g-item g4" data-idx="3"><img src="assets/lumiere/img/matcha.jpg" alt="Matcha latte with a bamboo whisk"><span class="g-num mono">04</span></div>
-      <div class="g-item g5" data-idx="4"><img src="assets/lumiere/img/flat-white.jpg" alt="Latte art beside an open book"><span class="g-num mono">05</span></div>
-      <div class="g-item g6" data-idx="5"><img src="assets/lumiere/img/croissant.jpg" alt="Fresh croissant with butter"><span class="g-num mono">06</span></div>
-      <div class="g-item g7" data-idx="6"><img src="assets/lumiere/img/tiramisu.jpg" alt="Tiramisu with coffee beans"><span class="g-num mono">07</span></div>
-      <div class="g-item g8" data-idx="7"><img src="assets/lumiere/img/cheesecake.jpg" alt="Basque cheesecake with berries"><span class="g-num mono">08</span></div>
+      <div class="g-item g1" data-idx="0"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1200&auto=format&fit=crop" alt="Wide interior view of LUMIÈRE café"><span class="g-num mono">01</span></div>
+      <div class="g-item g2" data-idx="1"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=900&auto=format&fit=crop" alt="Guests at LUMIÈRE café"><span class="g-num mono">02</span></div>
+      <div class="g-item g3" data-idx="2"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200&auto=format&fit=crop" alt="Coffee beans close up"><span class="g-num mono">03</span></div>
+      <div class="g-item g4" data-idx="3"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=900&auto=format&fit=crop" alt="Coffee cup close up detail"><span class="g-num mono">04</span></div>
+      <div class="g-item g5" data-idx="4"><img src="https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=1100&auto=format&fit=crop" alt="Guest reading in the café"><span class="g-num mono">05</span></div>
+      <div class="g-item g6" data-idx="5"><img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1000&auto=format&fit=crop" alt="Fresh croissant detail"><span class="g-num mono">06</span></div>
+      <div class="g-item g7" data-idx="6"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" alt="Latte art close up at LUMIÈRE"><span class="g-num mono">07</span></div>
+      <div class="g-item g8" data-idx="7"><img src="https://images.unsplash.com/photo-1522992319-0365e5f11656?q=80&w=1200&auto=format&fit=crop" alt="Sunlit corner table at LUMIÈRE"><span class="g-num mono">08</span></div>
     </div>
   </div>
 </section>
@@ -714,168 +612,105 @@
   <div class="lb-count mono" id="lbCount">01 / 08</div>
 </div>
 
-<!-- RESERVE + HOURS -->
-<section class="reserve" id="reserve">
-  <div class="res-wrap">
-    <div class="res-card">
-      <div class="res-form">
-        <h2>Reserve your table</h2>
-        <ol class="res-steps" id="resSteps" aria-hidden="true">
-          <li class="res-dot active"><b>1</b></li><li class="res-dot"><b>2</b></li><li class="res-dot"><b>3</b></li>
-          <li class="res-dot"><b>4</b></li><li class="res-dot"><b>5</b></li><li class="res-dot"><b>6</b></li>
-        </ol>
-        <form id="resForm" novalidate>
-          <div class="res-stage">
-            <div class="res-step active" data-step="1">
-              <p class="res-kicker">Let’s get your table ready</p>
-              <label class="res-q" for="resName">What’s your name?</label>
-              <input class="res-input" id="resName" type="text" placeholder="Your name…" autocomplete="name" />
-            </div>
-            <div class="res-step" data-step="2">
-              <p class="res-kicker">Lovely to meet you, <span class="js-name">friend</span></p>
-              <label class="res-q" for="resDate">Which day are you coming?</label>
-              <input class="res-input" id="resDate" type="date" />
-            </div>
-            <div class="res-step" data-step="3">
-              <p class="res-kicker">We’re open 8 AM to 11 PM</p>
-              <span class="res-q">What time suits you?</span>
-              <div class="res-chips" id="resTimes"></div>
-            </div>
-            <div class="res-step" data-step="4">
-              <p class="res-kicker">Pull up a few chairs</p>
-              <span class="res-q">How many guests?</span>
-              <div class="res-chips g4" id="resGuests"></div>
-              <p class="res-note">Party of 9 or more? Call <a href="tel:+17185550142">+1 (718) 555-0142</a>.</p>
-            </div>
-            <div class="res-step" data-step="5">
-              <p class="res-kicker">Where should we send the confirmation?</p>
-              <label class="res-q" for="resEmail">How can we reach you?</label>
-              <input class="res-input sm" id="resEmail" type="email" placeholder="Email address" autocomplete="email" />
-              <input class="res-input sm" id="resPhone" type="tel" placeholder="Phone (optional)" autocomplete="tel" />
-            </div>
-            <div class="res-step" data-step="6">
-              <p class="res-kicker">Almost there</p>
-              <span class="res-q">Does this look right?</span>
-              <ul class="res-sum mono-labels" id="resSummary"></ul>
-            </div>
-            <p class="res-err" id="resErr" role="alert"></p>
-          </div>
-          <div class="res-actions">
-            <button type="button" class="res-back" id="resBack" hidden>← Back</button>
-            <button type="submit" class="res-next" id="resNext">Next <span aria-hidden="true">→</span></button>
-          </div>
-        </form>
-        <div class="res-done" id="resDone">
-          <h3>See you soon, <span class="js-name">friend</span>.</h3>
-          <p id="resDoneText"></p>
-          <button type="button" class="res-next" id="resAgain">Book another table</button>
-        </div>
-      </div>
-      <div class="res-photo"><img src="assets/lumiere/img/reserve.jpg" alt="Friends laughing over coffee and pastries at LUMIÈRE" loading="lazy" /></div>
-    </div>
+<!-- ATMOSPHERE -->
+<section class="atmosphere">
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1200&auto=format&fit=crop" alt="Steam rising from coffee cup"></div>
+    <div class="atmo-copy"><div><span class="an">01 — Mornings</span><h3>Slow mornings.</h3><p>The first hour is ours before it's anyone else's. Light comes in low through the front windows, the espresso machine warms up, and the first pour-overs go out slow and unhurried — no rush, just the quiet ritual of getting the day started right.</p></div></div>
   </div>
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1200&auto=format&fit=crop" alt="Freshly roasted coffee beans"></div>
+    <div class="atmo-copy"><div><span class="an">02 — The Roast</span><h3>Freshly roasted.</h3><p>We work with a single roaster we've trusted since day one, and every bag is roasted in small batches just days before it reaches the bar. Beans are weighed and dialed in each morning, so the cup in your hand always tastes like it was made for today.</p></div></div>
+  </div>
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=1200&auto=format&fit=crop" alt="Careful plating of food at LUMIÈRE"></div>
+    <div class="atmo-copy"><div><span class="an">03 — The Kitchen</span><h3>Made with intention.</h3><p>Our kitchen keeps the menu short on purpose — fewer dishes, more care in each one. Produce comes from nearby markets, plates change with the seasons, and nothing goes out that the team wouldn't order for themselves.</p></div></div>
+  </div>
+  <div class="atmo-row">
+    <div class="atmo-media"><img data-speed="0.1" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200&auto=format&fit=crop" alt="Guests relaxing at LUMIÈRE café"></div>
+    <div class="atmo-copy"><div><span class="an">04 — The Room</span><h3>Stay a little longer.</h3><p>There's no pressure to turn the table. Soft seating by the window, low music, and enough space between tables to actually hear each other — LUMIÈRE was designed for people who came to stay, not just to grab a cup and go.</p></div></div>
+  </div>
+</section>
 
-  <div class="hours">
-    <h2>Opening hours</h2>
-    <span class="hours-label mono">Every day</span>
-    <p class="hours-time">8<sup>AM</sup><span class="dash"></span>11<sup>PM</sup></p>
-  </div>
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track"><span>Coffee</span><i></i><span>Food</span><i></i><span>Moments</span><i></i><span>Williamsburg, Brooklyn</span><i></i><span>Open every day</span><i></i><span>Since 2019</span><i></i></div>
-    <div class="ticker-track"><span>Coffee</span><i></i><span>Food</span><i></i><span>Moments</span><i></i><span>Williamsburg, Brooklyn</span><i></i><span>Open every day</span><i></i><span>Since 2019</span><i></i></div>
+<!-- LOCATION -->
+<section class="location" id="visit">
+  <div class="container loc-grid">
+    <div>
+      <div class="eyebrow mono">Visit Us</div>
+      <h2>Find your table<br>in Williamsburg.</h2>
+      <div class="loc-detail"><span class="ld-label mono">Address</span><span class="ld-value">204 Bedford Ave,<br>Williamsburg, Brooklyn, NY</span></div>
+      <div class="loc-detail"><span class="ld-label mono">Hours</span><span class="ld-value">Mon–Fri — 8:00 AM–10:00 PM<br>Sat–Sun — 9:00 AM–11:00 PM</span></div>
+      <div class="loc-detail"><span class="ld-label mono">Phone</span><span class="ld-value">+1 (718) 555-0142</span></div>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="loc-cta magnetic">Get Directions →</a>
+    </div>
+    <div class="loc-map">
+      <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+        <rect width="600" height="600" fill="#2A1D14"/>
+        <g stroke="#8A6D3B" stroke-opacity="0.35" stroke-width="1.4" fill="none">
+          <path d="M0 120 H600" /><path d="M0 260 H600" /><path d="M0 400 H600" /><path d="M0 500 H600" />
+          <path d="M120 0 V600" /><path d="M280 0 V600" /><path d="M420 0 V600" /><path d="M520 0 V600" />
+        </g>
+        <path d="M0 300 Q150 220 300 300 T600 300" stroke="#C7B9A3" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+        <path d="M180 0 Q220 300 180 600" stroke="#C7B9A3" stroke-opacity="0.35" stroke-width="1.6" fill="none"/>
+        <circle cx="300" cy="300" r="70" fill="#8A6D3B" fill-opacity="0.12"/>
+      </svg>
+      <div class="loc-pin">
+        <svg width="34" height="46" viewBox="0 0 34 46" fill="none">
+          <path d="M17 0C7.6 0 0 7.6 0 17c0 12.75 17 29 17 29s17-16.25 17-29C34 7.6 26.4 0 17 0z" fill="#F2ECE1"/>
+          <circle cx="17" cy="17" r="6" fill="#2A1D14"/>
+        </svg>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
+  <div class="footer-cta container">
+    <h2 class="serif">See you at LUMIÈRE.</h2>
+  </div>
   <div class="footer-grid">
-    <div id="visit">
-      <h4>Location</h4>
-      <p>204 Bedford Ave<br>Williamsburg, Brooklyn, NY</p>
-      <div class="f-dir">
-        <strong class="mono">Getting here</strong>
-        <p><b>Subway —</b> take the L to Bedford Av and walk south along Bedford Avenue.</p>
-        <p><b>Bike —</b> a Citi Bike dock is on the next block.</p>
-        <p><b>Walking —</b> look for the big front windows and the warm light.</p>
-      </div>
-      <br><a class="f-link mono" href="https://maps.google.com" target="_blank" rel="noopener">Open in Maps ↗</a>
+    <div>
+      <h4>Lumière</h4>
+      <p style="color:var(--beige); max-width:260px; font-size:0.92rem; line-height:1.6;">An all-day café in Williamsburg, Brooklyn. Coffee, food, and moments — since 2019.</p>
     </div>
     <div>
-      <h4>About Us</h4>
-      <p>An all-day café in Williamsburg, Brooklyn. Good coffee, thoughtful food and a table that’s always yours for as long as you like — since 2019.</p>
-    </div>
-    <div>
-      <h4>Contact Us</h4>
+      <h4>Menu</h4>
       <ul>
-        <li><a href="tel:+17185550142">+1 (718) 555-0142</a></li>
-        <li><a href="mailto:hello@lumierecafe.com">hello@lumierecafe.com</a></li>
-        <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#visit">Visit</a></li>
       </ul>
     </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="mailto:hello@lumierecafe.com">hello@lumierecafe.com</a></li>
+        <li>+1 (718) 555-0142</li>
+        <li>204 Bedford Ave, Brooklyn</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Stay in the loop</h4>
+      <p style="color:var(--beige); font-size:0.88rem;">Slow-morning notes, once a month.</p>
+      <form class="footer-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thank you';">
+        <input type="email" placeholder="Your email" required />
+        <button class="mono" type="submit">Join →</button>
+      </form>
+    </div>
   </div>
-  <div class="footer-mark" aria-hidden="true">LUMIÈRE</div>
   <div class="footer-bottom mono">
     <span>© 2026 LUMIÈRE CAFÉ</span>
-    <span>Design &amp; Development — Portfolio Piece</span>
+    <span>Design & Development — Portfolio Piece</span>
   </div>
 </footer>
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-/* ---------------- Hero: video scrubbed by scroll + story slides over ---------------- */
-(function(){
-  if (reduced) return;
-  const v = document.getElementById('heroImg');
-  const inner = document.querySelector('.hero-inner');
-  const hint = document.querySelector('.scroll-indicator');
-  const overlay = document.getElementById('heroOverlay');
-  const ease = t => t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
-  const clamp = (x,a=0,b=1) => Math.max(a, Math.min(b, x));
-  let target = 0, cur = 0, ready = false;
-
-  function init(){
-    ready = true; v.pause();
-    v.currentTime = 0.001;
-  }
-  /* seeking works far better from a blob than from a data: URI */
-  const src = v.currentSrc || (v.querySelector('source')||{}).src || '';
-  if (src.startsWith('data:')) {
-    fetch(src).then(r => r.blob()).then(b => { v.src = URL.createObjectURL(b); v.load(); }).catch(()=>{});
-  }
-  v.addEventListener('loadedmetadata', init);
-  if (v.readyState >= 1) init();
-  v.load();
-
-  /* smooth seek loop */
-  (function loop(){
-    requestAnimationFrame(loop);
-    if (!ready || !v.duration) return;
-    cur += (target - cur) * 0.2;
-    if (Math.abs(target - cur) < 0.002) cur = target;
-    if (!v.seeking && Math.abs(v.currentTime - cur) > 0.02) v.currentTime = cur;
-  })();
-
-  /* s = scroll distance inside the hero track, in screen heights (0 → 2) */
-  ScrollTrigger.create({
-    trigger:'#heroTrack', start:'top top', end:'bottom bottom',
-    onUpdate: self => {
-      const s = self.progress * 2;
-      if (v.duration) target = clamp(s / 1.6) * v.duration;
-      const out = ease(clamp(s / 0.45));
-      inner.style.transform = 'translateY(' + (out * -90) + 'px)';
-      inner.style.opacity = (1 - out).toFixed(3);
-      if (hint) hint.style.opacity = (1 - out).toFixed(3);
-      const oi = ease(clamp((s - 0.5) / 0.3)), oo = ease(clamp((s - 1.0) / 0.3));
-      overlay.style.opacity = (oi * (1 - oo)).toFixed(3);
-      overlay.style.transform = 'translateY(' + ((1 - oi) * 30 - oo * 30) + 'px)';
-    }
-  });
-})();
-
-if (reduced) { const hv = document.getElementById('heroImg'); if (hv && hv.pause) { hv.removeAttribute('autoplay'); hv.pause(); } }
-
-gsap.set('.hero-title .chunk span', { yPercent:120 });
 
 /* ---------------- Preloader ---------------- */
 window.addEventListener('load', () => {
@@ -921,14 +756,14 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
 }));
 
 /* ---------------- Generic scroll reveals ---------------- */
-gsap.utils.toArray('.story-copy, .story-num, .eyebrow, .story-stats, .loc-detail, .loc-cta, .atmo-copy p').forEach(el => {
+gsap.utils.toArray('.story-copy, .story-num, .eyebrow, .about-stats, .loc-detail, .loc-cta, .atmo-copy p').forEach(el => {
   gsap.fromTo(el, {opacity:0, y:26}, {
     opacity:1, y:0, duration:0.9, ease:'power3.out',
     scrollTrigger:{ trigger:el, start:'top 88%' }
   });
 });
 
-gsap.utils.toArray('h2, .atmo-copy h3').forEach(h => {
+gsap.utils.toArray('h2, .about-copy h2, .atmo-copy h3').forEach(h => {
   gsap.fromTo(h, {opacity:0, y:50}, {
     opacity:1, y:0, duration:1.1, ease:'power4.out',
     scrollTrigger:{ trigger:h, start:'top 90%' }
@@ -936,7 +771,7 @@ gsap.utils.toArray('h2, .atmo-copy h3').forEach(h => {
 });
 
 /* Image mask reveals */
-gsap.utils.toArray('.frame img, .atmo-media img').forEach(img => {
+gsap.utils.toArray('.frame img, .about-media img, .atmo-media img').forEach(img => {
   const wrap = img.parentElement;
   gsap.set(wrap, { overflow:'hidden' });
   gsap.fromTo(img, {scale:1.3, opacity:0.4}, {
@@ -954,10 +789,12 @@ gsap.utils.toArray('[data-speed]').forEach(img => {
   });
 });
 
-/* Menu cards reveal (first tab on scroll; other tabs on click) */
-gsap.fromTo('.menu-cat-block.active .menu-card', {opacity:0, y:36}, {
-  opacity:1, y:0, duration:0.8, stagger:0.08, ease:'power3.out',
-  scrollTrigger:{ trigger:'.menu-cat-block.active', start:'top 85%' }
+/* Menu items stagger-in per block */
+document.querySelectorAll('.menu-cat-block').forEach(block => {
+  gsap.fromTo(block.querySelectorAll('.menu-item'), {opacity:0, y:24}, {
+    opacity:1, y:0, duration:0.7, stagger:0.06, ease:'power3.out',
+    scrollTrigger:{ trigger:block, start:'top 85%' }
+  });
 });
 
 /* Signature cards parallax + reveal */
@@ -981,10 +818,25 @@ document.querySelectorAll('.menu-cat-btn').forEach(btn => {
     btn.classList.add('active');
     const cat = btn.dataset.cat;
     document.querySelectorAll('.menu-cat-block').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
-    gsap.fromTo('.menu-cat-block.active .menu-card', {opacity:0, y:30}, {opacity:1, y:0, duration:0.7, stagger:0.07, ease:'power3.out', overwrite:true});
     ScrollTrigger.refresh();
   });
 });
+
+/* ---------------- Menu hover preview ---------------- */
+const preview = document.getElementById('menuPreview');
+const previewImg = document.getElementById('menuPreviewImg');
+if (window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      previewImg.src = item.dataset.img;
+      preview.classList.add('show');
+    });
+    item.addEventListener('mousemove', e => {
+      gsap.to(preview, { x:e.clientX + 30, y:e.clientY - 220, duration:0.4, ease:'power3.out' });
+    });
+    item.addEventListener('mouseleave', () => preview.classList.remove('show'));
+  });
+}
 
 /* ---------------- Horizontal drag-scroll helper (gallery + signature) ---------------- */
 function makeDragScrollable(wrap){
@@ -1033,125 +885,11 @@ document.querySelectorAll('.g-item').forEach((item, i) => {
 lightbox.addEventListener('click', e => { if (e.target === lightbox || e.target.closest('.lb-close')) lightbox.classList.remove('open'); });
 window.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
 
-/* ---------------- Reservation form ---------------- */
-(function(){
-  const form = document.getElementById('resForm');
-  if (!form) return;
-  const steps = [...form.querySelectorAll('.res-step')];
-  const dots = [...document.querySelectorAll('#resSteps .res-dot')];
-  const nextBtn = document.getElementById('resNext');
-  const backBtn = document.getElementById('resBack');
-  const err = document.getElementById('resErr');
-  const dateEl = document.getElementById('resDate');
-  const timesEl = document.getElementById('resTimes');
-  const guestsEl = document.getElementById('resGuests');
-  const done = document.getElementById('resDone');
-  const data = { name:'', date:'', time:'', guests:'' };
-  let cur = 0;
-
-  const pad = n => String(n).padStart(2,'0');
-  const today = new Date();
-  const todayStr = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
-  dateEl.min = todayStr;
-
-  const fmtTime = h => `${((h+11)%12)+1}:00 ${h<12?'AM':'PM'}`;
-  for (let h = 8; h <= 22; h++){
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'res-chip'; b.dataset.h = h; b.textContent = fmtTime(h);
-    b.addEventListener('click', () => { data.time = h; markSel(timesEl, b); err.textContent=''; });
-    timesEl.appendChild(b);
-  }
-  for (let g = 1; g <= 8; g++){
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'res-chip'; b.textContent = g;
-    b.addEventListener('click', () => { data.guests = g; markSel(guestsEl, b); err.textContent=''; });
-    guestsEl.appendChild(b);
-  }
-  function markSel(wrap, btn){ wrap.querySelectorAll('.res-chip').forEach(c => c.classList.toggle('sel', c === btn)); }
-
-  function refreshTimes(){
-    const isToday = dateEl.value === todayStr;
-    const nowH = today.getHours() + (today.getMinutes() > 0 ? 1 : 0);
-    timesEl.querySelectorAll('.res-chip').forEach(c => {
-      const h = +c.dataset.h;
-      const off = isToday && h <= nowH;
-      c.disabled = off;
-      if (off && data.time === h){ data.time = ''; c.classList.remove('sel'); }
-    });
-  }
-
-  function prettyDate(v){
-    const [y,m,d] = v.split('-').map(Number);
-    return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
-  }
-
-  function show(i){
-    cur = i;
-    steps.forEach((s,k) => s.classList.toggle('active', k === i));
-    dots.forEach((d,k) => { d.classList.toggle('active', k === i); d.classList.toggle('done', k < i); });
-    backBtn.hidden = i === 0;
-    nextBtn.innerHTML = i === steps.length-1 ? 'Confirm booking <span aria-hidden="true">✓</span>' : 'Next <span aria-hidden="true">→</span>';
-    err.textContent = '';
-    if (i === 2) refreshTimes();
-    if (i === 5) buildSummary();
-    const f = steps[i].querySelector('input');
-    if (f && i !== 1) setTimeout(() => f.focus({preventScroll:true}), 60);
-  }
-
-  function validate(i){
-    if (i === 0){
-      data.name = document.getElementById('resName').value.trim();
-      if (!data.name) return 'Please tell us your name.';
-      document.querySelectorAll('.js-name').forEach(n => n.textContent = data.name.split(' ')[0]);
-    }
-    if (i === 1){
-      data.date = dateEl.value;
-      if (!data.date) return 'Please pick a date.';
-      if (data.date < todayStr) return 'That date has already passed.';
-    }
-    if (i === 2 && data.time === '') return 'Please choose a time.';
-    if (i === 3 && !data.guests) return 'Please choose the number of guests.';
-    if (i === 4){
-      data.email = document.getElementById('resEmail').value.trim();
-      data.phone = document.getElementById('resPhone').value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) return 'Please enter a valid email address.';
-    }
-    return '';
-  }
-
-  function buildSummary(){
-    const rows = [
-      ['Name', data.name], ['Date', prettyDate(data.date)], ['Time', fmtTime(data.time)],
-      ['Guests', data.guests], ['Contact', data.email + (data.phone ? ' · ' + data.phone : '')]
-    ];
-    document.getElementById('resSummary').innerHTML = rows.map(r => `<li><span class="mono">${r[0]}</span><b>${String(r[1]).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</b></li>`).join('');
-  }
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const msg = validate(cur);
-    if (msg){ err.textContent = msg; return; }
-    if (cur < steps.length-1){ show(cur+1); return; }
-    form.style.display = 'none';
-    document.getElementById('resSteps').style.display = 'none';
-    document.querySelector('.res-form h2').style.display = 'none';
-    document.getElementById('resDoneText').textContent =
-      `A table for ${data.guests} on ${prettyDate(data.date)} at ${fmtTime(data.time)} is on its way. We’ll confirm at ${data.email}.`;
-    done.classList.add('show');
-  });
-  backBtn.addEventListener('click', () => { if (cur > 0) show(cur-1); });
-  dateEl.addEventListener('change', () => { err.textContent=''; });
-  document.getElementById('resAgain').addEventListener('click', () => {
-    form.reset(); data.name = data.date = data.time = data.guests = '';
-    form.querySelectorAll('.res-chip.sel').forEach(c => c.classList.remove('sel'));
-    done.classList.remove('show');
-    form.style.display = ''; document.getElementById('resSteps').style.display = '';
-    document.querySelector('.res-form h2').style.display = '';
-    show(0);
-  });
-  show(0);
-})();
-
+/* ---------------- Hero subtle parallax on load without scroll ---------------- */
+gsap.to('#heroImg', {
+  yPercent: 12, ease:'none',
+  scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
+});
 </script>
 
 </body>

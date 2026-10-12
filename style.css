@@ -775,7 +775,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ==========================================================================
-   Portfolio — real project preview mockups (Octant / Steady Hand / AI Lead Agent)
+   Portfolio — real project preview mockups (Fieldwork / Steady Hand / AI Lead Agent)
    Small in-CSS recreations of each project's own look, standing in for a
    screenshot, plus a short description line under each case.
    ========================================================================== */
@@ -789,12 +789,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .proj-preview .p-word { font-family: Georgia, 'Times New Roman', serif; line-height: 1.15; }
 .proj-preview .p-tag { display: block; margin-top: 8px; }
 
-/* Octant — black studio, warm metal */
-.proj-preview.octant { background: #0A0A0B; }
-.proj-preview.octant .proj-chrome i { background: rgba(236,235,231,0.2); }
-.proj-preview.octant .p-word { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; letter-spacing: 0.32em; text-transform: uppercase; color: #ECEBE7; }
-.proj-preview.octant .p-tag { font-family: var(--font-main); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #C9A46A; }
-.proj-preview.octant .p-rule { display: block; width: 38px; height: 1px; background: #C9A46A; margin-top: 18px; }
+/* Fieldwork — warm stone, landscape architecture */
+.proj-preview.fieldwork { background: #ECE6D9; }
+.proj-preview.fieldwork .proj-chrome i { background: rgba(21,23,15,0.16); }
+.proj-preview.fieldwork .p-word { font-size: 25px; color: #15170F; }
+.proj-preview.fieldwork .p-tag { font-family: var(--font-main); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8E6F45; }
+.proj-preview.fieldwork .p-rule { display: block; width: 38px; height: 2px; background: #454B36; margin-top: 18px; }
 
 /* The Steady Hand — dark, copper barbershop */
 .proj-preview.steady { background: #15120f; }
@@ -831,7 +831,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* Lumière Café — ivory & brass, warm serif with mono accent */
 .proj-preview.lumiere { background: #F2ECE1; }
 .proj-preview.lumiere .proj-chrome i { background: rgba(23,20,15,0.14); }
-.proj-preview.lumiere .p-word { font-family: 'Caprasimo', Georgia, serif; font-style: normal; font-size: 26px; color: #2A1D14; }
+.proj-preview.lumiere .p-word { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 23px; color: #2A1D14; }
 .proj-preview.lumiere .p-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6D3B; }
 .proj-preview.lumiere .p-rule { display: block; width: 32px; height: 2px; background: #8A6D3B; margin-top: 18px; }
 
+
+/* Forge Burger Kitchen preview */
+.proj-preview.forge { background: radial-gradient(ellipse at 70% 90%, rgba(255,122,26,0.28), transparent 60%), #050403; }
+.proj-preview.forge .proj-chrome i { background: rgba(246,241,232,0.14); }
+.proj-preview.forge .p-word { font-family: Impact, 'Arial Narrow', sans-serif; font-size: 26px; letter-spacing: 0.14em; color: #F6F1E8; }
+.proj-preview.forge .p-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #D9A441; }
+.proj-preview.forge .p-rule { display: block; width: 32px; height: 2px; background: #D9A441; margin-top: 18px; }
