@@ -828,8 +828,8 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
   /* seeking works far better from a blob than from a data: URI */
   const src = v.currentSrc || (v.querySelector('source')||{}).src || '';
-  if (src.startsWith('data:')) {
-    fetch(src).then(r => r.blob()).then(b => { v.src = URL.createObjectURL(b); v.load(); }).catch(()=>{});
+  if (src) {
+    fetch(src).then(r => r.blob()).then(b => { v.src = URL.createObjectURL(b); v.load(); }).catch(()=>{ v.load(); });
   }
   v.addEventListener('loadedmetadata', init);
   if (v.readyState >= 1) init();
